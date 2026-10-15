@@ -1,0 +1,2966 @@
+[step 0] human: What is the highest rated (according to IMDB) Daniel Craig movie that is less than 150 minutes and is available on Netflix (US)?
+
+[step 1] Orchestrator (thought): Initial plan:
+
+We are working to address the following user request:
+
+What is the highest rated (according to IMDB) Daniel Craig movie that is less than 150 minutes and is available on Netflix (US)?
+
+
+To answer this request we have assembled the following team:
+
+Assistant: A helpful and general-purpose AI assistant that has strong language skills, Python skills, and Linux command line skills.
+ComputerTerminal: A computer terminal that performs no other action than running Python scripts (provided to it quoted in ```python code blocks), or sh shell scripts (provided to it quoted in ```sh code blocks)
+FileSurfer: An agent that can handle local files.
+WebSurfer: A helpful assistant with access to a web browser. Ask them to perform web searches, open pages, and interact with content (e.g., clicking links, scrolling the viewport, etc., filling in form fields, etc.) It can also summarize the entire page, or answer questions based on the content of the page. It can also be asked to sleep and wait for pages to load, in cases where the pages seem to be taking a while to load.
+
+
+
+Here is an initial fact sheet to consider:
+
+1. GIVEN OR VERIFIED FACTS
+- The movie in question must be a Daniel Craig movie.
+- The movie must be less than 150 minutes long.
+- The movie must be available on Netflix (US).
+- The movie must be highly rated according to IMDB.
+
+2. FACTS TO LOOK UP
+- The IMDB ratings of Daniel Craig movies.
+- The duration (in minutes) of Daniel Craig movies.
+- The availability of Daniel Craig movies on Netflix (US).
+
+3. FACTS TO DERIVE
+- Identify the Daniel Craig movie that meets all the criteria (highest IMDB rating, less than 150 minutes, available on Netflix US).
+
+4. EDUCATED GUESSES
+- Some popular Daniel Craig movies include those in the James Bond series, and movies like "Knives Out" and "The Girl with the Dragon Tattoo" which might be highly rated.
+- Specific streaming availability would likely change over time, so an educated guess might include recent popular titles that may still be on Netflix.
+
+
+Here is the plan to follow as best as possible:
+
+Here is a short bullet-point plan for addressing the original request:
+
+1. **WebSurfer Task:**
+   - Look up the list of Daniel Craig movies and their corresponding IMDB ratings.
+   - Identify which of these movies are less than 150 minutes long.
+   - Check the availability of these movies on Netflix (US).
+   
+2. **Assistant Task:**
+   - Filter the movies to find the one with the highest IMDB rating that meets the criteria (less than 150 minutes and available on Netflix US).
+
+3. **Verification:**
+   - Verify information accuracy and ensure that all criteria are met.
+
+By following this plan, we can pinpoint the highest-rated Daniel Craig movie on IMDB that is less than 150 minutes long and available on Netflix (US). I will initiate the tasks with WebSurfer.
+
+/usr/local/lib/python3.11/site-packages/autogen_magentic_one/agents/orchestrator.py:216: UserWarning: Resolved model mismatch: gpt-4o-2024-08-06 != gpt-4o-2024-05-13. Model mapping may be incorrect.
+  ledger_response = await self._model_client.create(
+[step 2] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "The request has not yet been fully addressed as we need to gather information about Daniel Craig movies' IMDB ratings, their durations, and their availability on Netflix (US).",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We have only just started addressing the user request and are not repeating actions yet.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We are beginning to make progress by planning our steps and assigning initial tasks.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "WebSurfer is required to gather necessary data about the IMDB ratings of Daniel Craig movies and their durations.",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "We need a list of Daniel Craig movies along with their IMDB ratings and durations to filter them according to the criteria.",
+    "answer": "Look up the list of Daniel Craig movies, their IMDB ratings, and their durations (in minutes)."
+  }
+}
+[step 3] Orchestrator (-> WebSurfer): Look up the list of Daniel Craig movies, their IMDB ratings, and their durations (in minutes).
+[step 4] WebSurfer: I typed 'List of Daniel Craig movies with IMDB ratings and durations' into '0 characters out of 2000'.
+
+Here is a screenshot of [List of Daniel Craig movies with IMDB ratings and durations - Search](https://www.bing.com/search?q=List+of+Daniel+Craig+movies+with+IMDB+ratings+and+durations&form=QBLH&sp=-1&lq=0&pq=&sc=0-0&qs=n&sk=&cvid=2EA2AA45607A490DAD2E8D574F441A6D&ghsh=0&ghacc=0&ghpl=). The viewport shows 23% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "List of Daniel Craig movies with IMDB ratings and durations - Bing",
+        "og:url": "https://www.bing.com/search?q=List+of+Daniel+Craig+movies+with+IMDB+ratings+and+durations&form=QBLH&sp=-1&lq=0&pq=&sc=0-0&qs=n&sk=&cvid=2EA2AA45607A490DAD2E8D574F441A6D&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Microsoft Bing
+
+List of Daniel Craig movies with IMDB ratings and durations 
+
+About 3,890 results
+
+IMDb
+https://www.imdb.com › list
+All Daniel Craig Movies Ranked - IMDb
+18 hours ago · List your movie, TV & celebrity picks. 1. Knives Out. When renowned crime novelist Harlan Thrombey is found dead at his estate just after his 85th birthday, the inquisitive and ...
+Tags: Movies with Daniel Craig Daniel Craig Movies List in Hindi Film Daniel Craig
+
+IMDb
+https://www.imdb.com › list
+Daniel Craig Movies - IMDb
+Dec 22, 2024 · List your movie, TV & celebrity picks. 1. The Power of One. An English boy, living in Africa during World War II, through his boxing prowess, becomes a symbol of hope, in a time of ...
+Tags: Daniel Craig New Movie 2012 Daniel Craig Movies and Tv Shows
+
+Videos of List Of Daniel Craig Movies With IMDb Ratings And Durat ...
+bing.com › videos
+
+Top 10 Movies 
+
+Daniel Craig Biography
+
+Did Daniel Craig have a child?
+In 2018, it was reported that their first child together, a daughter, had been born. Her name is thought to be Grace. What is Daniel Craig’s net worth? Daniel Craig’s net...
+Daniel Craig facts: James Bond ac ...
+www.smoothradio.com/news/ent...
+
+How did Daniel Craig become famous?
+Daniel Craig then began working in various television shows, mini-series, and stage productions and gained recognition. His breakthrough role came in 1996 with the ...
+Daniel Craig Height, Age, Wife, Fa ...
+starsunfolded.com/daniel-craig/
+
+Explore More
+Daniel Craig Biography - Facts, Childhood, Family Life …
+https://www.thefamouspeo ...
+
+Daniel Craig Height, Age, Wife, Family, Biography - ...
+https://starsunfolded.com/ ...
+
+Images: smoothradio.com
+<Image>
+[step 5] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We have not yet identified the highest rated Daniel Craig movie under 150 minutes on Netflix US.",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "The information lookup process is still ongoing as we have not repeated any actions yet.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We have located sources to look up Daniel Craig movies and IMDB ratings.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "WebSurfer can browse pages with the required information.",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "To obtain necessary information on Daniel Craig movies and their IMDB ratings along with durations.",
+    "answer": "Please open the IMDb page about Daniel Craig movies and scrape the required information: the full list of his movies along with their IMDB ratings and durations. Provide the data in a structured format."
+  }
+}
+[step 6] Orchestrator (-> WebSurfer): Please open the IMDb page about Daniel Craig movies and scrape the required information: the full list of his movies along with their IMDB ratings and durations. Provide the data in a structured format.
+[step 7] Orchestrator (thought): Next speaker WebSurfer
+[step 8] WebSurfer: I clicked 'Daniel Craig Movies - IMDb'.
+
+Here is a screenshot of [Daniel Craig Movies](https://www.imdb.com/list/ls068171442/). The viewport shows 18% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "jsonld": {
+        "@type": "ItemList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt0105159/",
+                    "name": "The Power of One",
+                    "description": "An English boy, living in Africa during World War II, through his boxing prowess, becomes a symbol of hope, in a time of war.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BYzgzZTZkNTAtNjVmYi00MzJkLTkzN2UtYjkyOGU4OWJjYzFhXkEyXkFqcGc@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 7.1,
+                        "ratingCount": 10914
+                    },
+                    "contentRating": "PG-13",
+                    "genre": "Drama, Sport",
+                    "duration": "PT2H7M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt0127536/",
+                    "name": "Elizabeth",
+                    "description": "The early years of the reign of Elizabeth I of England and her difficult task of learning what is necessary to be a monarch.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BNWRjZjJjNDUtOTgzMi00YjBlLTg5ODQtMjQxOTAyMzM2ZWJiXkEyXkFqcGc@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 7.4,
+                        "ratingCount": 106977
+                    },
+                    "contentRating": "R",
+                    "genre": "Biography, Drama, History",
+                    "duration": "PT2H4M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt0218616/",
+                    "name": "Some Voices",
+                    "description": "A schizophrenic causes havoc in his brother&apos;s restaurant.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BNDkyZDBlYjctZDMwYS00YTJmLWE4Y2ItMjMyODk1MjhjYTI2XkEyXkFqcGc@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 6.5,
+                        "ratingCount": 1492
+                    },
+                    "genre": "Comedy, Drama",
+                    "duration": "PT1H41M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt0146316/",
+                    "name": "Lara Croft: Tomb Raider",
+                    "description": "Video game adventurer Lara Croft comes to life in a movie where she races against time and villains to recover powerful ancient artifacts.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BNjcxYzIyZWItZWRiOS00ODliLWI3ZTEtZTA4NTg4OGQwZDY1XkEyXkFqcGc@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 5.8,
+                        "ratingCount": 222660
+                    },
+                    "contentRating": "PG-13",
+                    "genre": "Action, Adventure, Fantasy",
+                    "duration": "PT1H40M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt0257044/",
+                    "name": "Road to Perdition",
+                    "description": "A mob enforcer&apos;s son in 1930s Illinois witnesses a murder, forcing him and his father to take to the road, and his father down a path of redemption and revenge.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BMjMyYjMyMzktMjlhZC00ZTZkLTkzMWQtZmEwMjdjNzJkM2RlXkEyXkFqcGc@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 7.7,
+                        "ratingCount": 290015
+                    },
+                    "contentRating": "R",
+                    "genre": "Crime, Drama, Thriller",
+                    "duration": "PT1H57M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt0325055/",
+                    "name": "Sylvia",
+                    "description": "Story of the relationship between poets Edward James &quot;Ted&quot; Hughes and Sylvia Plath.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BOGY0NWI5ZDMtNzU0NC00NmNmLThmMDAtNjdlMjgzODI0MzA2XkEyXkFqcGc@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 6.3,
+                        "ratingCount": 11401
+                    },
+                    "contentRating": "R",
+                    "genre": "Biography, Drama, Romance",
+                    "duration": "PT1H40M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt0375735/",
+                    "name": "Enduring Love",
+                    "description": "Two strangers become connected by a tragedy, yet one dangerously feels that the connection goes much deeper than the other is willing to admit.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BZTUxYjA4N2ItZTkzZi00NzJlLWIyMzgtMGI4OTk4MmY0Y2Y3XkEyXkFqcGc@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 6.3,
+                        "ratingCount": 11131
+                    },
+                    "contentRating": "R",
+                    "genre": "Drama, Mystery, Romance",
+                    "duration": "PT1H40M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt0375912/",
+                    "name": "Layer Cake",
+                    "description": "A successful cocaine dealer gets two tough assignments from his boss on the eve of his planned early retirement.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BMTI5MTE1OTAzOV5BMl5BanBnXkFtZTcwNDc2OTgyMQ@@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 7.3,
+                        "ratingCount": 200395
+                    },
+                    "contentRating": "R",
+                    "genre": "Crime, Drama, Thriller",
+                    "duration": "PT1H45M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt0366627/",
+                    "name": "The Jacket",
+                    "description": "A Gulf war veteran is wrongly sent to a mental institution for insane criminals, where he becomes the object of a doctor&apos;s experiments, and his life is completely affected by them.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BNWYzYjg3MDItYzJmZC00MGI4LWFlYzktYzQ0NGMwNjg4ZTBlXkEyXkFqcGc@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 7.1,
+                        "ratingCount": 120969
+                    },
+                    "contentRating": "R",
+                    "genre": "Drama, Fantasy, Mystery",
+                    "duration": "PT1H43M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt0408306/",
+                    "name": "Munich",
+                    "description": "After the Black September capture and massacre of Israeli athletes at the 1972 Olympics, five men are chosen to eliminate the people responsible for that fateful day.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BMTcwNzYzMzMwMF5BMl5BanBnXkFtZTcwMzMzODczMQ@@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 7.5,
+                        "ratingCount": 244306
+                    },
+                    "contentRating": "R",
+                    "genre": "Drama, History, Thriller",
+                    "duration": "PT2H44M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt0381061/",
+                    "name": "Casino Royale",
+                    "description": "After earning a licence to kill, secret agent James Bond sets out on his first mission as 007. Bond must defeat a private banker funding terrorists in a high-stakes game of poker at Casino Royale, in Montenegro.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BMTM5MjI4NDExNF5BMl5BanBnXkFtZTcwMDM1MjMzMQ@@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 8,
+                        "ratingCount": 709519
+                    },
+                    "contentRating": "PG-13",
+                    "genre": "Action, Adventure, Thriller",
+                    "duration": "PT2H24M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt0427392/",
+                    "name": "The Invasion",
+                    "description": "As a Washington, D.C. psychiatrist unearths the origin of an alien epidemic, she also discovers her son might be the only way it can be stopped.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BMTQ1NzM0NjI4M15BMl5BanBnXkFtZTcwOTg2NjUzMw@@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 5.9,
+                        "ratingCount": 84621
+                    },
+                    "contentRating": "PG-13",
+                    "genre": "Sci-Fi, Thriller",
+                    "duration": "PT1H39M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt0385752/",
+                    "name": "The Golden Compass",
+                    "description": "In a parallel universe, young Lyra Belacqua journeys to the far North to save her best friend and other kidnapped children from terrible experiments by a mysterious organization.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BMTM2NDkxMjQxMV5BMl5BanBnXkFtZTYwNTMxMDM4._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 6.1,
+                        "ratingCount": 199247
+                    },
+                    "contentRating": "PG-13",
+                    "genre": "Adventure, Family, Fantasy",
+                    "duration": "PT1H53M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt0830515/",
+                    "name": "Quantum of Solace",
+                    "description": "James Bond tries to stop an organisation from eliminating a country&apos;s most valuable resource.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BYmMwZTA3MTAtNWU0Yy00NGZmLTg0YmItZTVkZGFjZTI1ZWJiXkEyXkFqcGc@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 6.5,
+                        "ratingCount": 479189
+                    },
+                    "contentRating": "PG-13",
+                    "genre": "Action, Adventure, Mystery",
+                    "duration": "PT1H46M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt1034303/",
+                    "name": "Defiance",
+                    "description": "Jewish brothers in German-occupied Eastern Europe escape into a Belorussian forest, where they join Russian resistance fighters, and endeavor to build a village, in order to protect themselves and about one thousand Jewish non-com...",
+                    "image": "https://m.media-amazon.com/images/M/MV5BM2YzY2UzMDUtODM1NS00MmNlLTg0Y2EtYjhiODczMmExMGFlXkEyXkFqcGc@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 7.1,
+                        "ratingCount": 157638
+                    },
+                    "contentRating": "R",
+                    "genre": "Action, Drama, History",
+                    "duration": "PT2H17M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt0409847/",
+                    "name": "Cowboys &amp; Aliens",
+                    "description": "A spaceship arrives in 1873 Arizona to take over the Earth, starting with the Wild West region. All that stands in their way: a posse of cowboys and natives.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BMTM1MzkyNzQ3OV5BMl5BanBnXkFtZTcwMDk1NTg2NQ@@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 6,
+                        "ratingCount": 235823
+                    },
+                    "contentRating": "PG-13",
+                    "genre": "Action, Drama, Sci-Fi",
+                    "duration": "PT1H59M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt1462041/",
+                    "name": "Dream House",
+                    "description": "Soon after moving into their seemingly idyllic new home, a family learns of a brutal crime committed against former residents of the dwelling.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BM2U0OGFjODgtOWE2YS00ZTdlLWIyZWEtNzM3MDZlZGI2Zjc5XkEyXkFqcGc@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 6,
+                        "ratingCount": 70024
+                    },
+                    "contentRating": "PG-13",
+                    "genre": "Drama, Mystery, Thriller",
+                    "duration": "PT1H32M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt1568346/",
+                    "name": "The Girl with the Dragon Tattoo",
+                    "description": "Journalist Mikael Blomkvist is aided in his search for a woman who has been missing for 40 years by hacker Lisbeth Salander.",
+                    "image": "https://m.media-amazon.com/images/M/MV5BMTczNDk4NTQ0OV5BMl5BanBnXkFtZTcwNDAxMDgxNw@@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 7.8,
+                        "ratingCount": 507011
+                    },
+                    "contentRating": "R",
+                    "genre": "Crime, Drama, Mystery",
+                    "duration": "PT2H38M"
+                }
+            },
+            {
+                "@type": "ListItem",
+                "item": {
+                    "@type": "Movie",
+                    "url": "https://www.imdb.com/title/tt2379713/",
+                    "name": "Spectre",
+                    "description": "A cryptic message from James Bond&apos;s past sends him on a trail to uncover the existence of a sinister organisation named SPECTRE. With a new threat dawning, Bond learns the terrible truth about the author of all his pain in his mos...",
+                    "image": "https://m.media-amazon.com/images/M/MV5BMzA5MzFiNDAtYTI0NC00MDE5LTljYTctYTNkODk1OTZlODI5XkEyXkFqcGc@._V1_.jpg",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "bestRating": 10,
+                        "worstRating": 1,
+                        "ratingValue": 6.8,
+                        "ratingCount": 475902
+                    },
+                    "contentRating": "PG-13",
+                    "genre": "Action, Adventure, Thriller",
+                    "duration": "PT2H28M"
+                }
+            }
+        ],
+        "@context": "https://schema.org",
+        "name": "Daniel Craig Movies"
+    },
+    "meta_tags": {
+        "viewport": "width=device-width",
+        "description": "",
+        "og:site_name": "IMDb",
+        "og:title": "Daniel Craig Movies",
+        "og:description": "",
+        "og:type": "website",
+        "og:image": "https://m.media-amazon.com/images/G/01/imdb/images/social/imdb_logo.png",
+        "og:image:height": "1000",
+        "og:image:width": "1000",
+        "og:locale": "en_US",
+        "og:locale:alternate": "de_DE",
+        "twitter:site": "@IMDb",
+        "twitter:title": "Daniel Craig Movies",
+        "twitter:description": "",
+        "twitter:card": "summary_large_image",
+        "twitter:image": "https://m.media-amazon.com/images/G/01/imdb/images/social/imdb_logo.png",
+        "twitter:image:alt": "",
+        "imdb:pageType": "list",
+        "imdb:subPageType": "main",
+        "imdb:pageConst": "ls068171442",
+        "next-head-count": "36"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+IMDb
+
+Menu
+All
+Search IMDb
+IMDbPro
+Watchlist
+Sign In
+EN
+
+Sign In
+New Customer? Create account
+
+Daniel Craig Movies
+by luisbrincos • Created 7 years ago • Modified 6 years ago
+
+LIST ACTIVITY
+21K views
+48 this week
+
+Create a new list
+List your movie, TV & celebrity picks.
+
+19 titles
+
+Sort by
+List order
+
+1. The Power of One
+1992  2h 7m  PG-13
+7.1 (11K)
+Rate
+40 Metascore
+
+An English boy, living in Africa during World War II, through his boxing prowess, becomes a symbol of hope, in a time of war.
+
+Director John G. Avildsen Stars Stephen Dorff Armin Mueller-Stahl Morgan Freeman
+
+2. Elizabeth
+1998  2h 4m  R
+7.4 (107K)
+Rate
+75 Metascore
+
+The early years of the reign of Elizabeth I of England and her difficult task of learning what is necessary to be a monarch.
+
+Director Shekhar Kapur Stars Cate Blanchett Liz Giles Rod Culbertson
+
+3. Some Voices
+2000  1h 41m
+
+More to explore
+
+Feedback
+
+Tell us what you think about this feature.
+Report this list
+<Image>
+[step 9] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We have gathered a list of Daniel Craig movies along with their IMDB ratings and durations, but we have not yet checked their availability on Netflix (US).",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are not in a loop; we are making progress by gathering necessary data step-by-step.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We have successfully gathered the IMDB ratings and durations of Daniel Craig's movies. The next step is to check their availability on Netflix (US).",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "WebSurfer is best suited for looking up the availability of Daniel Craig's movies on Netflix (US).",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "To identify the highest-rated movie according to IMDB that is less than 150 minutes and available on Netflix (US), we need to check the availability of the listed Daniel Craig movies on Netflix (US).",
+    "answer": "Please check the availability of the following Daniel Craig movies on Netflix (US): 'The Power of One', 'Elizabeth', 'Some Voices', 'Lara Croft: Tomb Raider', 'Road to Perdition', 'Sylvia', 'Enduring Love', 'Layer Cake', 'The Jacket', 'Munich', 'Casino Royale', 'The Invasion', 'The Golden Compass', 'Quantum of Solace', 'Defiance', 'Cowboys & Aliens', 'Dream House', 'The Girl with the Dragon Tattoo', and 'Spectre'."
+  }
+}
+[step 10] Orchestrator (-> WebSurfer): Please check the availability of the following Daniel Craig movies on Netflix (US): 'The Power of One', 'Elizabeth', 'Some Voices', 'Lara Croft: Tomb Raider', 'Road to Perdition', 'Sylvia', 'Enduring Love', 'Layer Cake', 'The Jacket', 'Munich', 'Casino Royale', 'The Invasion', 'The Golden Compass', 'Quantum of Solace', 'Defiance', 'Cowboys & Aliens', 'Dream House', 'The Girl with the Dragon Tattoo', and 'Spectre'.
+[step 11] Orchestrator (thought): Next speaker WebSurfer
+[step 12] WebSurfer: I typed 'The Power of One movie availability on Netflix US' into the browser search bar.
+
+Here is a screenshot of [The Power of One movie availability on Netflix US - Search](https://www.bing.com/search?q=The+Power+of+One+movie+availability+on+Netflix+US&FORM=QBLH). The viewport shows 30% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "The Power of One movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=The+Power+of+One+movie+availability+on+Netflix+US&FORM=QBLH",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Microsoft Bing
+
+The Power of One movie availability on Netflix US
+
+[Search Input Field]
+[Search Button]
+[Microphone Button]
+[Deep search Button]
+
+About 553,000 results
+
+JustWatch
+https://www.justwatch.com › movie › the-power-of-one
+
+The Power of One streaming: where to watch online?
+Is The Power of One streaming? Find out where to watch online amongst 200+ services including Netflix, Hulu, Prime Video.
+
+79% (216)
+Offer Count: 18
+Director: John G. Avildsen
+Content Rating: PG-13
+
+movie: watch stream online
+Find out how and where to watch "The Power of One" on Netflix and Prime Video ...
+
+See results only from justwatch.com
+
+TV Guide
+https://www.tvguide.com › movies › the-power-of...
+
+The Power of One - Where to Watch and Stream - TV ...
+Find out how to watch The Power of One. Stream The Power of One, watch trailers, see the cast, and more at TV Guide
+
+Tags:
+The Power of One
+PG13
+
+People also ask
+Where can I watch the power of one?
+'The Power of One' is currently available to rent, purchase, or stream via subscription on YouTube, Plex Channel, Apple iTunes, Google Play Movies, Microsoft Store, and Plex. Stream 'Th...
+
+Is power on Netflix?
+Netflix offers different movies and TV shows around the world depending on what country you're in. While Netflix has the rights to show shows like Power in the UK, they don't have the rights in the US. This means that users in the UK c...
+
+Where ...
+There a...
+Power of ...
+Australia
+the movie is
+movie'''
+in.
+
+The Power of One
+Find out how to watch The Power of One. Stream The Power of One, watch trailers, see the cast, and more at TV Guide
+
+Content Rating: PG13
+
+The Power of One - Where to Watch and Stream - TV Guide
+https://www.tvguide.com/movies/the-power-of-one/2030009498/
+
+TV
+40.0/100
+tvguide.com
+
+Suggest an edit
+
+Related searches
+[Search Icon] power of one streaming netflix
+[Search Icon] the power of one streaming
+[Search Icon] the power of one full movie
+[Search Icon] the power of one watch online
+
+[Sign in]
+[6 Notifications]
+[Menu Icon]
+<Image>
+[step 13] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We have not yet identified the highest-rated Daniel Craig movie according to IMDB that is less than 150 minutes and available on Netflix (US). The availability of one movie has been checked so far, but we need to check the availability of the remaining movies.",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are not in a loop as we are making progress by checking movies one by one for their availability on Netflix (US).",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We have identified and checked the availability of 'The Power of One' on Netflix (US), but there are more movies to check.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "We need to continue checking the availability of the next Daniel Craig movie on Netflix (US).",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "To identify the highest-rated Daniel Craig movie that meets the criteria, we need to check the availability of each movie identified so far.",
+    "answer": "Please check the availability of 'Elizabeth' on Netflix (US)."
+  }
+}
+[step 14] Orchestrator (-> WebSurfer): Please check the availability of 'Elizabeth' on Netflix (US).
+[step 15] Orchestrator (thought): Next speaker WebSurfer
+[step 16] WebSurfer: I typed 'Elizabeth movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [Elizabeth movie availability on Netflix US - Search](https://www.bing.com/search?q=Elizabeth+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=C06732F6BCFC46CAA183CF3EF442A07C&ghsh=0&ghacc=0&ghpl=). The viewport shows 30% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "Elizabeth movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=Elizabeth+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=C06732F6BCFC46CAA183CF3EF442A07C&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+### Search Results:
+---
+#### netflixtreleases.com
+**https://www.netflixreleases.com**
+
+**Elizabeth (1998) available on Netflix? - NetflixReleases**
+Is Elizabeth on Netflix United States? Yes! Elizabeth (1998) is available on Netflix United States. The early years of the reign of Elizabeth I of England and her difficult task of learning what is necessary to be a monarch.
+
+**Tags:**
+- Elizabeth I of England
+- Netflix
+
+---
+#### JustWatch
+**https://www.justwatch.com > us > movie > elizabeth**
+
+**Elizabeth streaming: where to watch online?**
+Jun 15, 2021 • Elizabeth streaming: where to watch online? Currently you are able to watch "Elizabeth" streaming on Starz Apple TV Channel. It is also possible to buy "Elizabeth" on Apple TV, Fandango At Home, Microsoft Store as download...
+
+**Tags:**
+- Watch Elizabeth Online Free
+- Elizabeth Streaming
+- Elizabeth I of England
+
+---
+
+### People also ask:
+---
+#### Where to watch Elizabeth online?
+Let us know! Elizabeth streaming: where to watch online? Currently you are able to watch "Elizabeth" streaming on **Starz Apple TV Channel.** It is also possible to buy "Elizabeth" on Amazon Video, Apple TV, Fandango At Home...
+
+#### Where can I watch Elizabeth the 1998 movie?
+Elizabeth is available to watch, stream, download and buy on demand at Amazon Prime, Apple TV Channels, Apple TV, Amazon, Google Play and Vudu. Some platforms allow you to re...
+
+**Watch Elizabeth Online | 1998 M...**
+**yidio.com**
+
+#### Watch Elizabeth (1998) full HD o...
+The Movie is currently available to legally watc...
+
+---
+
+### IMDb/Wikipedia Section:
+---
+#### Elizabeth
+1998 • 2hr 4min • Biography/Drama
+
+**Elizabeth**
+Elizabeth is a 1998 British biographical historical drama film directed by Shekhar Kapur and written by Michael Hirst. It stars Cate Blanchett in the title role of Elizabeth I of England, with Geoffrey Rush, Chri...  
+**Wikipedia**
+
+#### Cast
+- Cate Blanchett - Elizabeth I
+- Paul Fox - Male Martyr
+- Terence Rigby - Bishop Gardiner
+- Christopher Eccleston - Duke of Norfolk
+- Amanda Ryan - Lettice Howard
+
+**Ratings:**
+- IMDb: 7.4/10
+- Rotten Tomatoes: 84%
+- Metacritic: 75/100
+
+**Release date:** February 19, 1999 (USA)
+**Content rating:** R
+<Image>
+[step 17] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We have partially satisfied the request by identifying Daniel Craig movies with their IMDB ratings and durations. However, we have yet to determine the highest-rated movie on Netflix (US).",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are not in a loop. We are making progress by checking the availability of movies on Netflix (US).",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We are making forward progress by verifying the availability of the movies one by one on Netflix (US).",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "We need to continue verifying the availability of the next movie on the list.",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "To fulfill the request, we need to check the availability of the next Daniel Craig movie in the list to verify if it is available on Netflix (US).",
+    "answer": "Please check the availability of 'Some Voices' on Netflix (US)."
+  }
+}
+[step 18] Orchestrator (-> WebSurfer): Please check the availability of 'Some Voices' on Netflix (US).
+[step 19] Orchestrator (thought): Next speaker WebSurfer
+[step 20] WebSurfer: I typed 'Some Voices movie availability on Netflix US' into the browser search bar.
+
+Here is a screenshot of [Some Voices movie availability on Netflix US - Search](https://www.bing.com/search?q=Some+Voices+movie+availability+on+Netflix+US&FORM=QBLH). The viewport shows 28% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "Some Voices movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=Some+Voices+movie+availability+on+Netflix+US&FORM=QBLH",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Sure, here is the transcribed text from the page:
+
+---
+
+**Microsoft Bing**
+
+Search query: *Some Voices movie availability on Netflix US*
+
+---
+
+**Search results:**
+
+About 284,000 results
+
+---
+
+**JustWatch**
+[https://www.justwatch.com](https://www.justwatch.com) › us › movie › some-v...
+
+*Some Voices streaming: where to watch movie online?*
+Some Voices streaming: where to watch online? Currently you are able to watch "Some Voices" streaming on Amazon Prime Video, Amazon Prime Video with Ads or for free with ads on Shout! Factory TV, Freevee. It is also possible to rent ...
+
+Other content from justwatch.com:
+
+*Netflix - full list of movies and TV shows online - JustWatch*
+*Some Voices - movie: where to watch streaming online*
+
+*See more*
+
+Tags: Simon Cellan Jones, Streaming Content, Some Voices IMDb
+
+---
+
+**Reelgood**
+[https://reelgood.com](https://reelgood.com) › movie
+
+*Some Voices (2000): Where to Watch and Stream Online*
+Aug 25, 2000 · Watch Some Voices on any of the following services. Currently you are able to watch Some Voices streaming on Shout! Studios, Shout! Studios (Via Prime Video), Tubi, Plex, Hoopla, and Freevee (Via Prime Video). It is also ...
+
+Tags: Some Voices, Simon Cellan Jones
+
+---
+
+**Moviefone**
+[https://www.moviefone.com](https://www.moviefone.com) › movie › some-voices › where-to-watch
+
+*Some Voices Stream and Watch Online - Moviefone*
+'Some Voices' is currently available to rent, purchase, or stream via subscription on YouTube, Plex Channel, Apple iTunes, Plex, Amazon Prime Video with Ads, Vudu, Google Play Movies, Tubi TV...
+
+---
+
+**IMDb**
+*Some Voices*
+2000 · 1 hr 41 min · Comedy/Drama
+
+---
+
+**Wikipedia**
+Some Voices is a 2000 British drama film directed by Simon Cellan Jones and adapted for the screen by Joe Penhall, from his own stage play. It is Cellan Jones's first feature film. The film was almost e...
+
+*Wikipedia*
+
+---
+
+**Cast**
+
+* Daniel Craig - Ray
+* David Morrissey - Pete
+* Kelly Macdonald - Laura
+* Julie Graham - Mandy
+* Peter McDonald - Dave
+
+---
+
+**User ratings**
+
+6.6/10 IMDb
+
+40% Rotten Tomatoes
+
+---
+
+**Genre**
+Comedy · Drama
+
+**Directed by**
+Simon Cellan Jones
+<Image>
+[step 21] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We have not fully satisfied the request as we have only checked the availability and ratings of a few movies. We need to continue checking more titles.",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are not repeating the same requests and responses, but proceed with verifying the availability of various movies.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We are making incremental progress by verifying the availability and ratings of the movies on Netflix.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "We need to confirm the availability of the next movie, 'Lara Croft: Tomb Raider', on Netflix (US).",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "We should continue verifying the availability of the next movie to make further progress.",
+    "answer": "Please check the availability of 'Lara Croft: Tomb Raider' on Netflix (US)."
+  }
+}
+[step 22] Orchestrator (-> WebSurfer): Please check the availability of 'Lara Croft: Tomb Raider' on Netflix (US).
+[step 23] Orchestrator (thought): Next speaker WebSurfer
+[step 24] WebSurfer: I typed 'Lara Croft: Tomb Raider movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [Lara Croft: Tomb Raider movie availability on Netflix US - Search](https://www.bing.com/search?q=Lara+Croft%3A+Tomb+Raider+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=0DF17A83238942B793403AF70BABE729&ghsh=0&ghacc=0&ghpl=). The viewport shows 30% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "Lara Croft: Tomb Raider movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=Lara+Croft%3A+Tomb+Raider+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=0DF17A83238942B793403AF70BABE729&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Microsoft Bing
+
+Search query: "Lara Croft: Tomb Raider movie availability on Netflix US"
+
+About 266,000 results
+
+Netflix
+https://www.netflix.com › in › title
+Watch Lara Croft: Tomb Raider - Netflix
+Lara Croft: Tomb Raider 2001 | Maturity Rating: U/A 13+ | 1h 40m | Action Plans start at just $6.99
+... Go behind the scenes of Netflix TV shows and movies, see what's coming soon and watch bonus videos on Tudum.com. Questions? Call 1-844-505-2993 FAQ ...
+Tomb Raider: The Legend of ...
+Thrust into a high-stakes chase around the world, fearless adventurer Lara Croft ...
+See results only from netflix.com
+
+Netflix
+https://www.netflix.com › aw › title
+Watch Lara Croft: Tomb Raider - Netflix
+Thrill-seeking adventurer Lara Croft faces persistent threats while on a quest to recover powerful artifacts before they fall into the wrong hands. Watch trailers & learn more.
+Tags: Tomb Raider Netflix
+
+People also ask
+
+Is Lara Croft in Tomb Raider 2024?
+"Netflix Unveils First Look At Tomb Raider: The Legend Of Lara Croft In New Teaser Trailer". GameSpot. Retrieved 27 September 2023. The animated series is set to debut in 202 ...
+
+Tomb Raider - Wikipedia
+W en.wikipedia.org
+
+Is 'Tomb Raider' coming to Netflix?
+"Netflix Expands its Growing Anime Repertoire With 'Skull Island' and 'Tomb Raider' Adaptations". Variety. Retrieved 3 August 2021. ^ Wolinsky, David (27 September 2023). "Netflix Unveils First ...
+
+Tomb Raider - Wikipedia
+W en.wikipedia.org
+
+When does the Tomb Raider anime begin streaming?
+The series Tomb Raider: The Legend Of Lara Croft (2024) is the latest great animated video game franchise.
+
+Is there a sequel to Tomb Raider?
+2. Tomb Raider: The Curse of the Sword (2001) A Game Boy Color exclusive sequel to the Game Boy Color version of the original Tomb Raider, this adventure sees Lara tracking ...
+
+How to Play the Tomb Raider Games in Chronological Order
+www.ign.com/articles/tomb-raide...
+
+Tomb Raider Games in Order [202...
+www.gamingscan.com/tomb-raide...
+
+Explore More
+
+Tomb Raider Games In Order [2024 List] - GamingScan
+Tomb Raider has been around for over two decades at this point, so naturally, the games changed and evolved over the years. In this list, we’ll be going over all Tomb ...
+https://www.gamingscan.c...
+
+All Tomb Raider Games and Films in Order of Release - IMDb
+A list of 16 titles of video games and movies featuring Lara Croft, the iconic archaeologist and adventurer. See the release ...
+https://www.imdb.com/list/...
+
+New search + 
+See more results >
+
+Sign in 15
+
+Don't lose your points!
+You've already earned 15 Microsoft Rewards points, and it's easy to earn more. Just sign in, earn, and redeem.
+
+Terms • Privacy
+
+Sign in
+Note: You will receive e-mail about Microsoft Bing, which include offers about Microsoft Rewards and partner products.
+<Image>
+[step 25] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "The request is not fully satisfied as we have not yet determined the highest rated Daniel Craig movie that is less than 150 minutes and available on Netflix US.",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are not in a loop. We are making progress by checking the availability of Daniel Craig movies on Netflix US.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We are making forward progress as we are checking the availability of different Daniel Craig movies on Netflix US.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "Next step is to check the availability of the remaining Daniel Craig movies.",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "We need to continue checking the availability of the remaining Daniel Craig movies on Netflix US to identify the highest rated one.",
+    "answer": "Please check the availability of 'Road to Perdition' on Netflix (US)."
+  }
+}
+[step 26] Orchestrator (-> WebSurfer): Please check the availability of 'Road to Perdition' on Netflix (US).
+[step 27] Orchestrator (thought): Next speaker WebSurfer
+[step 28] WebSurfer: I typed 'Road to Perdition movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [Road to Perdition movie availability on Netflix US - Search](https://www.bing.com/search?q=Road+to+Perdition+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=A948BB7F6C7343D087417915A954F5EB&ghsh=0&ghacc=0&ghpl=). The viewport shows 28% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "Road to Perdition movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=Road+to+Perdition+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=A948BB7F6C7343D087417915A954F5EB&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Here is the transcription of all visible text:
+
+---
+Microsoft Bing
+
+Search
+Copilot
+Images
+Videos
+Maps
+News
+More
+Tools
+
+Sign in
+Deep search
+18
+      
+Road to Perdition movie availability on Netflix US
+
+About 52,800 results
+
+netflixreleases.com
+https://www.netflixreleases.com
+
+Road to Perdition (2002) available on Netflix? - NetflixReleases
+Road to Perdition (2002) is available on Netflix United States. A mob enforcer's son witnesses a murder, forcing him and his father to take to the road, and his father down a path of redemption and revenge.
+Tags: Road to Perdition      Netflix
+
+JustWatch
+https://www.justwatch.com › us › movie › road-to ...
+
+Road to Perdition streaming: where to watch online?
+Currently you are able to watch "Road to Perdition" streaming on Amazon Prime Video, fuboTV, Epix Amazon Channel, Paramount Plus Apple TV Channel , MGM Plus Roku Premium Channel, MGM Plus, Amazon Prime Video with Ads.
+Tags: Road To Perdition Where To Watch      Road To Perdition Free Online
+
+People also ask
+
+Where can I watch 'road to Perdition'?
+Currently you are able to watch "Road to Perdition" streaming on Amazon Prime Video, fuboTV, Epix Amazon Channel, Paramount Plus Apple TV Channel , MGM Plus Roku Premium Channel, ...
+justwatch.com
+
+Is road to Perdition a good movie?
+The 2002 crime drama Road To Perdition is a masterclass in mood. The Sam Mendes-directed film tells the story of a mob feud in 1930's Illinois and the entanglements between family and loyalty. The star-studded cast...
+decider.com
+
+How m cost?
+Road to
+Para
+lt...
+ 
+
+Road to Perdition
+2002 · 1hr 57min · Crime/Drama
+
+
+Road to Perdition is a 2002 American crime drama film directed by Sam Mendes and written by David Self, based on the first volume of the graphic novel series of the same name by Max Allan Collins ... +
+Wikipedia
+
+Cast
+
+Tom Hanks
+Michael Sullivan
+
+Tyler Hoechlin
+Michael Sullivan Jr.
+
+Paul Newman
+John Rooney
+
+Liam Aiken
+Peter Sullivan
+
+Jennifer Jason Leigh
+Annie Sullivan
+
+Feedback
+---
+<Image>
+[step 29] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "The request is not fully satisfied yet because not all Daniel Craig movies have been checked for their availability on Netflix (US).",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are not in a loop. We are making progress by checking the availability of Daniel Craig movies on Netflix (US) one by one.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "Recent messages are adding value as we are systematically verifying the availability of the required movies.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "WebSurfer needs to continue checking the availability of the remaining movies.",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "We need to verify the availability of all relevant movies on Netflix (US).",
+    "answer": "Please check the availability of 'Sylvia' on Netflix (US)."
+  }
+}
+[step 30] Orchestrator (-> WebSurfer): Please check the availability of 'Sylvia' on Netflix (US).
+[step 31] Orchestrator (thought): Next speaker WebSurfer
+[step 32] WebSurfer: I typed 'Sylvia movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [Sylvia movie availability on Netflix US - Search](https://www.bing.com/search?q=Sylvia+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=CA71980AFABD44149A07060668B3456C&ghsh=0&ghacc=0&ghpl=). The viewport shows 23% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "Sylvia movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=Sylvia+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=CA71980AFABD44149A07060668B3456C&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Sure, here is the transcription of all visible text on the page:
+
+---
+
+Microsoft Bing
+
+Sylvia movie availability on Netflix US
+
+Search
+Copilot
+Videos
+Images
+Maps
+News
+More
+Tools
+
+About 1,280,000 results
+
+Not available
+
+Sylvia is not available to stream with a subscription service. Sylvia is not available for purchase or to rent. If playback doesn't begin shortly, try restarting your device. Videos you watch may be added to the TV's watch history and influence TV recommendations.
+
+Where to stream Sylvia (2003) online? Comparing 50+ Streaming S...
+thestreamable.com/movies/sylvia-2003
+
+Was this helpful? 👍 👎
+
+JustWatch
+https://www.justwatch.com › us › movie › sylvia
+Sylvia streaming: where to watch movie online?
+Find out how and where to watch "Sylvia" online on Netflix, Prime Video, and Disney+ today – including 4K and free options.
+Tags: Gordon Douglas Netflix
+
+TV Guide
+https://www.tvguide.com › movies › sylvia
+Sylvia - Where to Watch and Stream - TV Guide
+Oct 17, 2003 · Currently not available to stream. Add it to your Watchlist to be notified when it becomes available. There are no TV airings over the next 14 days. Add it to your Watchlist to receive...
+Tags: Sylvia Plath TV Guide
+
+People also ask
+
+Related searches
+sylvia streaming netflix
+where to watch sylvia streaming
+watch sylvia movie online free
+sylvia full movie 123movies
+sylvia plath full movie
+sylvia plath tv series
+
+Sign in
+
+21
+<Image>
+[step 33] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "The request is not fully satisfied as we are still in the process of checking the availability of Daniel Craig movies on Netflix (US).",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are not in a loop as we are consecutively checking different movies for availability and making forward progress.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We are making steady progress by confirming the availability of each movie on Netflix (US).",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "The next logical step is to continue checking the availability of the remaining Daniel Craig movies on Netflix (US).",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "We need to verify more Daniel Craig movies and their availability on Netflix (US) to complete the task.",
+    "answer": "Please check the availability of 'Enduring Love' on Netflix (US)."
+  }
+}
+[step 34] Orchestrator (-> WebSurfer): Please check the availability of 'Enduring Love' on Netflix (US).
+[step 35] Orchestrator (thought): Next speaker WebSurfer
+[step 36] WebSurfer: I typed 'Enduring Love movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [Enduring Love movie availability on Netflix US - Search](https://www.bing.com/search?q=Enduring+Love+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=36C45B7B03C6421796049F1BACBEDAE0&ghsh=0&ghacc=0&ghpl=). The viewport shows 22% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "Enduring Love movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=Enduring+Love+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=36C45B7B03C6421796049F1BACBEDAE0&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Here is the transcribed text from the page:
+
+---
+
+Microsoft Bing
+
+Enduring Love movie availability on Netflix US
+
+[Search icon] Deep search
+
+Sign in 24 [Microsoft Bing logo]
+
+About 290,000 results
+
+---
+
+JustWatch
+
+https://www.justwatch.com › us › movie › enduring-love
+
+Enduring Love streaming: where to watch online?
+
+Find out how and where to watch "Enduring Love" on Netflix and Prime Video today - including free options.
+
+44% [star rating] (70) Offer Count: 23
+
+Director: Roger Michell Content Rating: R
+
+movie: watch stream online
+
+Find out how and where to watch "Enduring Love" on Netflix and Prime Video today - ...
+
+movie: watch streaming online
+
+Is Netflix, Prime Video, Disney+, Now TV, etc. streaming Enduring Love? Find ...
+
+See results only from justwatch.com
+
+---
+
+TV Guide
+
+https://www.tvguide.com › movies › enduring-love
+
+Enduring Love - Where to Watch and Stream - TV Guide
+
+Find out how to watch Enduring Love. Stream Enduring Love, watch trailers, see the cast, and more at TV Guide
+
+---
+
+The Streamable
+
+https://thestreamable.com › movies
+
+Enduring Love - The Streamable
+
+Oct 29, 2004 · Is Enduring Love (2004) streaming on Netflix, Disney+, Hulu, Amazon Prime Video, HBO Max, Peacock, or 50+ other streaming services? Find out where you can buy, rent, or ...
+
+---
+
+Videos of Enduring Love Movie Availability On Netflix US
+
+bing.com › videos
+
+---
+
+Enduring Love
+
+2004 · 1hr 40min · Drama/Mystery
+
+---
+
+Enduring Love is a 2004 psychological thriller film directed by Roger Michell and written by Joe Penhall. It is based on the 1997 novel of the same name by Ian McEwan. The film stars [various actors] ... +
+
+Wikipedia
+
+---
+
+Cast
+
+---
+
+Rhys Ifans
+Jed
+
+Daniel Craig
+Joe
+
+Samantha Morton
+Claire
+
+Bill Weston
+Grandfather
+
+Lee Sheward
+John Logan
+
+----
+
+6.3/10
+IMDb
+
+58%
+Rotten Tomatoes
+
+61/100
+Metacritic
+
+---
+
+Content rating R
+Genre Drama · Mystery · Romance · Thriller
+
+---
+
+Enduring Love
+2004 · 1hr 40min · Drama/Mystery
+
+---
+
+[Wikipedia logo]
+<Image>
+[step 37] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We have identified multiple Daniel Craig movies and checked their availability on Netflix US. Some movies that meet the duration criteria are available while others are not. However, more titles need to be verified before concluding.",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are methodically checking the availability of each movie and have not repeated this process for the same titles or instructions yet.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We have successfully verified the availability of several Daniel Craig movies on Netflix US.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "The next step requires continuing the verification of availability for the remaining titles.",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "We need to continue the verification process.",
+    "answer": "Please check the availability of 'Layer Cake' on Netflix (US)."
+  }
+}
+[step 38] Orchestrator (-> WebSurfer): Please check the availability of 'Layer Cake' on Netflix (US).
+[step 39] Orchestrator (thought): Next speaker WebSurfer
+[step 40] WebSurfer: I typed 'Layer Cake movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [Layer Cake movie availability on Netflix US - Search](https://www.bing.com/search?q=Layer+Cake+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=236DAD9456B142DE8B228E24FE8DD5D7&ghsh=0&ghacc=0&ghpl=). The viewport shows 24% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "Layer Cake movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=Layer+Cake+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=236DAD9456B142DE8B228E24FE8DD5D7&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Microsoft Bing
+
+Search Box: Layer Cake movie availability on Netflix US
+
+Search UI elements: 
+1. Search
+2. Copilot
+3. Images
+4. Videos
+5. Maps
+6. News
+7. More
+8. Tools
+
+Sign in
+Profile icon with the number 27 notifications
+Menu icon (Hamburger menu)
+
+Main Content:
+
+About 191,000 results
+
+Netflix
+https://www.netflix.com › ly-en › Title
+Watch Layer Cake - Netflix
+A suave, steely-eyed London cocaine dealer's retirement plans hit a violent snag when his boss asks him to do one more job. A pre-007 Daniel Craig stars in this well-reviewed gangster film directed by Matthew Vaughn ("Kingsman: Secret …
+
+JustWatch
+https://www.justwatch.com › us › movie › layer-ca...
+Layer Cake streaming: where to watch movie online?
+Find out how and where to watch "Layer Cake" online on Netflix, Prime Video, and Disney+ today – including 4K and free options.
+92% ⭐⭐⭐⭐⭐
+Offer Count: 20
+Director: Matthew Vaughn
+Content Rating: R
+
+People also ask:
+1. Where to watch layer cake?
+Let us know! Layer Cake streaming: where to watch online? You can buy "Layer Cake" on Amazon Video, Apple TV, Microsoft Store, Fandango At Home as download or rent it on Amazon Video, Apple TV, Fandango At Home, ...
+Layer Cake streaming: where to ...
+justwatch.com
+
+2. Is Layer Cake (2004) movie available on 123Movies?
+The Layer Cake (2004) movie available on 123movies is guaranteed to be of very high quality without any annoying ads. 123movies is the best alternative to various other sites like 21Cineplex, ...
+[720P-HD™] Watch Layer Cake {...
+eu-gb.git.cloud.ibm.com
+
+Layer Cake (2004)
+Movie
+A successful cocaine dealer gets two tough assignments from his boss on the eve of his planned early retirement. A seasoned British drug dealer longs to ditch his illegal trade. But he can't do that without wrapping up just one more job.
+
+Layer Cake (2004) available on Netflix? - NetflixReleases
+https://www.netflixreleases.com/layer-cake-2004/
+
+N 7.3/10
+netflixreleases.com
+
+Suggest an edit
+
+Related searches:
+1. layer cake netflix review
+2. layer cake where to watch
+3. layer cake watch online free
+4. layer cake netflix streaming
+5. layer cake netflix canada
+6. layer cake locations
+7. layer cake movie explained
+<Image>
+[step 41] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We have only started checking the availability of a few of Daniel Craig's movies on Netflix (US). We need to verify the remaining movies to determine which is the highest rated one available on Netflix and is less than 150 minutes long.",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are methodically checking each movie's availability one by one. This is not a loop but a step-by-step process.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We are successfully moving forward by verifying the availability of Daniel Craig's movies on Netflix (US).",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "We need to continue checking the availability of the remaining Daniel Craig movies on Netflix (US).",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "We need to gather the availability information for each movie on our list.",
+    "answer": "Please check the availability of 'The Jacket' on Netflix (US)."
+  }
+}
+[step 42] Orchestrator (-> WebSurfer): Please check the availability of 'The Jacket' on Netflix (US).
+[step 43] Orchestrator (thought): Next speaker WebSurfer
+[step 44] WebSurfer: I typed 'The Jacket movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [The Jacket movie availability on Netflix US - Search](https://www.bing.com/search?q=The+Jacket+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=E296C0FBEBEC45F8964C95620F964F6E&ghsh=0&ghacc=0&ghpl=). The viewport shows 27% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "The Jacket movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=The+Jacket+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=E296C0FBEBEC45F8964C95620F964F6E&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Here is the transcription of all visible text on the page:
+
+---
+
+**Search Bar:**
+The Jacket movie availability on Netflix US
+
+**Tabs:**
+SEARCH | COPILOT | IMAGES | VIDEOS | MAPS | NEWS | MORE | TOOLS
+
+**Results Info:**
+About 335,000 results
+
+---
+
+**Main Block:**
+Not available
+
+**Text in Main Block:**
+The Jacket is not available to stream with a subscription service.
+The Jacket is not available for purchase or to rent. If playback doesn't begin shortly, try restarting your device. Videos you watch may be added to the TV's watch history and influence TV recommendations.
+
+The Jacket - The Streamable
+thestreamable.com/movies/the-jacket-2024
+
+**Icons:**
+(Thumbs up icon) Was this helpful? (Thumbs down icon)
+
+**First Result:**
+N
+Netflix
+https://www.netflix.com › tw-en › title
+
+Watch The Jacket - Netflix
+When Jack, a Gulf War veteran suffering from amnesia, is accused of murder, he must find a way to prove his innocence. Download and watch everywhere you go. This movie is... Go behind the scenes of Netflix TV shows and movies, see what's coming soon and watch bonus videos on …
+
+Tags: John Maybury The Jacket Movies On Netflix
+
+**Second Result:**
+JustWatch
+https://www.justwatch.com › us › movie › the-jac…
+
+The Jacket streaming: where to watch movie online?
+Find out how and where to watch "The Jacket" online on Netflix, Prime Video, and Disney+ today – including 4K and free options.
+
+Tags: John Maybury The Jacket Streaming Watch The Jacket 2005
+
+---
+
+**Right Sidebar:**
+
+**Movie Description:**
+The Jacket (2005)
+Movie
+
+A Gulf war veteran is wrongly sent to a mental institution for insane criminals, where he becomes the object of a doctor’s experiments, and his life is completely affected by them. Adrien Brody stars as Jack, a Gulf War veteran suffering from amnesia. When Jack is accused of murder, he must find a way to prove his innocence.
+
+The Jacket (2005) available on Netflix? - NetflixReleases
+https://www.netflixreleases.com/the-jacket-2005/
+
+**Ratings:**
+N 7.1/10
+netflixreleases.com
+
+**Link:**
+Suggest an edit
+
+**Related Searches:**
+(QIcon) the jacket streaming netflix
+(QIcon) the jacket movie streaming
+(QIcon) watch the jacket online free
+(QIcon) the jacket streaming app
+
+**Sign in:**
+Sign in 
+
+**Profile Icon:**
+30
+
+**Menu Icon:**
+---
+
+This completes the transcription of all visible text on the page.
+<Image>
+[step 45] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "The original request has not yet been successfully and fully addressed as we have not found the highest rated Daniel Craig movie under 150 minutes that is available on Netflix (US).",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are not in a loop as we are making progress by checking the availability of different movies on Netflix (US) one by one.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We are making forward progress by identifying the availability of Daniel Craig movies on Netflix (US).",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "We need to continue checking the availability of remaining Daniel Craig movies on Netflix (US).",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "To continue gathering data for determining the highest rated Daniel Craig movie under 150 minutes available on Netflix (US).",
+    "answer": "Please check the availability of 'Munich' on Netflix (US)."
+  }
+}
+[step 46] Orchestrator (-> WebSurfer): Please check the availability of 'Munich' on Netflix (US).
+[step 47] Orchestrator (thought): Next speaker WebSurfer
+[step 48] WebSurfer: I typed 'Munich movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [Munich movie availability on Netflix US - Search](https://www.bing.com/search?q=Munich+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=5D4EE1E60FEB41B6864D6F3656B0E3DA&ghsh=0&ghacc=0&ghpl=). The viewport shows 26% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "Munich movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=Munich+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=5D4EE1E60FEB41B6864D6F3656B0E3DA&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+**Jan. 21 2022**
+
+Munich - The Edge of War is released in the UK, US and worldwide by Netflix on **Jan. 21 2022**, having already been shown in select cinemas from Friday Jan 7 2022. The world premiere took place on October 13 2021 at the London Film Festival.
+
+**Munich — The Edge of War, Netflix, release date cast trailer - What ...**
+www.whattowatch.com/watching-guides/munich-the-edge-of-war-all-you-need-t...
+
+**Netflix**
+https://www.netflix.com › title
+**Munich – The Edge of War - Netflix**
+At the tense 1938 Munich Conference, former friends who now work for opposing governments become reluctant spies racing to expose a Nazi secret. Watch trailers & learn more.
+**Watch Munich - Netflix**
+Download and watch everywhere you go. Go behind the scenes of Netflix TV ...
+**See results only from netflix.com**
+
+**Netflix**
+https://www.netflix.com › gp-en › title
+**Watch Munich - Netflix**
+Download and watch everywhere you go. Go behind the scenes of Netflix TV shows.
+
+
+**Munich: The Edge of War**
+2021 - 2hr 10min - Biography/Drama
+
+**Munich – The Edge of War**
+Munich – The Edge of War is a 2021 period spy thriller film directed by Christian Schwochow, from a screenplay by Ben Power. It is based upon the 2017 novel Munich by Robert Harris. The film stars Jer...
+**Wikipedia**
+
+**netflix.com**
+
+**Cast**
+**George MacKay**
+Hugh Legat
+
+**Jannis Niewöhner**
+Paul von Hartmann
+
+**Jeremy Irons**
+Neville Chamberlain
+
+**Liv Lisa Fries**
+Lenya
+
+**Jessica Brown Findlay**
+Pamela Legat
+
+6.8/10 IMDb
+
+85% Rotten Tomatoes
+
+53/100 Metacritic
+<Image>
+[step 49] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We have not yet gathered the availability status of all the Daniel Craig movies on Netflix (US), nor have we identified the highest rated one that meets all the specified criteria.",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We have been repeatedly checking the availability of individual Daniel Craig movies on Netflix (US), but each check is necessary for completing the task, and we are not repeating the same availability checks.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We are gathering necessary information about the availability of various Daniel Craig movies on Netflix (US), which is moving us closer to identifying the highest rated one.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "The WebSurfer is needed to continue checking the availability of the remaining Daniel Craig movies on Netflix (US).",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "We need to check the availability of more Daniel Craig movies on Netflix (US) to determine the highest rated one that fits all the criteria.",
+    "answer": "Please check the availability of 'Casino Royale' on Netflix (US)."
+  }
+}
+[step 50] Orchestrator (-> WebSurfer): Please check the availability of 'Casino Royale' on Netflix (US).
+[step 51] Orchestrator (thought): Next speaker WebSurfer
+[step 52] WebSurfer: I typed 'Casino Royale movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [Casino Royale movie availability on Netflix US - Search](https://www.bing.com/search?q=Casino+Royale+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=CD4575B4E0214A289E9C92EDDA5371C8&ghsh=0&ghacc=0&ghpl=). The viewport shows 23% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "Casino Royale movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=Casino+Royale+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=CD4575B4E0214A289E9C92EDDA5371C8&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Microsoft Bing
+
+Casino Royale movie availability on Netflix US
+
+Search
+Copilot
+Videos
+Images
+Maps
+News
+More
+Tools 
+Deep search
+Sign in
+36
+About 922,000 results
+
+netflixreleases.com
+https://www.netflixreleases.com
+Casino Royale (2006) available on Netflix? - NetflixReleases
+Casino Royale (2006) is available on Netflix United States. After earning 00 status and a licence to kill, Secret Agent James Bond sets out on his first mission as 007. Bond must defeat a private banker funding terrorists in a high-stakes game of poker at Casino Royale, Montenegro.
+
+Tags: Casino Royale Netflix
+
+JustWatch
+https://www.justwatch.com › us › movie
+Casino Royale streaming: where to watch online?
+Currently you are able to watch "Casino Royale" streaming on Pluto TV for free with ads or buy it as download on Amazon Video, Apple TV, Fandango At Home, Microsoft Store. It is also possible to rent "Casino Royale" on Fandango At ...
+
+Tags: Casino Royale John Huston
+
+Videos of Casino Royale Movie Availability On Netflix US
+bing.com › videos
+
+Casino Royale Official Trailer (2006) James Bond Movie HD
+5.2M views  Jul 31, 2012
+YouTube › MOVIECLIPS News
+
+Casino Royale - Official Trailer - Woody Allen Movie
+10.9K views  Sep 23, 2020
+YouTube › Woody Allen
+
+Casino Royale Review | Action Movie Anatomy
+
+Casino Royale (2006)
+Movie
+
+Casino Royale
+Casino Royale
+After earning 00 status and a licence to kill, Secret Agent James Bond sets out on his first mission as 007. Bond must defeat a private banker funding terrorists in a high-stakes game of poker at Casino Royale, Montenegro.
+Casino Royale (2006) available on Netflix? NetflixReleases
+https://www.netflixreleases.com/casino-royale-2006/
+
+N 8.0/10
+netflixreleases.com
+Suggest an edit
+
+Related searches
+casino royale netflix
+casino royale streaming sites
+casino royale watch online
+casino royale streaming
+<Image>
+[step 53] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We have not yet confirmed the highest-rated Daniel Craig movie under 150 minutes and available on Netflix US.",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are checking availability of various movies on Netflix, making progress towards narrowing down the final answer.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We have confirmed the availability of several movies on Netflix US and are systematically checking more.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "We need to check more movies for their availability on Netflix US.",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "To continue making progress, we need to verify the availability of more movies on Netflix US.",
+    "answer": "Please check the availability of 'The Invasion' on Netflix (US)."
+  }
+}
+[step 54] Orchestrator (-> WebSurfer): Please check the availability of 'The Invasion' on Netflix (US).
+[step 55] Orchestrator (thought): Next speaker WebSurfer
+[step 56] WebSurfer: I typed 'The Invasion movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [The Invasion movie availability on Netflix US - Search](https://www.bing.com/search?q=The+Invasion+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=26716046FDC44E88B11D7D142884A4D7&ghsh=0&ghacc=0&ghpl=). The viewport shows 31% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "The Invasion movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=The+Invasion+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=26716046FDC44E88B11D7D142884A4D7&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+The Invasion movie availability on Netflix US 
+
+SEARCH   COPILOT   IMAGES   VIDEOS   MAPS   NEWS   MORE   TOOLS 
+
+JustWatch 
+https://www.justwatch.com › us › movie › the-inv... 
+The Invasion streaming: where to watch movie online? 
+Find out how and where to watch "The Invasion" online on Netflix, Prime Video, and Disney+ today – including 4K and free options. 
+
+Tags: The Invasion Where To Watch Invasion Streaming Oliver Hirschbiegel PG-13 
+
+netflixreleases.com 
+https://www.netflixreleases.com 
+The Invasion (2007) available on Netflix? - NetflixReleases 
+Is The Invasion on Netflix United States? Yes! The Invasion (2007) is available on Netflix United States. As a Washington, D.C. psychiatrist unearths the origin of an alien epidemic, she also ...
+
+Tags: The Invasion  Netflix
+
+People also ask
+		
+Where can I watch 'the invasion'?		
+'The Invasion' is currently available to rent, purchase, or stream via subscription on Apple iTunes, Amazon Video, Google Play Movies, Vudu, Spectrum On Demand, YouTube, and Microsoft Store . Who Killed Pasolini?...
+
+The Invasion (2007) Stream and ...		
+moviefone.com
+
+When is high-rise invasion coming to Netflix? 		
+High-Rise Invasion will be premiering on Netflix on February 25th, and while the main trailer features the English dub release of the series, the dub cast has yet to be confirmed as of this writing.
+
+High-Rise Invasion Confirms Net...		
+comicbook.com
+
+Where were starring Nicole Kidman and Daniel Craig?		
+The Invasion and D...
+
+The Invas...		
+releas...
+
+The Invasion
+2007  
+1hr 39min
+Sci-Fi/Thriller
+
+IMDb
+
+Wikipedia
+
+The Invasion is a 2007 American science fiction horror film directed by Oliver Hirschbiegel, written by David Kajganich, and starring Nicole Kidman and Daniel Craig. Unhappy with the original cut of the fil...
+
+Wikipedia
+
+Cast
+
+Nicole Kidman
+Carol Bennell
+
+Daniel Craig
+Ben Driscoll
+
+Jeremy Northam
+Tucker Kaufman
+
+Jackson Bond
+Oliver
+
+Jeffrey Wright
+Dr. Stephen Galeano
+
+5.9/10
+IMDb
+
+20%
+Rotten Tomatoes
+
+45/100
+Metacritic
+
+Release date
+August 17, 2007 (USA)
+
+Content rating:
+PG-13: TV-14
+<Image>
+[step 57] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We have verified the availability of multiple Daniel Craig movies on Netflix US and gathered their IMDB ratings and durations. However, we still need to determine the highest-rated movie that meets the criteria.",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are making repetitive searches for the availability of Daniel Craig movies without yet concluding on the highest-rated movie.",
+    "answer": true
+  },
+  "is_progress_being_made": {
+    "reason": "Recent actions have added necessary information about movie availability and ratings, showing forward progress towards satisfying the request.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "We have to check more movies from the list of Daniel Craig's movies for their availability on Netflix US.",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "We need to continue determining the availability of more movies on Netflix US to complete our criteria list.",
+    "answer": "Please check the availability of 'The Golden Compass' on Netflix (US)."
+  }
+}
+[step 58] Orchestrator (-> WebSurfer): Please check the availability of 'The Golden Compass' on Netflix (US).
+[step 59] Orchestrator (thought): Next speaker WebSurfer
+[step 60] WebSurfer: I typed 'The Golden Compass movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [The Golden Compass movie availability on Netflix US - Search](https://www.bing.com/search?q=The+Golden+Compass+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=D5DF5898F660470CB9DEF4494E13C28B&ghsh=0&ghacc=0&ghpl=). The viewport shows 22% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "The Golden Compass movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=The+Golden+Compass+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=D5DF5898F660470CB9DEF4494E13C28B&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Microsoft Bing
+The Golden Compass movie availability on Netflix US
+
+
+SEARCH
+COPILOT
+IMAGES
+VIDEOS
+MAPS
+NEWS
+MORE
+TOOLS
+
+Sign in
+42
+
+Deep search
+
+About 42,000 results
+
+August 1
+
+The full list of shows and movies coming to Netflix in August won't be released until July 25, but Romper can exclusively reveal that The Golden Compass will have its Netflix debut on August 1.
+
+
+'The Golden Compass' Is Coming To Netflix Soon
+
+[www.romper.com/p/the-golden-compass-is-coming-to-netflix-this-august-you-mi...](www.romper.com/p/the-golden-compass-is-coming-to-netflix-this-august-you-mi...)
+
+Was this helpful? 
+[thumbs up icon] [thumbs down icon]
+
+
+Netflix
+[https://www.netflix.com › ad-en› title](https://www.netflix.com%20%E2%80%BA%20ad-en%E2%80%BA%20title)
+
+Watch His Dark Materials: The Golden Compass | Netflix
+
+Precocious orphan Lyra trades her carefree existence roaming the halls of Jordan College for an otherworldly adventure in the far North. This epic fantasy featuring Nicole Kidman and Daniel Craig took home an Oscar for Best Visual Effects. Download and watch everywhere you go. ...
+
+Director: Chris Weitz Content Rating: 13+
+
+netflixreleases.com
+[https://www.netflixreleases.com](https://www.netflixreleases.com)
+
+The Golden Compass (2007) available on Netflix? - NetflixReleases
+Is The Golden Compass on Netflix United States? Yes! The Golden Compass (2007) is available on Netflix United States. Precocious orphan Lyra trades her carefree existence roaming the ...
+
+6.1/10 (179.6K)
+
+The Golden Compass (2007)
+
+Movie
+
+Precocious orphan Lyra trades her carefree existence roaming the halls of Jordan College for an otherworldly adventure in the far North. In a parallel universe, young Lyra Belacqua journeys to the far North to save her best friend and other kidnapped children from terrible experiments by a mysterious organization.
+
+The Golden Compass (2007) available on Netflix? - NetflixReleases
+[https://www.netflixreleases.com/the-golden-compass-2007/](https://www.netflixreleases.com/the-golden-compass-2007/)
+
+N 6.1/10
+netflixreleases.com
+
+Suggest an edit
+
+Related searches
+
+the golden compass full movie
+golden compass full movie free
+the golden compass release date
+golden compass series netflix
+the golden compass cast
+the golden compass streaming
+<Image>
+[step 61] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We are still in the process of verifying the availability of Daniel Craig movies on Netflix (US) and their corresponding IMDb ratings and durations.",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are not repeating requests but are verifying the availability of multiple Daniel Craig movies one by one.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We are gathering and confirming relevant information from various sources about the availability and ratings of Daniel Craig movies.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "WebSurfer needs to continue verifying the availability of other Daniel Craig movies on Netflix (US).",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "To complete the verification process for Daniel Craig movies' availability on Netflix (US).",
+    "answer": "Please check the availability of 'Quantum of Solace' on Netflix (US)."
+  }
+}
+[step 62] Orchestrator (-> WebSurfer): Please check the availability of 'Quantum of Solace' on Netflix (US).
+[step 63] Orchestrator (thought): Next speaker WebSurfer
+[step 64] WebSurfer: I typed 'Quantum of Solace movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [Quantum of Solace movie availability on Netflix US - Search](https://www.bing.com/search?q=Quantum+of+Solace+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=7F1633A8EA5F40D48EFA42320063454C&ghsh=0&ghacc=0&ghpl=). The viewport shows 28% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "Quantum of Solace movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=Quantum+of+Solace+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=7F1633A8EA5F40D48EFA42320063454C&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Microsoft Bing
+
+Quantum of Solace movie availability on Netflix US
+
+SEARCH  COPILOT  IMAGES  VIDEOS  MAPS  NEWS  MORE  TOOLS
+
+About 20,900 results
+
+JustWatch
+https://www.justwatch.com › us › movie
+Quantum of Solace streaming: where to watch online?
+Trailer
+Currently you are able to watch "Quantum of Solace" streaming on Amazon Prime Video, Amazon Prime Video with Ads or for free with ads on Pluto TV. It is also possible to rent "Quantum of Solace" on Fandango At Home, Apple TV, Microsoft Store, Plex
+
+Tags : Quantum of Solace Where To Watch   Quantum of Solace Streaming
+
+TV Guide
+https://www.tvguide.com › movies › quantum-of-... 
+Quantum of Solace - Where to Watch and Stream - TV ... 
+Find out how to watch Quantum of Solace. Stream Quantum of Solace, watch trailers, see the cast, and more at TV Guide
+
+Tags:  Quantum of Solace Where To Watch   Stream Quantum of Solace   TV Guide
+
+People also ask
+Where can I watch 'quantum of Solace'?
+Currently you are able to watch "Quantum of Solace" streaming on Amazon Prime Video, Amazon Prime Video with Ads or for free with ads on Pluto TV. It is also possible to rent...
+
+Is quantum of Solace on Netflix?
+So many other exhilarating flicks are occupying space on Netflix. Some of these epic titles include Close, Extraction, The Old Guard & 6 Underground, just to name a few. Quantum of Solace is available to...
+
+When will quantum of Solace...?
+Both Canary Mission Solace is with 2020 extremely trending...
+
+Quantum Solace
+2008 · 1 hr 46 min · Action/Adventure
+
+Quantum of Solace is a 2008 spy film and the twenty-second in the James Bond series produced by Eon Productions. It is the sequel to Casino Royale. It is directed by Marc Forster and written by Neal...
+Wikipedia
+007.com
+
+Cast
+Daniel Craig  
+James Bond
+
+Olga Kurylenko  
+Camille
+
+Mathieu Amalric  
+Dominic Greene
+
+Judi Dench  
+M
+
+Giancarlo Giannini  
+Rene Mathis
+
+6.5/10
+IMDb
+
+63%
+Rotten Tomatoes
+
+58/100
+Metacritic
+
+Sign in
+
+45
+
+Deep search
+<Image>
+[step 65] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We have found multiple movies of Daniel Craig that are available on Netflix (US). We have also verified and listed their IMDb ratings and runtimes.",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are not repeating the same actions. We are systematically checking the availability of multiple movies and gathering data each time.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We are gathering necessary data step-by-step, identifying individual movies and checking their availability as well as IMDb ratings.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "Next, we need to continue collecting the availability information of the remaining movies.",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "We need to collect information on all Daniel Craig movies systematically to find the highest-rated one available on Netflix (US).",
+    "answer": "Please check the availability of 'Defiance' on Netflix (US)."
+  }
+}
+[step 66] Orchestrator (-> WebSurfer): Please check the availability of 'Defiance' on Netflix (US).
+[step 67] Orchestrator (thought): Next speaker WebSurfer
+[step 68] WebSurfer: I typed 'Defiance movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [Defiance movie availability on Netflix US - Search](https://www.bing.com/search?q=Defiance+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=ABA9875687A4403DBB300AEEB17ACB20&ghsh=0&ghacc=0&ghpl=). The viewport shows 29% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "Defiance movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=Defiance+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=ABA9875687A4403DBB300AEEB17ACB20&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Microsoft Bing
+
+Search
+Defiance movie availability on Netflix US
+Deep search
+Sign in
+48
+
+About 1,430,000 results
+Currently you are able to watch "Defiance" streaming on Netflix, Now TV Cinema, Netflix basic with Ads. It is also possible to buy "Defiance" on Amazon Video, Apple TV, Microsoft Store as download or rent it on Microsoft Store, Apple TV, Amazon Video online.
+
+Defiance - movie: where to watch streaming online
+www.justwatch.com/uk/movie/defiance
+
+Was this helpful?
+   "Yes"and "no" Icon for Feedback
+
+Netflixreleases.com
+https://www.netflixreleases.com
+
+Defiance (2008) available on Netflix? - NetflixReleases
+Defiance (2008) is available on Netflix United States. Jewish brothers in Nazi-occupied Eastern Europe escape into the Belarussian forests, where they join Russian resistance fighters, and endeavor to build a village, in order to protect themselves and about one thousand Jewish non ...
+ 
+Tags: Defiance Netflix
+
+Netflix
+https://qr.netflix.com>tc>title
+
+Watch Defiance | Netflix
+In a true story of courage and resistance, a family builds and defends a hidden sanctuary for Jews fleeing Nazi persecution, saving hundreds of lives. Watch trailers & learn more.
+
+Tags: Edward Zwick 16+
+
+People also ask
+
+Where can I watch 'defiance'?
+Where can I buy defiance?
+Should
+Defiance
+2008 · 2hr 17min · Action/Drama
+
+Defiance is a 2008 American war film directed by Edward Zwick, and starring Daniel Craig as Tuvia Bielski, Liev Schreiber as Zus Bielski, Jamie Bell as Asael Bielski, and George MacKay as Aron Bielski. ... +
+Wikipedia
+
+Cast
+
+Daniel Craig
+Tuvia Bielski
+Liev Schreiber
+Zus Bielski
+Jamie Bell
+Asael Bielski
+Alexa Davalos
+Lilika Ticktin
+Allan Corduner
+Shimon Haretz
+
+7.1/10
+IMDb
+
+58%
+Rotten Tomatoes
+
+58/100
+Metacritic
+
+Release date
+January 16, 2009 (USA)
+
+Content rating
+R
+<Image>
+[step 69] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We have not yet identified which is the highest-rated Daniel Craig movie that is less than 150 minutes and available on Netflix (US).",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are not in a loop; each request to WebSurfer is progressing with checking individual Daniel Craig movies' availability on Netflix (US).",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We are making forward progress by checking the availability and ratings of multiple Daniel Craig movies on Netflix (US).",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "We need to confirm further availability of the remaining Daniel Craig movies on Netflix (US).",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "We need the availability information to continue identifying the highest-rated eligible movie.",
+    "answer": "Please check the availability of 'Cowboys & Aliens' on Netflix (US)."
+  }
+}
+[step 70] Orchestrator (-> WebSurfer): Please check the availability of 'Cowboys & Aliens' on Netflix (US).
+[step 71] Orchestrator (thought): Next speaker WebSurfer
+[step 72] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "The request is not yet fully satisfied because we have not confirmed the availability of all relevant Daniel Craig movies on Netflix (US).",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are not in a loop as we are making new requests to check the availability of different movies on Netflix (US).",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We are making forward progress by checking the availability of Daniel Craig movies on Netflix (US) one by one.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "WebSurfer has the capability to check the availability of movies on Netflix.",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "We need to confirm the availability of 'Cowboys & Aliens' on Netflix (US) to continue making progress on determining the highest-rated Daniel Craig movie that meets the specified criteria.",
+    "answer": "Please check the availability of 'Cowboys & Aliens' on Netflix (US)."
+  }
+}
+[step 73] Orchestrator (-> WebSurfer): Please check the availability of 'Cowboys & Aliens' on Netflix (US).
+[step 74] Orchestrator (thought): Next speaker WebSurfer
+[step 75] WebSurfer: I typed 'Cowboys & Aliens movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [Cowboys & Aliens movie availability on Netflix US - Search](https://www.bing.com/search?q=Cowboys+%26+Aliens+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=AF1F2606BE46453890EFEAFEF4AF1BBC&ghsh=0&ghacc=0&ghpl=). The viewport shows 22% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "Cowboys & Aliens movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=Cowboys+%26+Aliens+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=AF1F2606BE46453890EFEAFEF4AF1BBC&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Cowboys & Aliens movie availability on Netflix US
+
+About 119,000 results
+
+JustWatch 
+https://www.justwatch.com › us › movie › cowboy... 
+Cowboys & Aliens streaming: where to watch online? 
+Find out how and where to watch "Cowboys & Aliens" on Netflix and Prime Video today - including free options. 
+Tags: Cowboys & Aliens Cowboys and Aliens Where To Watch Jon Favreau PG-13
+
+TV Guide
+https://www.tvguide.com › movies › cowboys-an...
+Cowboys & Aliens - Where to Watch and Stream - TV ...
+Find out how to watch Cowboys & Aliens. Stream Cowboys & Aliens, watch trailers, see the cast, and more at TV Guide.
+50% ★★☆☆☆ (41) Content Rating: PG-13
+TV Listings Cast & Crew Reviews
+
+Videos of Cowboys & Aliens Movie Availability On Netflix US
+bing.com › videos
+Cowboys
+& 
+Aliens Universal All Access
+
+Cowboys & Aliens
+2011 - 1hr 59min · Action/Drama
+IMDb Wikipedia
+
+Cowboys & Aliens is a 2011 American science fiction Western action thriller film directed by Jon Favreau and starring Daniel Craig, Harrison Ford, Olivia Wilde, Sam Rockwell, Adam Beach, Paul Da... +
+Wikipedia
+
+uphe.com
+
+Cast
+
+Daniel Craig 
+Jake Lonergan
+
+Harrison Ford 
+Woodrow
+
+Olivia Wilde 
+Ella Swenson
+
+Abigail Spencer 
+Alice
+
+Buck Taylor 
+Wes Claiborne
+<Image>
+[step 76] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We have identified numerous Daniel Craig movies that are less than 150 minutes and confirmed their availability on Netflix US. However, we need to determine which of these has the highest IMDB rating.",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We have been checking each movie's availability and listing its IMDB rating systematically without any repeating actions.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "The searching and checking of availability on Netflix for each movie are progressing logically and systematically.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "To complete the task of checking all movies systematically, and determine which movie has the highest IMDB rating.",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "Continue checking the availability of the remaining Daniel Craig movies that are less than 150 minutes long on Netflix US.",
+    "answer": "Please check the availability of 'Dream House' on Netflix (US)."
+  }
+}
+[step 77] Orchestrator (-> WebSurfer): Please check the availability of 'Dream House' on Netflix (US).
+[step 78] Orchestrator (thought): Next speaker WebSurfer
+[step 79] WebSurfer: I typed 'Dream House movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [Dream House movie availability on Netflix US - Search](https://www.bing.com/search?q=Dream+House+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=9B788C9780904E80B368EE9CE0EDD574&ghsh=0&ghacc=0&ghpl=). The viewport shows 27% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "Dream House movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=Dream+House+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=9B788C9780904E80B368EE9CE0EDD574&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Not available
+
+Dream House is not available to stream with a subscription service. Dream House is not available for purchase or to rent. If playback doesn't begin shortly, try restarting your device. Videos you watch may be added to the TV's watch history and influence TV recommendations.
+
+Where to stream Dream House (2019) online? Comparing 50+ Streams 
+
+Netflix https://qr.netflix.com/be-en/title 
+Watch Dream House - Netflix
+Abandoning high-stress Manhattan, Will moves to a quiet New England town but learns that his new home was the site of several brutal murders. Download and watch everywhere you go. This movie is… Go behind the scenes of Netflix TV shows and movies, see what’s coming soon and ...
+
+Tags: Dream House Movies On Netflix
+
+JustWatch https://www.justwatch.com/us/movie/dream-...
+Dream House streaming: where to watch movie online?
+Where is Dream House streaming? Find out where to watch online amongst 45+ services including Netflix, Hulu, Prime Video.
+
+Tags: Dream House Watch Online Dream House Movie Online Free Streaming Content
+
+Dream House
+2011 · 1hr 32min · Drama/Mystery
+
+Dream House 
+Dream House is a 2011 American psychological thriller film directed by Jim Sheridan from Universal Pictures and Morgan Creek Productions, starring Daniel Craig, Rachel Weisz, Naomi Watts, a... 
+
+Wikipedia 
+
+dreamhousemovie.net
+
+Cast
+Daniel Craig
+Will Atenton 
+Rachel Weisz
+Libby 
+Naomi Watts
+Ann Patterson 
+Elias Koteas
+Boyce 
+Marton Csokas
+Jack Patterson 
+
+6/10 IMDb 
+7% Rotten Tomatoes 
+35/100 Metacritic
+<Image>
+[step 80] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We have not yet fully addressed the original request, which requires identifying the highest rated Daniel Craig movie under 150 minutes and available on Netflix US.",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are not repeating the same actions; we are progressing through a list of movies to check their availability and rating details.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We are confirming the availability of each movie and compiling the necessary data to answer the user's request.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "The next step involves continuing to check the availability and rating details for the names in the list.",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "We need to continue the task of checking Daniel Craig's movies' availability and rating details to complete the request.",
+    "answer": "Please check the availability of 'The Girl with the Dragon Tattoo' on Netflix (US)."
+  }
+}
+[step 81] Orchestrator (-> WebSurfer): Please check the availability of 'The Girl with the Dragon Tattoo' on Netflix (US).
+[step 82] Orchestrator (thought): Next speaker WebSurfer
+[step 83] WebSurfer: I typed 'The Girl with the Dragon Tattoo movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [The Girl with the Dragon Tattoo movie availability on Netflix US - Search](https://www.bing.com/search?q=The+Girl+with+the+Dragon+Tattoo+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=AC654BE19BFF4F0E82D92C9F546DD090&ghsh=0&ghacc=0&ghpl=). The viewport shows 20% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "The Girl with the Dragon Tattoo movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=The+Girl+with+the+Dragon+Tattoo+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=AC654BE19BFF4F0E82D92C9F546DD090&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Microsoft Bing
+
+The Girl with the Dragon Tattoo movie availability on Netflix US
+
+Search
+Copilot
+Images
+Videos
+Maps
+News
+More
+Tools
+
+Deep search
+
+Feb. 9, 2022
+
+The Girl with the Dragon Tattoo is streaming now on Netflix. This article was originally published on Feb. 9, 2022. The most underrated movie David Fincher has ever made is available to stream now on Netflix.
+
+You need to watch the most nerve-wracking crime thriller on Netflix...
+
+www.inverse.com/entertainment/thrillers-netflix-february-2022-girl-with-the-drag...
+
+Was this helpful?
+
+Netflix
+https://qr.netflix.com › ie › title
+Watch The Girl with the Dragon Tattoo | Netflix
+Go behind the scenes of Netflix TV programmes and films, see what's coming soon and watch bonus videos on Tudum.com. A hacker with a grim past finds an unexpected companion in a disgraced reporter as the two of them investigate a twisted serial killer. Watch trailers & learn ...
+Tags: The Girl with the Dragon Tattoo      David Fincher
+
+TV Guide
+https://www.tvguide.com › movies › the-girl-with-t...
+The Girl with the Dragon Tattoo - Where to Watch and ...
+Find out how to watch The Girl with the Dragon Tattoo. Stream The Girl with the Dragon Tattoo, watch trailers, see the cast, and more at TV Guide. 
+
+Related searches
+
+the girl with dragon tattoo full movie
+the girl with a dragon tattoo full movie free
+watch the girl with dragon tattoo online free
+the girl with dragon tattoo streaming
+the girl with dragon tattoo movie online
+girl with dragon tattoo cast
+girl with dragon tattoo films
+watch girl with the dragon tattoo
+
+Sign in
+
+57
+<Image>
+[step 84] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We have confirmed several Daniel Craig movies that are less than 150 minutes long and checked their availability on Netflix US.",
+    "answer": false
+  },
+  "is_in_loop": {
+    "reason": "We are not repeating the same requests but checking different movies sequentially.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "We are making forward progress by systematically checking the availability of movies and noting down the results.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "To complete checking the availability of the remaining specified Daniel Craig movies.",
+    "answer": "WebSurfer"
+  },
+  "instruction_or_question": {
+    "reason": "We need to complete the availability check for the last specified movie in the list.",
+    "answer": "Please check the availability of 'Spectre' on Netflix (US)."
+  }
+}
+[step 85] Orchestrator (-> WebSurfer): Please check the availability of 'Spectre' on Netflix (US).
+[step 86] Orchestrator (thought): Next speaker WebSurfer
+[step 87] WebSurfer: I typed 'Spectre movie availability on Netflix US' into 'Enter your search here - Search suggestions will show as you type'.
+
+Here is a screenshot of [Spectre movie availability on Netflix US - Search](https://www.bing.com/search?q=Spectre+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=482A7E68106E4F4B9B433C82FF249F0D&ghsh=0&ghacc=0&ghpl=). The viewport shows 28% of the webpage, and is positioned at the top of the page.
+The following metadata was extracted from the webpage:
+
+{
+    "meta_tags": {
+        "referrer": "origin-when-cross-origin",
+        "SystemEntropyOriginTrialToken": "A1L3tx5CzccqjN3lK6st/fXMwhf9EeokCPf8XCt0DVI8JPbg37BWq0zKvlqgkdm8YEUbthoGkC/xdR1+iIz4txAAAABxeyJvcmlnaW4iOiJodHRwczovL3d3dy5iaW5nLmNvbTo0NDMiLCJmZWF0dXJlIjoiTXNVc2VyQWdlbnRMYXVuY2hOYXZUeXBlIiwiZXhwaXJ5IjoxNzM5NzI0MzExLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=",
+        "og:description": "Intelligent search from Bing makes it easier to quickly find what you\u2019re looking for and rewards you.",
+        "og:site_name": "Bing",
+        "og:title": "Spectre movie availability on Netflix US - Bing",
+        "og:url": "https://www.bing.com/search?q=Spectre+movie+availability+on+Netflix+US&qs=n&form=QBRE&sp=-1&lq=0&pq=&sc=0-0&sk=&cvid=482A7E68106E4F4B9B433C82FF249F0D&ghsh=0&ghacc=0&ghpl=",
+        "fb:app_id": "3732605936979161",
+        "og:image": "http://www.bing.com/sa/simg/facebook_sharing_5.png",
+        "og:type": "website",
+        "og:image:width": "600",
+        "og:image:height": "315"
+    }
+}
+
+Automatic OCR of the page screenshot has detected the following text:
+
+Here is the transcription of all visible text on the page:
+
+---
+
+Microsoft Bing
+
+Search: Spectre movie availability on Netflix US
+
+SEARCH | COPILOT | IMAGES | VIDEOS | MAPS | NEWS | MORE | TOOLS
+
+Sign in | 60
+
+Deep search
+
+About 1,300,000 results
+
+JustWatch
+https://www.justwatch.com › us › movie
+
+Spectre streaming: where to watch movie online?
+Where is Spectre streaming? Find out where to watch online amongst 45+ services including Netflix, Hulu, Prime Video. See more
+
+Spectre Streaming: Where to Watch Online?
+Currently you are able to watch “Spectre” streaming on fuboTV, FXNow, DIRECTV. It is also possible to buy “Spectre” on Apple TV, Amazon Video, Google Play Movies, YouTube, Vudu, Microsoft... See more
+
+Where Does Spectre Rank Today?
+Spectre is 621 on the JustWatch Daily Streaming Charts today. The movie has moved up the charts by 70 places...
+
+netflixreleases.com
+https://www.netflixreleases.com
+
+Spectre (2015) available on Netflix? - NetflixReleases
+Is Spectre on Netflix United States? Sorry, Spectre (2015) isn’t available on Netflix United States, but is available in a different country. A cryptic message from James Bond’s past sends him on ...
+
+Tags: Spectre Netflix
+
+People also ask
+
+Can I watch Spectre on Netflix?
+Spectre is not on Netflix or any major streaming platform. You can however...
+
+Where can I watch ‘Spectre’ online?
+Find out when and where to watch...
+
+Is Spectre...
+
+
+Spectre
+2015 - 2hr 28min - Action/Adventure
+
+IMDb | Wikipedia | Instagram
+
+Spectre is a 2015 spy film and the twenty-fourth in the James Bond series produced by Eon Productions. Directed by Sam Mendes and written by John Logan, Neal Purvis, Robert Wade, and Jez Butter... + Wikipedia
+
+007.com
+
+Cast
+Daniel Craig
+James Bond
+
+Christoph Waltz
+Blofeld
+
+Léa Seydoux
+Madeleine
+
+Ralph Fiennes
+M
+
+Monica Bellucci
+Lucia
+
+6.8/10
+IMDb
+
+63%
+Rotten Tomatoes
+
+60/100
+Metacritic
+
+---
+<Image>
+[step 88] Orchestrator (thought): Updated Ledger:
+{
+  "is_request_satisfied": {
+    "reason": "We have identified IMDb ratings, durations, and Netflix availability for Daniel Craig movies. Among these, 'Casino Royale' is highly rated, less than 150 minutes, and available on Netflix US.",
+    "answer": true
+  },
+  "is_in_loop": {
+    "reason": "We are not repeating actions. Each search provided new information.",
+    "answer": false
+  },
+  "is_progress_being_made": {
+    "reason": "All criteria for evaluating the highest-rated movie have been addressed.",
+    "answer": true
+  },
+  "next_speaker": {
+    "reason": "The task is complete.",
+    "answer": "Assistant"
+  },
+  "instruction_or_question": {
+    "reason": "Provide the final result to the user.",
+    "answer": "The highest-rated Daniel Craig movie on IMDb that is less than 150 minutes long and available on Netflix (US) is 'Casino Royale' with an IMDb rating of 8.0."
+  }
+}
+[step 89] Orchestrator (thought): Request satisfied.
+[step 90] Orchestrator (termination condition): No agent selected.
+/workspace/scenario.py:94: UserWarning: Resolved model mismatch: gpt-4o-2024-08-06 != gpt-4o-2024-05-13. Model mapping may be incorrect.
+  response = await client.create(messages)
+FINAL ANSWER: Casino Royale
+SCENARIO.PY COMPLETE !#!#
+RUN.SH COMPLETE !#!#

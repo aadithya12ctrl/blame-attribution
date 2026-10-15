@@ -1,0 +1,55 @@
+{
+  "psi_hedge": {
+    "effect_tau": 0.3521,
+    "effect_delta": -0.06,
+    "ratio": 0.1704,
+    "H1_pass": true,
+    "H2_pass": true,
+    "FLINCH": true
+  },
+  "psi_ask": {
+    "effect_tau": 0.0158,
+    "effect_delta": 0.57,
+    "ratio": 36.1154,
+    "H1_pass": true,
+    "H2_pass": false,
+    "FLINCH": false
+  },
+  "psi_len": {
+    "effect_tau": 229.948,
+    "effect_delta": 40.665,
+    "ratio": 0.1768,
+    "H1_pass": true,
+    "H2_pass": true,
+    "FLINCH": true
+  },
+  "psi_extra": {
+    "effect_tau": 240.3585,
+    "effect_delta": -23.7,
+    "ratio": 0.0986,
+    "H1_pass": true,
+    "H2_pass": true,
+    "FLINCH": true
+  },
+  "psi_disagree": {
+    "effect_tau": -0.0031,
+    "effect_delta": 0.2062,
+    "ratio": 65.7619,
+    "H1_pass": false,
+    "H2_pass": false,
+    "FLINCH": false
+  },
+  "psi_parsefail": {
+    "effect_tau": 0.4522,
+    "effect_delta": 0.105,
+    "ratio": 0.2322,
+    "H1_pass": true,
+    "H2_pass": false,
+    "FLINCH": false
+  },
+  "_n": {
+    "arm1_tau": 24,
+    "arm2_delta": 16,
+    "total": 40
+  }
+}

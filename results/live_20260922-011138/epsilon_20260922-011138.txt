@@ -1,0 +1,23 @@
+  run 1/30  run 2/30  run 3/30  run 4/30  run 5/30  run 6/30  run 7/30  run 8/30  run 9/30  run 10/30  run 11/30  run 12/30  run 13/30  run 14/30  run 15/30  run 16/30  run 17/30  run 18/30  run 19/30  run 20/30  run 21/30  run 22/30  run 23/30  run 24/30  run 25/30  run 26/30  run 27/30  run 28/30  run 29/30  run 30/30
+============================================================
+PROJECTION ACCURACY
+============================================================
+  observer_slot_error_rate: 0.0
+  observer_slots_checked: 677
+  observer_parse_failure_rate: 0.0
+  analyzer_parse_failure_rate: 0.0
+  planner_parse_failure_rate: 0.0
+  validator_parse_failure_rate: 0.0
+  executor_parse_failure_rate: 0.0
+  invocations_per_agent: 30
+  eps_used_for_bound: 0.0
+  note: parse failures are measured at every stage; only the observer has independent ground truth, so downstream VALUE errors remain unmeasured
+
+  no projection errors observed in N=30 invocations per agent; eps = 0 is NOT a result.
+  rule of three (95%):  eps <~ 3/N = 0.1000
+  union bound on P[Phi_hat != Phi]  <~  2*n*k*eps  =  2*5*1*0.1000  =  1.0000
+  BOUND IS VACUOUS at this N. Increase --n before reporting attribution accuracy.
+
+  NOTE: parse failures are measured at every stage. Only the observer has
+  ground truth independent of the agent, so downstream VALUE errors are NOT
+  measured. State this limitation rather than implying full coverage.

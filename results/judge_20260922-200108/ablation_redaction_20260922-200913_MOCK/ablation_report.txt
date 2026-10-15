@@ -1,0 +1,91 @@
+REASON-REDACTION ABLATION  date 2026-09-22T14:39:13+00:00
+source run: results/judge_20260922-200108   agents: deepseek/deepseek-chat @ streamlake (no new agent calls)
+judge: mock @ mock  temperature 0, max_tokens 6000  (same settings as the source run)
+judged runs 26; ablated 18; skipped 8
+  skipped N004: no stored agent text (not in label sheet)
+  skipped N005: no stored agent text (not in label sheet)
+  skipped N012: no stored agent text (not in label sheet)
+  skipped N014: no stored agent text (not in label sheet)
+  skipped N015: no stored agent text (not in label sheet)
+  skipped N018: no stored agent text (not in label sheet)
+  skipped N025: no stored agent text (not in label sheet)
+  skipped N027: no stored agent text (not in label sheet)
+
+AGREEMENT WITH THE EVALUATOR on the ablated runs  (unredacted -> redacted)
+                         exact set                 overlap                   class
+  J-FC      0.67 (18) -> 0.00 (18)  1.00 (18) -> 0.33 (18)              n/a -> n/a
+  J-P       0.89 (18) -> 0.00 (18)  0.94 (18) -> 0.33 (18)  0.94 (18) -> 1.00 (18)
+  J-FC-N    0.67 (18) -> 0.00 (18)  1.00 (18) -> 0.33 (18)              n/a -> n/a
+  J-P-N     0.94 (18) -> 0.00 (18)  1.00 (18) -> 0.33 (18)  1.00 (18) -> 1.00 (18)
+
+REDACTED JUDGE OUTCOMES (infrastructure excluded from rates)
+  J-FC     calls 18  api_err 0  truncated 0  parse_fail 0  out_tokens mean 0
+  J-P      calls 18  api_err 0  truncated 0  parse_fail 0  out_tokens mean 0
+  J-FC-N   calls 18  api_err 0  truncated 0  parse_fail 0  out_tokens mean 0
+  J-P-N    calls 18  api_err 0  truncated 0  parse_fail 0  out_tokens mean 0
+
+CHANGED ANSWERS (unredacted -> redacted, vs evaluator)
+  N000 J-FC    planner -> validator   evaluator planner
+  N000 J-P     planner -> validator   evaluator planner
+  N000 J-FC-N  planner -> validator   evaluator planner
+  N000 J-P-N   planner -> validator   evaluator planner
+  N001 J-FC    planner -> validator   evaluator planner
+  N001 J-P     planner -> validator   evaluator planner
+  N001 J-FC-N  planner -> validator   evaluator planner
+  N001 J-P-N   planner|validator -> validator   evaluator planner
+  N002 J-FC    planner -> validator   evaluator planner
+  N002 J-P     planner -> validator   evaluator planner
+  N002 J-FC-N  planner -> validator   evaluator planner
+  N002 J-P-N   planner -> validator   evaluator planner
+  N003 J-FC    planner -> validator   evaluator planner
+  N003 J-P     planner -> validator   evaluator planner
+  N003 J-FC-N  planner -> validator   evaluator planner
+  N003 J-P-N   planner -> validator   evaluator planner
+  N007 J-P     planner|validator -> validator   evaluator planner|validator
+  N007 J-P-N   planner|validator -> validator   evaluator planner|validator
+  N010 J-FC    planner -> validator   evaluator planner
+  N010 J-P     planner -> validator   evaluator planner
+  N010 J-FC-N  planner -> validator   evaluator planner
+  N010 J-P-N   planner -> validator   evaluator planner
+  N011 J-FC    planner -> validator   evaluator planner
+  N011 J-P     planner -> validator   evaluator planner
+  N011 J-FC-N  planner -> validator   evaluator planner
+  N011 J-P-N   planner -> validator   evaluator planner
+  N013 J-P-N   planner|validator -> validator   evaluator planner|validator
+  N016 J-FC    planner -> validator   evaluator planner
+  N016 J-P     planner -> validator   evaluator planner
+  N016 J-FC-N  planner -> validator   evaluator planner
+  N016 J-P-N   planner -> validator   evaluator planner
+  N017 J-P     planner|validator -> validator   evaluator planner|validator
+  N017 J-P-N   planner|validator -> validator   evaluator planner|validator
+  N019 J-FC    planner -> validator   evaluator planner
+  N019 J-P     planner -> validator   evaluator planner
+  N019 J-FC-N  planner -> validator   evaluator planner
+  N019 J-P-N   planner -> validator   evaluator planner
+  N020 J-FC    planner -> validator   evaluator planner
+  N020 J-P     planner -> validator   evaluator planner
+  N020 J-FC-N  planner -> validator   evaluator planner
+  N020 J-P-N   planner -> validator   evaluator planner
+  N021 J-FC    planner -> validator   evaluator planner
+  N021 J-P     planner -> validator   evaluator planner
+  N021 J-FC-N  planner -> validator   evaluator planner
+  N021 J-P-N   planner -> validator   evaluator planner
+  N022 J-FC    planner -> validator   evaluator planner
+  N022 J-P     planner -> validator   evaluator planner
+  N022 J-FC-N  planner -> validator   evaluator planner
+  N022 J-P-N   planner -> validator   evaluator planner
+  N023 J-FC    planner -> validator   evaluator planner|validator
+  N023 J-P     planner|validator -> validator   evaluator planner|validator
+  N023 J-P-N   planner|validator -> validator   evaluator planner|validator
+  N024 J-P     planner|validator -> validator   evaluator planner|validator
+  N024 J-P-N   planner|validator -> validator   evaluator planner|validator
+  N028 J-P     planner|validator -> validator   evaluator planner|validator
+  N028 J-P-N   planner|validator -> validator   evaluator planner|validator
+  N029 J-FC    planner -> validator   evaluator planner
+  N029 J-P     {} -> validator   evaluator planner
+  N029 J-FC-N  planner -> validator   evaluator planner
+  N029 J-P-N   planner -> validator   evaluator planner
+
+Caveat: the unredacted arm is the stored judgments, not a fresh re-judge;
+temperature-0 replies are not guaranteed identical across calls, so
+small differences can be judge noise rather than the redaction.

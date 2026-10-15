@@ -1,0 +1,70 @@
+ARM 1: tightening margin at fixed complexity
+  tau=0.00 delta=0 seed=0 fault=False hedge=0.0 dis=0.00
+  tau=0.00 delta=0 seed=1 fault=False hedge=0.0 dis=0.60
+  tau=0.00 delta=0 seed=2 fault=False hedge=0.0 dis=0.00
+  tau=0.00 delta=0 seed=3 fault=False hedge=0.0 dis=0.40
+  tau=0.20 delta=0 seed=0 fault=False hedge=0.0 dis=0.00
+  tau=0.20 delta=0 seed=1 fault=False hedge=0.0 dis=0.20
+  tau=0.20 delta=0 seed=2 fault=False hedge=0.0 dis=0.00
+  tau=0.20 delta=0 seed=3 fault=False hedge=0.0 dis=0.00
+  tau=0.40 delta=0 seed=0 fault=False hedge=0.2 dis=0.50
+  tau=0.40 delta=0 seed=1 fault=False hedge=0.0 dis=0.00
+  tau=0.40 delta=0 seed=2 fault=False hedge=0.4 dis=0.00
+  tau=0.40 delta=0 seed=3 fault=False hedge=0.2 dis=0.25
+  tau=0.60 delta=0 seed=0 fault=False hedge=0.0 dis=0.75
+  tau=0.60 delta=0 seed=1 fault=False hedge=0.6 dis=0.20
+  tau=0.60 delta=0 seed=2 fault=False hedge=0.0 dis=0.40
+  tau=0.60 delta=0 seed=3 fault=False hedge=0.2 dis=0.40
+  tau=0.80 delta=0 seed=0 fault=False UNATTRIB hedge=1.0 dis=0.67
+  tau=0.80 delta=0 seed=1 fault=False UNATTRIB hedge=0.6 dis=0.00
+  tau=0.80 delta=0 seed=2 fault=False hedge=0.0 dis=0.20
+  tau=0.80 delta=0 seed=3 fault=False hedge=0.6 dis=0.20
+  tau=0.95 delta=0 seed=0 fault=False UNATTRIB hedge=0.0 dis=0.00
+  tau=0.95 delta=0 seed=1 fault=False UNATTRIB hedge=0.0 dis=0.00
+  tau=0.95 delta=0 seed=2 fault=False hedge=0.4 dis=0.20
+  tau=0.95 delta=0 seed=3 fault=False hedge=0.2 dis=0.00
+
+ARM 2: raising complexity at fixed margin (tau=0.3)
+  tau=0.30 delta=0 seed=500 fault=False UNATTRIB hedge=0.2 dis=0.60
+  tau=0.30 delta=0 seed=501 fault=False hedge=0.4 dis=0.00
+  tau=0.30 delta=0 seed=502 fault=False hedge=0.0 dis=0.40
+  tau=0.30 delta=0 seed=503 fault=False hedge=0.0 dis=0.40
+  tau=0.30 delta=1 seed=500 fault=False hedge=0.0 dis=0.60
+  tau=0.30 delta=1 seed=501 fault=False hedge=0.0 dis=0.60
+  tau=0.30 delta=1 seed=502 fault=False hedge=0.0 dis=0.20
+  tau=0.30 delta=1 seed=503 fault=False hedge=0.2 dis=0.40
+  tau=0.30 delta=2 seed=500 fault=False UNATTRIB hedge=0.0 dis=0.75
+  tau=0.30 delta=2 seed=501 fault=False hedge=0.0 dis=0.60
+  tau=0.30 delta=2 seed=502 fault=False hedge=0.0 dis=0.40
+  tau=0.30 delta=2 seed=503 fault=True hedge=0.0 dis=0.20
+  tau=0.30 delta=3 seed=500 fault=False hedge=0.2 dis=0.60
+  tau=0.30 delta=3 seed=501 fault=False hedge=0.0 dis=0.60
+  tau=0.30 delta=3 seed=502 fault=False hedge=0.0 dis=0.40
+  tau=0.30 delta=3 seed=503 fault=True hedge=0.2 dis=0.67
+
+rows: arm1(tau)=24  arm2(delta)=16  total=40  (disjoint)
+
+ACTIVATION CURVE  (planner fault rate by tau, arm 1)
+  tau=0.00  faults=0/4
+  tau=0.20  faults=0/4
+  tau=0.40  faults=0/4
+  tau=0.60  faults=0/4
+  tau=0.80  faults=0/2  (2 unattributable excluded)
+  tau=0.95  faults=0/2  (2 unattributable excluded)
+  WARNING: zero faults at every tau. tau*(alpha) is not estimable and the
+  flinch test is UNINTERPRETABLE on this domain -- void, not negative.
+
+==================================================================
+HYPOTHESIS 10.2  (gamma = 0.2, 6 pre-registered candidates)
+==================================================================
+  psi_hedge       eff_tau=  0.3521  eff_delta=   -0.06  ratio=0.1704  FLINCH
+  psi_ask         eff_tau=  0.0158  eff_delta=    0.57  ratio=36.1154  H1 only
+  psi_len         eff_tau= 229.948  eff_delta=  40.665  ratio=0.1768  FLINCH
+  psi_extra       eff_tau=240.3585  eff_delta=   -23.7  ratio=0.0986  FLINCH
+  psi_disagree    eff_tau= -0.0031  eff_delta=  0.2062  ratio=65.7619  -
+  psi_parsefail   eff_tau=  0.4522  eff_delta=   0.105  ratio=0.2322  H1 only
+
+PASS: psi_hedge, psi_len, psi_extra
+Multiplicity: 6 candidates tested. Correct for this before claiming a result.
+
+wrote results/live_20260922-011138/flinch_20260922-011808.csv and analysis json

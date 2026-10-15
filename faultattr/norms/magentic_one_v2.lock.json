@@ -1,0 +1,10 @@
+{
+  "file": "faultattr/norms/magentic_one_v2.md",
+  "sha256": "6164f7ce284bd42a33eaf923f6c23ac18dfeef403bfa62357c0b7c10210541fc",
+  "bytes": 5319,
+  "frozen_at": "2026-09-22T17:14:54+00:00",
+  "derived_from_sha256": "dab067b8f8d281310e804183dd39b8827f1b9f5c02a87d73e3ba52da96bf0ac9",
+  "edit": "rules O4 and O8 removed (ABL-2)",
+  "post_hoc": true,
+  "note": "Post-hoc variant frozen after the Who&When pilot, at the user's specification. Differs from v1 only by the stated edit and a header note."
+}

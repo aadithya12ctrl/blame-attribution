@@ -1,0 +1,34 @@
+NATURAL CONDITION  20260922-194152   date 2026-09-22T14:11:53+00:00
+agents: deepseek/deepseek-chat @ streamlake   prompt v2   no injection
+judge:  openai/gpt-oss-120b @ cerebras
+runs: 30 over tau [0.2, 0.4] (15 each)
+  excluded (infrastructure; not scored): 1
+    N017 tau=0.4 seed=4102: api error at executor: HTTP 429: b'{"error":{"message":"Provider returned error","code":429,"metadata":{"raw":"deepseek/deepseek-chat is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your ra'
+  R held (no failure; judge n/a):         3
+    of which the evaluator found a contract violation: 0   (own number: errors that did not become failures; the judge is not asked about these, so no comparison)
+  unattributable (projection failure):    0
+  judged (R failed, attributable):        26
+  Sigma_ok (from these runs):             3
+
+EVALUATOR on judged runs
+  kinds:   {'AGENT_FAULT': 26}
+  blamed:  {'planner': 24, 'validator': 4}   empty fault set: 0
+
+EVALUATOR vs JUDGE AGREEMENT (no ground truth; agreement is not accuracy)
+               exact set       overlap         class  parse fail  truncated  api err
+  J-FC         0.73 (26)     0.81 (26)           n/a           0          0        0
+  J-P          0.77 (26)     0.92 (26)     1.00 (26)           0          0        0
+  J-FC-N       0.88 (26)     0.96 (26)           n/a           0          0        0
+  J-P-N        0.85 (26)     0.92 (26)     1.00 (26)           0          0        0
+
+  Who each judge condition blames (judged runs):
+    J-FC     planner=19, validator=7
+    J-P      planner=26, validator=6
+    J-FC-N   planner=21, validator=5
+    J-P-N    planner=24, validator=6
+
+HAND-LABEL SHEET: results\judge_20260922-194152\natural_label_sheet_20260922-194152.csv
+  20 runs, random.Random(20260922) over the 29 non-excluded runs. Not pre-filled.
+  Fill <agent>_broke_rule with Y/N for all five agents, then:
+    python3 experiments/exp_judge.py --score-labels results\judge_20260922-194152\natural_label_sheet_20260922-194152.csv
+  ACCURACY vs hand labels: pending (no labels yet).

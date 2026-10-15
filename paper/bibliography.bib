@@ -1,0 +1,250 @@
+% bibliography.bib — fault attribution in agentic systems
+% Every entry below was verified against a primary source on 2026-10-02:
+% Crossref (api.crossref.org), arXiv abstract pages, or PMLR. The
+% "verified" note on each entry says which. Nothing here is from memory.
+%
+% dblp was unreachable (bot protection) and ACM's DL returned 403, so
+% Crossref metadata was used for the ACM-published item.
+
+% ---------------------------------------------------------------- benchmarks
+@inproceedings{zhang2025whowhen,
+  author    = {Zhang, Shaokun and Yin, Ming and Zhang, Jieyu and Liu, Jiale
+               and Han, Zhiguang and Zhang, Jingyang and Li, Beibin and
+               Wang, Chi and Wang, Huazheng and Chen, Yiran and Wu, Qingyun},
+  title     = {Which Agent Causes Task Failures and When? On Automated
+               Failure Attribution of {LLM} Multi-Agent Systems},
+  booktitle = {Proceedings of the 42nd International Conference on Machine
+               Learning},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {267},
+  pages     = {76583--76599},
+  year      = {2025},
+  publisher = {PMLR},
+  note      = {ICML 2025 spotlight; introduces the Who\&When benchmark.
+               arXiv:2505.00212},
+  url       = {https://proceedings.mlr.press/v267/zhang25cq.html},
+  eprint    = {2505.00212},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI}
+  % verified: proceedings.mlr.press/v267/zhang25cq.html + arXiv:2505.00212
+}
+
+@inproceedings{chen2026elephant,
+  author    = {Chen, Mengzhuo and Wang, Junjie and Mu, Fangwen and
+               Wang, Yawen and Liu, Zhe and Feng, Huanxiang and Wang, Qing},
+  title     = {Seeing the Whole Elephant: A Benchmark for Failure
+               Attribution in {LLM}-based Multi-Agent Systems},
+  booktitle = {Proceedings of the 64th Annual Meeting of the Association for
+               Computational Linguistics},
+  year      = {2026},
+  note      = {Accepted at ACL 2026. The TraceElephant benchmark; reports
+               that full execution traces improve attribution accuracy by up
+               to 76\% over output-only observation, and that orchestrator
+               or planner agents account for 18--29\% of ground-truth
+               failures. arXiv:2604.22708},
+  eprint    = {2604.22708},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL}
+  % verified: arXiv:2604.22708 abstract page (comments: "Accepted by ACL 2026")
+}
+
+% ------------------------------------------------- attribution methods
+@article{ge2026spectrum,
+  author    = {Ge, Yu and Xie, Linna and Li, Zhong and Pei, Yu and
+               Zhang, Tian},
+  title     = {Spectrum-Based Failure Attribution for Multi-agent Systems},
+  journal   = {Proceedings of the ACM on Software Engineering},
+  volume    = {3},
+  number    = {FSE},
+  pages     = {1888--1909},
+  year      = {2026},
+  doi       = {10.1145/3797113},
+  note      = {FAMAS. Preprint circulated as ``Who is Introducing the
+               Failure? Automatically Attributing Failures of Multi-Agent
+               Systems via Spectrum Analysis'', arXiv:2509.13782}
+  % verified: Crossref 10.1145/3797113 + arXiv:2509.13782 abstract page
+}
+
+@misc{ma2025dover,
+  author    = {Ma, Ming and Zhang, Jue and Yang, Fangkai and Kang, Yu and
+               Lin, Qingwei and Rajmohan, Saravan and Zhang, Dongmei},
+  title     = {{DoVer}: Intervention-Driven Auto Debugging for {LLM}
+               Multi-Agent Systems},
+  year      = {2025},
+  eprint    = {2512.06749},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.AI},
+  note      = {Validates attribution hypotheses by intervening and
+               re-executing; reports that multiple distinct interventions
+               can independently repair one failure, so single-step
+               attribution is often ill-posed. Listed on OpenReview as an
+               ICLR 2026 submission (forum mrEK16Jy6h); the arXiv page
+               states no venue}
+  % verified: arXiv:2512.06749 abstract page. Venue NOT verified from a
+  % primary proceedings source — see note.
+}
+
+% ------------------------------------------- LLM-as-judge / rubric design
+@misc{yu2026rubric,
+  author    = {Yu, Dingyao and Zhang, Tong and Mou, Yutao and
+               Zhang, Yunxiao and Ye, Wei and Zhang, Shikun},
+  title     = {Mitigating Rubric Interference in {LLM} Judges via On-Policy
+               Self-Distillation},
+  year      = {2026},
+  eprint    = {2608.14684},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  note      = {Defines ``rubric interference'': the verdict on one rubric
+               shifts depending on which other rubrics are co-present. Only
+               about one third of samples receive fully consistent verdicts
+               across rubric sets of varying composition; interference is
+               probed by rubric expansion, subsetting, reordering and noise
+               injection}
+  % verified: arXiv:2608.14684 abstract page
+}
+
+% ----------------------------------------------------- dependability
+@article{avizienis2004,
+  author    = {Avi{\v{z}}ienis, Algirdas and Laprie, Jean-Claude and
+               Randell, Brian and Landwehr, Carl},
+  title     = {Basic Concepts and Taxonomy of Dependable and Secure
+               Computing},
+  journal   = {IEEE Transactions on Dependable and Secure Computing},
+  volume    = {1},
+  number    = {1},
+  pages     = {11--33},
+  year      = {2004},
+  doi       = {10.1109/TDSC.2004.2}
+  % verified: Crossref 10.1109/tdsc.2004.2
+}
+
+% ------------------------------------------------- diagnosis / causation
+@article{reiter1987,
+  author    = {Reiter, Raymond},
+  title     = {A Theory of Diagnosis from First Principles},
+  journal   = {Artificial Intelligence},
+  volume    = {32},
+  number    = {1},
+  pages     = {57--95},
+  year      = {1987},
+  doi       = {10.1016/0004-3702(87)90062-2}
+  % verified: Crossref 10.1016/0004-3702(87)90062-2
+}
+
+@article{dekleer1987,
+  author    = {de Kleer, Johan and Williams, Brian C.},
+  title     = {Diagnosing Multiple Faults},
+  journal   = {Artificial Intelligence},
+  volume    = {32},
+  number    = {1},
+  pages     = {97--130},
+  year      = {1987},
+  doi       = {10.1016/0004-3702(87)90063-4}
+  % verified: Crossref 10.1016/0004-3702(87)90063-4
+}
+
+@article{halpern2005causes1,
+  author    = {Halpern, Joseph Y. and Pearl, Judea},
+  title     = {Causes and Explanations: A Structural-Model Approach.
+               Part {I}: Causes},
+  journal   = {The British Journal for the Philosophy of Science},
+  volume    = {56},
+  number    = {4},
+  pages     = {843--887},
+  year      = {2005},
+  doi       = {10.1093/bjps/axi147}
+  % verified: Crossref 10.1093/bjps/axi147
+}
+
+@article{halpern2005causes2,
+  author    = {Halpern, Joseph Y. and Pearl, Judea},
+  title     = {Causes and Explanations: A Structural-Model Approach.
+               Part {II}: Explanations},
+  journal   = {The British Journal for the Philosophy of Science},
+  volume    = {56},
+  number    = {4},
+  pages     = {889--911},
+  year      = {2005},
+  doi       = {10.1093/bjps/axi148}
+  % verified: Crossref 10.1093/bjps/axi148
+}
+
+@article{chockler2004blame,
+  author    = {Chockler, Hana and Halpern, Joseph Y.},
+  title     = {Responsibility and Blame: A Structural-Model Approach},
+  journal   = {Journal of Artificial Intelligence Research},
+  volume    = {22},
+  pages     = {93--115},
+  year      = {2004},
+  doi       = {10.1613/jair.1391}
+  % verified: Crossref 10.1613/jair.1391
+}
+
+@inproceedings{saitta2007abstraction,
+  author    = {Saitta, Lorenza and Torasso, Pietro and Torta, Gianluca},
+  title     = {Formalizing the Abstraction Process in Model-Based Diagnosis},
+  booktitle = {Abstraction, Reformulation, and Approximation},
+  series    = {Lecture Notes in Computer Science},
+  pages     = {314--328},
+  year      = {2007},
+  doi       = {10.1007/978-3-540-73580-9_25},
+  note      = {Diagnosis is relative to the chosen component decomposition;
+               the granularity of the system description bounds the
+               granularity of any diagnosis}
+  % verified: Crossref 10.1007/978-3-540-73580-9_25 (year from the LNCS
+  % volume; Crossref returned no issued date)
+}
+
+% --------------------------------------------- contracts / specification
+@article{meyer1992dbc,
+  author    = {Meyer, Bertrand},
+  title     = {Applying `Design by Contract'},
+  journal   = {Computer},
+  volume    = {25},
+  number    = {10},
+  pages     = {40--51},
+  year      = {1992},
+  doi       = {10.1109/2.161279}
+  % verified: Crossref 10.1109/2.161279
+}
+
+@article{ernst2001invariants,
+  author    = {Ernst, Michael D. and Cockrell, Jake and
+               Griswold, William G. and Notkin, David},
+  title     = {Dynamically Discovering Likely Program Invariants to Support
+               Program Evolution},
+  journal   = {IEEE Transactions on Software Engineering},
+  volume    = {27},
+  number    = {2},
+  pages     = {99--123},
+  year      = {2001},
+  doi       = {10.1109/32.908957}
+  % verified: Crossref 10.1109/32.908957
+}
+
+@article{ernst2007daikon,
+  author    = {Ernst, Michael D. and Perkins, Jeff H. and Guo, Philip J. and
+               McCamant, Stephen and Pacheco, Carlos and
+               Tschantz, Matthew S. and Xiao, Chen},
+  title     = {The {Daikon} System for Dynamic Detection of Likely
+               Invariants},
+  journal   = {Science of Computer Programming},
+  volume    = {69},
+  number    = {1--3},
+  pages     = {35--45},
+  year      = {2007},
+  doi       = {10.1016/j.scico.2007.01.015}
+  % verified: Crossref 10.1016/j.scico.2007.01.015
+}
+
+@article{angluin1987,
+  author    = {Angluin, Dana},
+  title     = {Learning Regular Sets from Queries and Counterexamples},
+  journal   = {Information and Computation},
+  volume    = {75},
+  number    = {2},
+  pages     = {87--106},
+  year      = {1987},
+  doi       = {10.1016/0890-5401(87)90052-6}
+  % verified: Crossref 10.1016/0890-5401(87)90052-6
+}

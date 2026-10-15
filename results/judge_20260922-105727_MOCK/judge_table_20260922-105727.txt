@@ -1,0 +1,92 @@
+LLM-AS-JUDGE BASELINE  20260922-105727
+agents: mock   judge: mock-strawman (temperature 0, max_tokens 16000)
+seeds: 7..16 (10)   Sigma_ok: 8 clean-only runs   workers: 5
+MOCK MODE: agents are scripted and the judge is a deliberate strawman.
+These numbers test plumbing and scoring only.
+
+RUNS KEPT / EXCLUDED
+  A: kept 10   excluded  0
+  B: kept  8   excluded  2
+  C: kept 10   excluded  0
+  D: kept  8   excluded  2
+  E: kept  8   excluded  2
+
+EXCLUDED-RUN LOG
+  B seed=8: R held -- the seeded fault did not produce a failure
+  B seed=14: R held -- the seeded fault did not produce a failure
+  D seed=8: R held -- the seeded fault did not produce a failure
+  D seed=14: R held -- the seeded fault did not produce a failure
+  E seed=8: R held -- the seeded fault did not produce a failure
+  E seed=14: R held -- the seeded fault did not produce a failure
+
+EXACT MATCH  (rate, n = runs with a judgement)
+            evaluator        J-FC         J-P      J-FC-N       J-P-N
+  A         1.00 (10)   1.00 (10)   1.00 (10)   1.00 (10)   1.00 (10)
+  B          1.00 (8)    1.00 (8)    1.00 (8)    1.00 (8)    1.00 (8)
+  C         1.00 (10)   0.00 (10)   0.00 (10)   0.00 (10)   0.00 (10)
+  D          1.00 (8)    0.00 (8)    0.00 (8)    0.00 (8)    0.00 (8)
+  E          1.00 (8)    0.00 (8)    0.00 (8)    0.00 (8)    0.00 (8)
+
+HIT (A-C)  /  NONE_CORRECT (D, E)  /  CLASS_CORRECT (D, E)
+            evaluator        J-FC         J-P      J-FC-N       J-P-N
+  A hit     1.00 (10)   1.00 (10)   1.00 (10)   1.00 (10)   1.00 (10)
+  B hit      1.00 (8)    1.00 (8)    1.00 (8)    1.00 (8)    1.00 (8)
+  C hit     1.00 (10)   1.00 (10)   1.00 (10)   1.00 (10)   1.00 (10)
+  D none     1.00 (8)    0.00 (8)    0.00 (8)    0.00 (8)    0.00 (8)
+  D cls      1.00 (8)         n/a    0.00 (8)         n/a    0.00 (8)
+  E none     1.00 (8)    0.00 (8)    0.00 (8)    0.00 (8)    0.00 (8)
+  E cls      1.00 (8)         n/a    0.00 (8)         n/a    0.00 (8)
+
+ERROR PATTERN -- B (truth: observer). Who does each method blame?
+  evaluator  observer=8
+  J-FC       observer=8
+  J-P        observer=8
+  J-FC-N     observer=8
+  J-P-N      observer=8
+
+ERROR PATTERN -- C (truth: 3 agents). Mean predicted set size
+  evaluator  mean=3.00  exact=10/10
+  J-FC       mean=1.00  exact=0/10
+  J-P        mean=1.00  exact=0/10
+  J-FC-N     mean=1.00  exact=0/10
+  J-P-N      mean=1.00  exact=0/10
+
+ERROR PATTERN -- D vs E. Class predicted (rows = truth)
+  evaluator
+                                   AGENT_FAULT        MISSING_RULE  UNFIXABLE_BY_RULES          PARSE_FAIL
+    D MISSING_RULE                           0                   8                   0                   0
+    E UNFIXABLE_BY_RULES                     0                   0                   8                   0
+  J-P
+                                   AGENT_FAULT        MISSING_RULE  UNFIXABLE_BY_RULES          PARSE_FAIL
+    D MISSING_RULE                           8                   0                   0                   0
+    E UNFIXABLE_BY_RULES                     8                   0                   0                   0
+  J-P-N
+                                   AGENT_FAULT        MISSING_RULE  UNFIXABLE_BY_RULES          PARSE_FAIL
+    D MISSING_RULE                           8                   0                   0                   0
+    E UNFIXABLE_BY_RULES                     8                   0                   0                   0
+
+  Agents blamed on D/E (truth: none):
+    evaluator  (none)
+    J-FC       planner=16
+    J-P        planner=16
+    J-FC-N     planner=16
+    J-P-N      planner=16
+
+JUDGE FAILURES per condition
+  J-FC     parse failures 0/44 (0.00)   api errors 0 (excluded from all rates)
+  J-P      parse failures 0/44 (0.00)   api errors 0 (excluded from all rates)
+  J-FC-N   parse failures 0/44 (0.00)   api errors 0 (excluded from all rates)
+  J-P-N    parse failures 0/44 (0.00)   api errors 0 (excluded from all rates)
+  self-inconsistent permissive answers (class vs agent set): 0
+
+EVALUATOR vs INJECTION LABELS
+  all agree
+  CORPUS_BLOCKED mapped to MISSING_RULE (flagged): 0
+
+CAVEATS
+  1. The evaluator's agreement is with injection labels designed alongside
+     the contracts. It is a sanity check, NOT attribution accuracy on
+     undesigned failures.
+  2. The comparison of interest is the judge's error PATTERN by case.
+  3. If J-P-N approaches the evaluator on B, D and E, the contribution is
+     formalization of norms the judge could already use -- a smaller claim.

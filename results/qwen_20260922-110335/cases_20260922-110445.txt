@@ -1,0 +1,126 @@
+  providers serving qwen/qwen3-235b-a22b-2507:
+       GMICloud        gmicloud/fp8               in $0.087/M  out $0.350/M  max_out 235929  status 0
+       DeepInfra       deepinfra/fp8              in $0.090/M  out $0.550/M  max_out 16384  status 0
+       Novita          novita/fp8                 in $0.090/M  out $0.580/M  max_out 16384  status 0
+       Parasail        parasail/fp8               in $0.140/M  out $0.800/M  max_out 117964  status 0
+    -> Alibaba         alibaba                    in $0.150/M  out $0.598/M  max_out 32768  status 0
+       Venice          venice/fp8                 in $0.150/M  out $0.750/M  max_out 16384  status 0
+       Nebius          nebius/fp8                 in $0.200/M  out $0.600/M  max_out 235929  status 0
+       StreamLake      streamlake                 in $0.210/M  out $0.840/M  max_out 32000  status 0
+       Google          google-vertex/us-south1    in $0.220/M  out $0.880/M  max_out 16384  status 0
+       Google          google-vertex/us-south1    in $0.250/M  out $1.000/M  max_out 16384  status 0
+  pinned: alibaba (allow_fallbacks=false)
+model=qwen/qwen3-235b-a22b-2507  provider=alibaba  date=2026-09-22T05:34:47+00:00
+
+Sigma_ok: 1 conformant successful runs (clean-only corpus: dead_frac=0.0, no UNKNOWN slots)
+  excluded from corpus: seed=107 dead=False: AGENT_FAULT fault set ['planner', 'validator'] R=['blocked_slot:J3@10', 'separation:J1~J2'] finish=stop,stop,stop,stop,stop
+  excluded from corpus: seed=108 dead=False: AGENT_FAULT fault set ['planner', 'validator'] R=['separation:J1~J2'] finish=stop,stop,stop,stop,stop
+  excluded from corpus: seed=109 dead=False: AGENT_FAULT fault set ['planner'] R=['blocked_slot:J3@9'] finish=stop,stop,stop,stop,stop
+  excluded from corpus: seed=110 dead=False: AGENT_FAULT fault set ['planner'] R=['separation:J1~J2', 'separation:J2~J3'] finish=stop,stop,stop,stop,stop
+  excluded from corpus: seed=112 dead=False: AGENT_FAULT fault set ['planner'] R=['separation:J1~J2', 'separation:J2~J3'] finish=stop,stop,stop,stop,stop
+  excluded from corpus: seed=113 dead=False: AGENT_FAULT fault set ['planner'] R=['separation:J2~J3'] finish=stop,stop,stop,stop,stop
+  excluded from corpus: seed=114 dead=False: AGENT_FAULT fault set ['planner'] R=['blocked_slot:J3@7', 'separation:J1~J2'] finish=stop,stop,stop,stop,stop
+
+======================================================================
+A  direct violation    injected = ['planner']
+======================================================================
+VERDICT: AGENT_FAULT
+  fault set: ['planner', 'validator']
+  contracts:
+    observer   P=T G=T  ok
+    analyzer   P=T G=T  ok
+    planner    P=T G=F  FAULT
+        guar: gap 0 < 2 between J2 and J3
+    validator  P=T G=F  FAULT
+        guar: accepted an infeasible plan
+    executor   P=T G=T  ok
+  R violations: ['separation:J2~J3']
+  margin=-0.286 cons=1.286 exo=0.000
+  finish_reason: stop,stop,stop,stop,stop   served_by: Alibaba
+
+======================================================================
+B  inherited drift    injected = ['observer']
+======================================================================
+VERDICT: AGENT_FAULT
+  fault set: ['observer']
+  contracts:
+    observer   P=T G=F  FAULT
+        guar: slot 5: reported BUSY, emitted FREE
+    analyzer   P=F G=T  excused
+        pre:  upstream state unfaithful: slot 5: reported BUSY, emitted FREE
+    planner    P=T G=T  ok
+    validator  P=T G=T  ok
+    executor   P=T G=T  ok
+  R violations: ['blocked_slot:J2@5']
+  margin=-0.200 cons=1.200 exo=0.000
+  finish_reason: stop,stop,stop,stop,stop   served_by: Alibaba
+
+======================================================================
+C  overdetermination    injected = ['planner', 'validator', 'executor']
+======================================================================
+VERDICT: AGENT_FAULT
+  fault set: ['planner', 'validator', 'executor']
+  contracts:
+    observer   P=T G=T  ok
+    analyzer   P=T G=T  ok
+    planner    P=T G=F  FAULT
+        guar: gap 1 < 2 between J1 and J2
+    validator  P=T G=F  FAULT
+        guar: accepted an infeasible plan
+    executor   P=T G=F  FAULT
+        guar: actions diverge from plan: {'J1': (0, 1)}
+  R violations: ['separation:J1~J2', 'separation:J2~J3']
+  margin=-1.800 cons=2.800 exo=0.000
+  finish_reason: stop,stop,stop,stop,stop   served_by: Alibaba
+
+======================================================================
+D  missing obligation    injected = none
+======================================================================
+VERDICT: AGENT_FAULT
+  fault set: ['validator']
+  contracts:
+    observer   P=T G=T  ok
+    analyzer   P=T G=T  ok
+    planner    P=F G=F  excused
+        pre:  unresolved slots present: [5]
+        guar: gap 0 < 2 between J1 and J2
+    validator  P=T G=F  FAULT
+        guar: accepted an infeasible plan
+    executor   P=T G=T  ok
+  R violations: ['separation:J1~J2']
+  margin=-0.600 cons=1.600 exo=0.000
+  finish_reason: stop,stop,stop,stop,stop   served_by: Alibaba
+
+======================================================================
+E  inexpressible    injected = none
+======================================================================
+VERDICT: INEXPRESSIBLE  [D1]
+  contracts:
+    observer   P=T G=T  ok
+    analyzer   P=T G=T  ok
+    planner    P=T G=T  ok
+    validator  P=T G=T  ok
+    executor   P=T G=T  ok
+  R violations: ['blocked_slot:J2@5']
+  margin=-0.200 cons=0.000 exo=1.200
+  repair candidate: [not expressible] Some agent must guarantee that reported slot status corresponds to physical occupancy. No agent observes this, so this is an instrumentation gap (Remark 5.3b, case 4a), not a contract anyone can be given.
+  note: depletion=1.200 cons=0.000 exo=1.200 (threshold 0.15)
+  note: no strengthening expressible over any agent's observable history (Theorem 5.2 case 4)
+  finish_reason: stop,stop,stop,stop,stop   served_by: Alibaba
+
+======================================================================
+CORPUS SENSITIVITY (Remark 5.3a)
+======================================================================
+  excluded from corpus 2: seed=207 dead=True: AGENT_FAULT fault set ['validator'] R=['separation:J1~J2', 'separation:J2~J3'] finish=stop,stop,stop,stop,stop
+  excluded from corpus 2: seed=208 dead=True: AGENT_FAULT fault set ['validator'] R=['separation:J1~J2', 'separation:J2~J3'] finish=stop,stop,stop,stop,stop
+  excluded from corpus 2: seed=210 dead=True: AGENT_FAULT fault set ['validator'] R=['separation:J1~J2'] finish=stop,stop,stop,stop,stop
+  excluded from corpus 2: seed=211 dead=True: AGENT_FAULT fault set ['validator'] R=['separation:J1~J2', 'separation:J2~J3'] finish=stop,stop,stop,stop,stop
+  excluded from corpus 2: seed=212 dead=True: AGENT_FAULT fault set ['validator'] R=['separation:J1~J2', 'separation:J2~J3'] finish=stop,stop,stop,stop,stop
+  excluded from corpus 2: seed=213 dead=False: AGENT_FAULT fault set ['planner', 'validator'] R=['separation:J1~J2', 'separation:J2~J3'] finish=stop,stop,stop,stop,stop
+  excluded from corpus 2: seed=214 dead=False: AGENT_FAULT fault set ['planner'] R=['separation:J1~J2', 'separation:J2~J3'] finish=stop,stop,stop,stop,stop
+  corpus 1: 1 runs, dead_frac=0.00, 0 contain UNKNOWN slots
+  corpus 2: 1 runs, dead_frac=0.75, 1 contain UNKNOWN slots  (disjoint seeds)
+  Same runs, re-scored; only the corpus differs.
+
+  D:  corpus1 -> AGENT_FAULT              corpus2 -> AGENT_FAULT               stable
+  E:  corpus1 -> INEXPRESSIBLE            corpus2 -> INEXPRESSIBLE             stable

@@ -1,0 +1,83 @@
+WHO&WHEN HAND-CRAFTED -- ABLATIONS  20260922-224645   date 2026-09-22T17:16:45+00:00
+judge: openai/gpt-oss-120b @ cerebras, temperature 0, max_tokens 32,000 (context 131,072); steps printed and cited in every arm
+norms: v1 dab067b8f8d2, v2 6164f7ce284b, v3 62f0eac6bdd4
+cases: 3 (dry run, random.Random(2026)); excluded from every arm for context: none
+longest prompt: 42,786 tokens actual (est 42,457); median 9,389
+judge output tokens: mean 724  max 1,124
+cost (token counts x Cerebras price): $0.1282  (cap $3.0)
+headline = all cases incl. 20/22/49 (pre-registered); sensitivity excludes them
+
+2x2 (all cases; abstention and parse failure count as wrong)
+                     ground truth: NO                          |  ground truth: YES
+  norms NO  (forced)  B      agent 2/3 = 0.667; step 1/3 = 0.333; coverage 1.00|  ABL-1  agent 1/3 = 0.333; step 0/3 = 0.000; coverage 1.00
+  norms YES (open)    ABL-3  agent 0/3 = 0.000; step 0/3 = 0.000; coverage 0.33|  M      agent 0/3 = 0.000; step 0/3 = 0.000; coverage 0.33
+  norms variants (GT yes):  ABL-2 (no O4/O8): agent 0/3 = 0.000; step 0/3 = 0.000; coverage 0.33
+                            ABL-4 (O4 process): agent 0/3 = 0.000; step 0/3 = 0.000; coverage 0.33
+  Caveat: rows also differ in verdict space and output format.
+
+M  (method: norms v1 + GT)
+  calls 3: infrastructure excluded 0 ; parse failures 1 {'step missing / not an integer': 1}
+  coverage (answered / scorable):    1/3 = 0.333
+  agent accuracy  answered / all:    0/1 = 0.000   |   0/3 = 0.000
+  step accuracy   answered / all:    0/1 = 0.000   |   0/3 = 0.000
+  sensitivity, excl. cases 20/22/49: agent all 0/3 = 0.000, step all 0/3 = 0.000
+  blamed agents (answered): {'Orchestrator': 1}
+  abstentions (UNDERDETERMINED): 1
+    case 8  label WebSurfer @ 8: The WebSurfer does not click on useful information.
+
+B  (baseline (Who&When))
+  calls 3: infrastructure excluded 0 ; parse failures 0 
+  coverage (answered / scorable):    3/3 = 1.000
+  agent accuracy  answered / all:    2/3 = 0.667   |   2/3 = 0.667
+  step accuracy   answered / all:    1/3 = 0.333   |   1/3 = 0.333
+  sensitivity, excl. cases 20/22/49: agent all 2/3 = 0.667, step all 1/3 = 0.333
+  blamed agents (answered): {'WebSurfer': 2, 'Orchestrator': 1}
+
+ABL-1  (baseline + GT)
+  calls 3: infrastructure excluded 0 ; parse failures 0 
+  coverage (answered / scorable):    3/3 = 1.000
+  agent accuracy  answered / all:    1/3 = 0.333   |   1/3 = 0.333
+  step accuracy   answered / all:    0/3 = 0.000   |   0/3 = 0.000
+  sensitivity, excl. cases 20/22/49: agent all 1/3 = 0.333, step all 0/3 = 0.000
+  blamed agents (answered): {'Coder': 1, 'Orchestrator': 1, 'WebSurfer': 1}
+
+ABL-2  (method, norms v2 (no O4/O8))
+  calls 3: infrastructure excluded 0 ; parse failures 1 {'step out of range': 1}
+  coverage (answered / scorable):    1/3 = 0.333
+  agent accuracy  answered / all:    0/1 = 0.000   |   0/3 = 0.000
+  step accuracy   answered / all:    0/1 = 0.000   |   0/3 = 0.000
+  sensitivity, excl. cases 20/22/49: agent all 0/3 = 0.000, step all 0/3 = 0.000
+  blamed agents (answered): {'Orchestrator': 1}
+  abstentions (UNDERDETERMINED): 1
+    case 8  label WebSurfer @ 8: The WebSurfer does not click on useful information.
+
+ABL-3  (method, norms v1, no GT)
+  calls 3: infrastructure excluded 0 ; parse failures 1 {'step missing / not an integer': 1}
+  coverage (answered / scorable):    1/3 = 0.333
+  agent accuracy  answered / all:    0/1 = 0.000   |   0/3 = 0.000
+  step accuracy   answered / all:    0/1 = 0.000   |   0/3 = 0.000
+  sensitivity, excl. cases 20/22/49: agent all 0/3 = 0.000, step all 0/3 = 0.000
+  blamed agents (answered): {'Orchestrator': 1}
+  abstentions (UNDERDETERMINED): 1
+    case 8  label WebSurfer @ 8: The WebSurfer does not click on useful information.
+
+ABL-4  (method, norms v3 (O4 process rule))
+  calls 3: infrastructure excluded 0 ; parse failures 1 {'step out of range': 1}
+  coverage (answered / scorable):    1/3 = 0.333
+  agent accuracy  answered / all:    0/1 = 0.000   |   0/3 = 0.000
+  step accuracy   answered / all:    0/1 = 0.000   |   0/3 = 0.000
+  sensitivity, excl. cases 20/22/49: agent all 0/3 = 0.000, step all 0/3 = 0.000
+  blamed agents (answered): {'Orchestrator': 1}
+  abstentions (UNDERDETERMINED): 1
+    case 33  label WebSurfer @ 8: WebSurfer failed to provide useful information and encountered errors during the process.
+
+COMMON SET (scorable in every arm run): 3 cases
+  M      agent 0/3 = 0.000   step 0/3 = 0.000
+  B      agent 2/3 = 0.667   step 1/3 = 0.333
+  ABL-1  agent 1/3 = 0.333   step 0/3 = 0.000
+  ABL-2  agent 0/3 = 0.000   step 0/3 = 0.000
+  ABL-3  agent 0/3 = 0.000   step 0/3 = 0.000
+  ABL-4  agent 0/3 = 0.000   step 0/3 = 0.000
+
+CONFOUNDS: ground truth is isolated within a norms row; the norms effect is confounded
+with verdict space and output format. v2/v3 are post-hoc variants frozen after the pilot.

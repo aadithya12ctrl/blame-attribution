@@ -1,0 +1,33 @@
+NATURAL CONDITION  20260922-191827   date 2026-09-22T13:48:27+00:00
+agents: mock @ mock   prompt v2   no injection
+judge:  mock-strawman @ mock
+runs: 30 over tau [0.2, 0.4] (15 each)
+  excluded (infrastructure; not scored): 0
+  R held (no failure; judge n/a):         30
+  unattributable (projection failure):    0
+  judged (R failed, attributable):        0
+  Sigma_ok (from these runs):             30
+MOCK: agents and judge are scripted; plumbing only.
+
+EVALUATOR on judged runs
+  kinds:   {}
+  blamed:  {}   empty fault set: 0
+
+EVALUATOR vs JUDGE AGREEMENT (no ground truth; agreement is not accuracy)
+               exact set       overlap         class  parse fail  api err
+  J-FC               n/a           n/a           n/a           0        0
+  J-P                n/a           n/a           n/a           0        0
+  J-FC-N             n/a           n/a           n/a           0        0
+  J-P-N              n/a           n/a           n/a           0        0
+
+  Who each judge condition blames (judged runs):
+    J-FC     (none)
+    J-P      (none)
+    J-FC-N   (none)
+    J-P-N    (none)
+
+HAND-LABEL SHEET: results\judge_20260922-191827_MOCK\natural_label_sheet_20260922-191827.csv
+  20 runs, random.Random(20260922) over the 30 non-excluded runs. Not pre-filled.
+  Fill <agent>_broke_rule with Y/N for all five agents, then:
+    python3 experiments/exp_judge.py --score-labels results\judge_20260922-191827_MOCK\natural_label_sheet_20260922-191827.csv
+  ACCURACY vs hand labels: pending (no labels yet).

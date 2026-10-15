@@ -1,0 +1,36 @@
+WHO&WHEN HAND-CRAFTED -- ABLATIONS  20260923-070445   date 2026-09-23T01:34:45+00:00
+judge: openai/gpt-oss-120b @ cerebras, temperature 0, max_tokens 32,000 (context 131,072); steps printed and cited in every arm
+norms: v1 dab067b8f8d2, v2 6164f7ce284b, v3 62f0eac6bdd4
+cases: 8 (all Hand-Crafted); excluded from every arm for context: none
+longest prompt: 39,209 tokens actual (est 38,876); median 10,982
+judge output tokens: mean 897  max 2,093
+cost (token counts x Cerebras price): $0.0498  (cap $0.3)
+headline = all cases incl. 20/22/49 (pre-registered); sensitivity excludes them
+
+2x2 (all cases; abstention and parse failure count as wrong)
+                     ground truth: NO                          |  ground truth: YES
+  norms NO  (forced)  B      not run                                     |  ABL-1  not run
+  norms YES (open)    ABL-3  not run                                     |  M      not run
+  norms variants (GT yes):  ABL-2 (no O4/O8): agent 2/8 = 0.250; step 2/8 = 0.250; coverage 0.62
+                            ABL-4 (O4 process): not run
+  Caveat: rows also differ in verdict space and output format.
+
+ABL-2  (method, norms v2 (no O4/O8))
+  calls 8: infrastructure excluded 0 ; parse failures 0 
+  coverage (answered / scorable):    5/8 = 0.625
+  agent accuracy  answered / all:    2/5 = 0.400   |   2/8 = 0.250
+  step accuracy   answered / all:    2/5 = 0.400   |   2/8 = 0.250
+  sensitivity, excl. cases 20/22/49: agent all 2/7 = 0.286, step all 1/7 = 0.143
+  blamed agents (answered): {'Orchestrator': 3, 'Coder': 1, 'WebSurfer': 1}
+  abstentions (UNDERDETERMINED): 3
+    case 46  label WebSurfer @ 32: The search tool does not return the desired information regarding the passenger count of each train in 2019. Therefore, the train with the highest number of passengers and its scheduled arrival time a
+    case 54  label WebSurfer @ 15: The agent provides information about the current roster, but the question asks for the roster as of July 2023. THe agent should search for the roster of Hokkaido Nippon-Ham Fighters in 2023.
+    case 58  label Orchestrator @ 22: It failed to extract useful information from the Issue page.
+
+COMMON SET (scorable in every arm run): 8 cases
+  ABL-2  agent 2/8 = 0.250   step 2/8 = 0.250
+
+OLD (pilot, unnumbered, max_tokens 6000) vs NEW (numbered, max_tokens 32,000)
+
+CONFOUNDS: ground truth is isolated within a norms row; the norms effect is confounded
+with verdict space and output format. v2/v3 are post-hoc variants frozen after the pilot.

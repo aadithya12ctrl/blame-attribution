@@ -1,0 +1,5590 @@
+run_id,tau,seed,agent_model,agent_provider,prompt_version,date,selection_seed,final_requirement_violations,trace,observer_rules,observer_input,observer_output,analyzer_rules,analyzer_input,analyzer_output,planner_rules,planner_input,planner_output,validator_rules,validator_input,validator_output,executor_rules,executor_input,executor_output,observer_broke_rule,analyzer_broke_rule,planner_broke_rule,validator_broke_rule,executor_broke_rule,labeler,notes
+N000,0.2,4000,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,unscheduled:J1; unscheduled:J2; unscheduled:J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..19
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=3
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=BUSY t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+  slot=16 status=FREE t=116
+  slot=17 status=FREE t=117
+  slot=18 status=FREE t=118
+  slot=19 status=FREE t=119
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+slot=17 status=FREE
+slot=18 status=FREE
+slot=19 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=3
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+slot=17 status=FREE
+slot=18 status=FREE
+slot=19 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=10
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..19
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=3
+unavailable=[10]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=5
+J3=10
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..19
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=3
+unavailable=[10]
+PLAN:
+J1=0
+J2=5
+J3=10
+--- its raw output ---
+VERDICT
+decision=REJECT
+reasons=J3 covers unavailable slot 10
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- NOT INVOKED: the validator decision was REJECT; the pipeline halted and no actions were dispatched ---
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  unscheduled:J1
+  unscheduled:J2
+  unscheduled:J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..19
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=3
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=BUSY t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+  slot=16 status=FREE t=116
+  slot=17 status=FREE t=117
+  slot=18 status=FREE t=118
+  slot=19 status=FREE t=119","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+slot=17 status=FREE
+slot=18 status=FREE
+slot=19 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=3
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+slot=17 status=FREE
+slot=18 status=FREE
+slot=19 status=FREE","ANALYSIS
+unavailable=10
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..19
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=3
+unavailable=[10]
+unresolved=none","PLAN
+J1=0
+J2=5
+J3=10
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..19
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=3
+unavailable=[10]
+PLAN:
+J1=0
+J2=5
+J3=10","VERDICT
+decision=REJECT
+reasons=J3 covers unavailable slot 10
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.",(NOT INVOKED: validator decision was REJECT; the pipeline halted and the executor was not invoked),,,,,,,,
+N001,0.2,4001,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,unscheduled:J1; unscheduled:J2; unscheduled:J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..18
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=3
+  J2 duration=2
+  J3 duration=3
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=BUSY t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+  slot=16 status=FREE t=116
+  slot=17 status=FREE t=117
+  slot=18 status=FREE t=118
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+slot=17 status=FREE
+slot=18 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=3
+  J2 duration=2
+  J3 duration=3
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+slot=17 status=FREE
+slot=18 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=10
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..18
+JOBS:
+  J1 duration=3
+  J2 duration=2
+  J3 duration=3
+unavailable=[10]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=5
+J3=9
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..18
+JOBS:
+  J1 duration=3
+  J2 duration=2
+  J3 duration=3
+unavailable=[10]
+PLAN:
+J1=0
+J2=5
+J3=9
+--- its raw output ---
+VERDICT
+decision=REJECT
+reasons=J3 covers unavailable slot 10, gap between J1 and J2 is less than 2
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- NOT INVOKED: the validator decision was REJECT; the pipeline halted and no actions were dispatched ---
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  unscheduled:J1
+  unscheduled:J2
+  unscheduled:J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..18
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=3
+  J2 duration=2
+  J3 duration=3
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=BUSY t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+  slot=16 status=FREE t=116
+  slot=17 status=FREE t=117
+  slot=18 status=FREE t=118","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+slot=17 status=FREE
+slot=18 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=3
+  J2 duration=2
+  J3 duration=3
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+slot=17 status=FREE
+slot=18 status=FREE","ANALYSIS
+unavailable=10
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..18
+JOBS:
+  J1 duration=3
+  J2 duration=2
+  J3 duration=3
+unavailable=[10]
+unresolved=none","PLAN
+J1=0
+J2=5
+J3=9
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..18
+JOBS:
+  J1 duration=3
+  J2 duration=2
+  J3 duration=3
+unavailable=[10]
+PLAN:
+J1=0
+J2=5
+J3=9","VERDICT
+decision=REJECT
+reasons=J3 covers unavailable slot 10, gap between J1 and J2 is less than 2
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.",(NOT INVOKED: validator decision was REJECT; the pipeline halted and the executor was not invoked),,,,,,,,
+N002,0.2,4002,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,unscheduled:J1; unscheduled:J2; unscheduled:J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..16
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=1
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=BUSY t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+  slot=16 status=FREE t=116
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=1
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=7
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..16
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=1
+unavailable=[7]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=4
+J3=9
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..16
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=1
+unavailable=[7]
+PLAN:
+J1=0
+J2=4
+J3=9
+--- its raw output ---
+Let's validate the plan step by step:
+
+1. J1 starts at 0 with duration 3:
+   - Occupies slots 0,1,2
+   - Next job must start at 4 (2+3+2=7, but since we're counting slots, 0+3+2=5?)
+
+Wait, let me clarify the gap rule:
+A job at s with duration d occupies s..s+d-1
+Next job must start at s+d+2 or later
+
+So for J1 at 0,d=3:
+- Occupies 0,1,2
+- Next job must start at 0+3+2=5 or later
+But J2 starts at 4 which is before 5 - violates the gap rule
+
+VERDICT
+decision=REJECT
+reasons=gap between J1 and J2 too small
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- NOT INVOKED: the validator decision was REJECT; the pipeline halted and no actions were dispatched ---
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  unscheduled:J1
+  unscheduled:J2
+  unscheduled:J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..16
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=1
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=BUSY t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+  slot=16 status=FREE t=116","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=1
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE","ANALYSIS
+unavailable=7
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..16
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=1
+unavailable=[7]
+unresolved=none","PLAN
+J1=0
+J2=4
+J3=9
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..16
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=1
+unavailable=[7]
+PLAN:
+J1=0
+J2=4
+J3=9","Let's validate the plan step by step:
+
+1. J1 starts at 0 with duration 3:
+   - Occupies slots 0,1,2
+   - Next job must start at 4 (2+3+2=7, but since we're counting slots, 0+3+2=5?)
+
+Wait, let me clarify the gap rule:
+A job at s with duration d occupies s..s+d-1
+Next job must start at s+d+2 or later
+
+So for J1 at 0,d=3:
+- Occupies 0,1,2
+- Next job must start at 0+3+2=5 or later
+But J2 starts at 4 which is before 5 - violates the gap rule
+
+VERDICT
+decision=REJECT
+reasons=gap between J1 and J2 too small
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.",(NOT INVOKED: validator decision was REJECT; the pipeline halted and the executor was not invoked),,,,,,,,
+N003,0.2,4003,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,none (R held),"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=BUSY t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=7
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[7]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=4
+J3=8
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[7]
+PLAN:
+J1=0
+J2=4
+J3=8
+--- its raw output ---
+VERDICT
+decision=ACCEPT
+reasons=none
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- input it received ---
+ACCEPTED PLAN:
+J1=0
+J2=4
+J3=8
+--- its raw output ---
+ACTIONS
+J1=0
+J2=4
+J3=8
+END
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) met the requirement: no violations.
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=BUSY t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE","ANALYSIS
+unavailable=7
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[7]
+unresolved=none","PLAN
+J1=0
+J2=4
+J3=8
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[7]
+PLAN:
+J1=0
+J2=4
+J3=8","VERDICT
+decision=ACCEPT
+reasons=none
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.","ACCEPTED PLAN:
+J1=0
+J2=4
+J3=8","ACTIONS
+J1=0
+J2=4
+J3=8
+END",,,,,,,
+N006,0.2,4006,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,unscheduled:J1; unscheduled:J2; unscheduled:J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=BUSY t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=7
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[7]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=3
+J3=6
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[7]
+PLAN:
+J1=0
+J2=3
+J3=6
+--- its raw output ---
+VERDICT
+decision=REJECT
+reasons=J3 covers unavailable slot 7
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- NOT INVOKED: the validator decision was REJECT; the pipeline halted and no actions were dispatched ---
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  unscheduled:J1
+  unscheduled:J2
+  unscheduled:J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=BUSY t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE","ANALYSIS
+unavailable=7
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[7]
+unresolved=none","PLAN
+J1=0
+J2=3
+J3=6
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[7]
+PLAN:
+J1=0
+J2=3
+J3=6","VERDICT
+decision=REJECT
+reasons=J3 covers unavailable slot 7
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.",(NOT INVOKED: validator decision was REJECT; the pipeline halted and the executor was not invoked),,,,,,,,
+N007,0.2,4007,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,unscheduled:J1; unscheduled:J2; unscheduled:J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=BUSY t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=BUSY
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=BUSY
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=8
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[8]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=4
+J3=8
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[8]
+PLAN:
+J1=0
+J2=4
+J3=8
+--- its raw output ---
+VERDICT
+decision=REJECT
+reasons=J3 covers an unavailable slot
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- NOT INVOKED: the validator decision was REJECT; the pipeline halted and no actions were dispatched ---
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  unscheduled:J1
+  unscheduled:J2
+  unscheduled:J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=BUSY t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=BUSY
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=BUSY
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE","ANALYSIS
+unavailable=8
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[8]
+unresolved=none","PLAN
+J1=0
+J2=4
+J3=8
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[8]
+PLAN:
+J1=0
+J2=4
+J3=8","VERDICT
+decision=REJECT
+reasons=J3 covers an unavailable slot
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.",(NOT INVOKED: validator decision was REJECT; the pipeline halted and the executor was not invoked),,,,,,,,
+N009,0.2,4009,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,unscheduled:J1; unscheduled:J2; unscheduled:J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..13
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=3
+  J2 duration=1
+  J3 duration=1
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=BUSY t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=3
+  J2 duration=1
+  J3 duration=1
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=7
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..13
+JOBS:
+  J1 duration=3
+  J2 duration=1
+  J3 duration=1
+unavailable=[7]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=5
+J3=8
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..13
+JOBS:
+  J1 duration=3
+  J2 duration=1
+  J3 duration=1
+unavailable=[7]
+PLAN:
+J1=0
+J2=5
+J3=8
+--- its raw output ---
+VERDICT
+decision=REJECT
+reasons=J3 starts at 8 which is less than previous_start (5) + previous_duration (1) + 2 = 8
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- NOT INVOKED: the validator decision was REJECT; the pipeline halted and no actions were dispatched ---
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  unscheduled:J1
+  unscheduled:J2
+  unscheduled:J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..13
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=3
+  J2 duration=1
+  J3 duration=1
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=BUSY t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=3
+  J2 duration=1
+  J3 duration=1
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE","ANALYSIS
+unavailable=7
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..13
+JOBS:
+  J1 duration=3
+  J2 duration=1
+  J3 duration=1
+unavailable=[7]
+unresolved=none","PLAN
+J1=0
+J2=5
+J3=8
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..13
+JOBS:
+  J1 duration=3
+  J2 duration=1
+  J3 duration=1
+unavailable=[7]
+PLAN:
+J1=0
+J2=5
+J3=8","VERDICT
+decision=REJECT
+reasons=J3 starts at 8 which is less than previous_start (5) + previous_duration (1) + 2 = 8
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.",(NOT INVOKED: validator decision was REJECT; the pipeline halted and the executor was not invoked),,,,,,,,
+N010,0.2,4010,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,blocked_slot:J3@7; separation:J1~J2; separation:J2~J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=BUSY t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=7
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[7]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=3
+J3=6
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[7]
+PLAN:
+J1=0
+J2=3
+J3=6
+--- its raw output ---
+VERDICT
+decision=ACCEPT
+reasons=none
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- input it received ---
+ACCEPTED PLAN:
+J1=0
+J2=3
+J3=6
+--- its raw output ---
+ACTIONS
+J1=0
+J2=3
+J3=6
+END
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  blocked_slot:J3@7
+  separation:J1~J2
+  separation:J2~J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=BUSY t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE","ANALYSIS
+unavailable=7
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[7]
+unresolved=none","PLAN
+J1=0
+J2=3
+J3=6
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[7]
+PLAN:
+J1=0
+J2=3
+J3=6","VERDICT
+decision=ACCEPT
+reasons=none
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.","ACCEPTED PLAN:
+J1=0
+J2=3
+J3=6","ACTIONS
+J1=0
+J2=3
+J3=6
+END",,,,,,,
+N011,0.2,4011,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,none (R held),"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=1
+  J2 duration=3
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=BUSY t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=BUSY
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=1
+  J2 duration=3
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=BUSY
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=8
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=1
+  J2 duration=3
+  J3 duration=2
+unavailable=[8]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=4
+J3=10
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=1
+  J2 duration=3
+  J3 duration=2
+unavailable=[8]
+PLAN:
+J1=0
+J2=4
+J3=10
+--- its raw output ---
+Let's analyze the plan step by step:
+
+1. J1 starts at 0 with duration 1: occupies slot 0
+   Next job must start at 0+1+2 = 3 or later
+
+2. J2 starts at 4 with duration 3: occupies slots 4,5,6
+   - Valid start time (>=3 from previous rule)
+   - Check unavailable slots: doesn't cover slot 8 (OK)
+   Next job must start at 4+3+2 = 9 or later
+
+3. J3 starts at 10 with duration 2: occupies slots 10,11
+   - Valid start time (>=9 from previous rule)
+   - Doesn't go past horizon (ends at 11 < 15)
+   - Doesn't cover slot 8 (OK)
+
+No overlaps, all gaps respected, no unavailable slots covered, no jobs past horizon.
+
+VERDICT
+decision=ACCEPT
+reasons=none
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- input it received ---
+ACCEPTED PLAN:
+J1=0
+J2=4
+J3=10
+--- its raw output ---
+ACTIONS
+J1=0
+J2=4
+J3=10
+END
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) met the requirement: no violations.
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=1
+  J2 duration=3
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=BUSY t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=BUSY
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=1
+  J2 duration=3
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=BUSY
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE","ANALYSIS
+unavailable=8
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=1
+  J2 duration=3
+  J3 duration=2
+unavailable=[8]
+unresolved=none","PLAN
+J1=0
+J2=4
+J3=10
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=1
+  J2 duration=3
+  J3 duration=2
+unavailable=[8]
+PLAN:
+J1=0
+J2=4
+J3=10","Let's analyze the plan step by step:
+
+1. J1 starts at 0 with duration 1: occupies slot 0
+   Next job must start at 0+1+2 = 3 or later
+
+2. J2 starts at 4 with duration 3: occupies slots 4,5,6
+   - Valid start time (>=3 from previous rule)
+   - Check unavailable slots: doesn't cover slot 8 (OK)
+   Next job must start at 4+3+2 = 9 or later
+
+3. J3 starts at 10 with duration 2: occupies slots 10,11
+   - Valid start time (>=9 from previous rule)
+   - Doesn't go past horizon (ends at 11 < 15)
+   - Doesn't cover slot 8 (OK)
+
+No overlaps, all gaps respected, no unavailable slots covered, no jobs past horizon.
+
+VERDICT
+decision=ACCEPT
+reasons=none
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.","ACCEPTED PLAN:
+J1=0
+J2=4
+J3=10","ACTIONS
+J1=0
+J2=4
+J3=10
+END",,,,,,,
+N013,0.2,4013,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,unscheduled:J1; unscheduled:J2; unscheduled:J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=1
+  J2 duration=2
+  J3 duration=3
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=BUSY t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=BUSY
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=1
+  J2 duration=2
+  J3 duration=3
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=BUSY
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=8
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=1
+  J2 duration=2
+  J3 duration=3
+unavailable=[8]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=3
+J3=6
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=1
+  J2 duration=2
+  J3 duration=3
+unavailable=[8]
+PLAN:
+J1=0
+J2=3
+J3=6
+--- its raw output ---
+VERDICT
+decision=REJECT
+reasons=job J3 covers unavailable slot 8
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- NOT INVOKED: the validator decision was REJECT; the pipeline halted and no actions were dispatched ---
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  unscheduled:J1
+  unscheduled:J2
+  unscheduled:J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=1
+  J2 duration=2
+  J3 duration=3
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=BUSY t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=BUSY
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=1
+  J2 duration=2
+  J3 duration=3
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=BUSY
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE","ANALYSIS
+unavailable=8
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=1
+  J2 duration=2
+  J3 duration=3
+unavailable=[8]
+unresolved=none","PLAN
+J1=0
+J2=3
+J3=6
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=1
+  J2 duration=2
+  J3 duration=3
+unavailable=[8]
+PLAN:
+J1=0
+J2=3
+J3=6","VERDICT
+decision=REJECT
+reasons=job J3 covers unavailable slot 8
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.",(NOT INVOKED: validator decision was REJECT; the pipeline halted and the executor was not invoked),,,,,,,,
+N016,0.4,4101,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,unscheduled:J1; unscheduled:J2; unscheduled:J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=BUSY t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=BUSY t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=BUSY
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=BUSY
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=BUSY
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=BUSY
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=4,11
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[4, 11]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=3
+J3=6
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[4, 11]
+PLAN:
+J1=0
+J2=3
+J3=6
+--- its raw output ---
+Let's analyze the plan step by step:
+
+1. J1 starts at slot 0 with duration 2 (occupies slots 0,1)
+   - Next job can start at earliest slot 3 (0+2+1=3 is required, but rule says previous_start + previous_duration + 2 = 0+2+2=4)
+   - However, J2 starts at 3, which violates the gap rule (needs at least 2 empty slots after J1)
+   
+2. J2 starts at slot 3 with duration 2 (occupies slots 3,4)
+   - Slot 4 is unavailable (in unavailable list)
+   
+3. J3 starts at slot 6 with duration 2 (occupies slots 6,7)
+   - Checking gap from J2: 6 >= (3+2+2=7)? No, because 6 < 7
+   - Also, J2 ends at slot 4 (3+2-1=4), so next job can start at earliest 4+2+1=7 (but rule says +2 slots gap, so 4+2+2=8)
+   
+Multiple violations found.
+
+VERDICT
+decision=REJECT
+reasons=insufficient gap between J1-J2, J2 uses unavailable slot 4, insufficient gap between J2-J3
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- NOT INVOKED: the validator decision was REJECT; the pipeline halted and no actions were dispatched ---
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  unscheduled:J1
+  unscheduled:J2
+  unscheduled:J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=BUSY t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=BUSY t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=BUSY
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=BUSY
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=BUSY
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=BUSY
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE","ANALYSIS
+unavailable=4,11
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[4, 11]
+unresolved=none","PLAN
+J1=0
+J2=3
+J3=6
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[4, 11]
+PLAN:
+J1=0
+J2=3
+J3=6","Let's analyze the plan step by step:
+
+1. J1 starts at slot 0 with duration 2 (occupies slots 0,1)
+   - Next job can start at earliest slot 3 (0+2+1=3 is required, but rule says previous_start + previous_duration + 2 = 0+2+2=4)
+   - However, J2 starts at 3, which violates the gap rule (needs at least 2 empty slots after J1)
+   
+2. J2 starts at slot 3 with duration 2 (occupies slots 3,4)
+   - Slot 4 is unavailable (in unavailable list)
+   
+3. J3 starts at slot 6 with duration 2 (occupies slots 6,7)
+   - Checking gap from J2: 6 >= (3+2+2=7)? No, because 6 < 7
+   - Also, J2 ends at slot 4 (3+2-1=4), so next job can start at earliest 4+2+1=7 (but rule says +2 slots gap, so 4+2+2=8)
+   
+Multiple violations found.
+
+VERDICT
+decision=REJECT
+reasons=insufficient gap between J1-J2, J2 uses unavailable slot 4, insufficient gap between J2-J3
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.",(NOT INVOKED: validator decision was REJECT; the pipeline halted and the executor was not invoked),,,,,,,,
+N018,0.4,4103,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,unscheduled:J1; unscheduled:J2; unscheduled:J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..16
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=3
+  J2 duration=2
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=BUSY t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=BUSY t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+  slot=16 status=FREE t=116
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=3
+  J2 duration=2
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=7,10
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..16
+JOBS:
+  J1 duration=3
+  J2 duration=2
+  J3 duration=2
+unavailable=[7, 10]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=5
+J3=9
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..16
+JOBS:
+  J1 duration=3
+  J2 duration=2
+  J3 duration=2
+unavailable=[7, 10]
+PLAN:
+J1=0
+J2=5
+J3=9
+--- its raw output ---
+VERDICT
+decision=REJECT
+reasons=J3 starts at 9 but J2 ends at 6, gap is 2 which is too small
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- NOT INVOKED: the validator decision was REJECT; the pipeline halted and no actions were dispatched ---
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  unscheduled:J1
+  unscheduled:J2
+  unscheduled:J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..16
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=3
+  J2 duration=2
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=BUSY t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=BUSY t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+  slot=16 status=FREE t=116","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=3
+  J2 duration=2
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=BUSY
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE","ANALYSIS
+unavailable=7,10
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..16
+JOBS:
+  J1 duration=3
+  J2 duration=2
+  J3 duration=2
+unavailable=[7, 10]
+unresolved=none","PLAN
+J1=0
+J2=5
+J3=9
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..16
+JOBS:
+  J1 duration=3
+  J2 duration=2
+  J3 duration=2
+unavailable=[7, 10]
+PLAN:
+J1=0
+J2=5
+J3=9","VERDICT
+decision=REJECT
+reasons=J3 starts at 9 but J2 ends at 6, gap is 2 which is too small
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.",(NOT INVOKED: validator decision was REJECT; the pipeline halted and the executor was not invoked),,,,,,,,
+N020,0.4,4105,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,unscheduled:J1; unscheduled:J2; unscheduled:J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..13
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=1
+  J2 duration=2
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=BUSY t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=BUSY t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=BUSY
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=BUSY
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=1
+  J2 duration=2
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=BUSY
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=BUSY
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=5,9
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..13
+JOBS:
+  J1 duration=1
+  J2 duration=2
+  J3 duration=2
+unavailable=[5, 9]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=2
+J3=7
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..13
+JOBS:
+  J1 duration=1
+  J2 duration=2
+  J3 duration=2
+unavailable=[5, 9]
+PLAN:
+J1=0
+J2=2
+J3=7
+--- its raw output ---
+VERDICT
+decision=REJECT
+reasons=job J3 covers unavailable slot 9
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- NOT INVOKED: the validator decision was REJECT; the pipeline halted and no actions were dispatched ---
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  unscheduled:J1
+  unscheduled:J2
+  unscheduled:J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..13
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=1
+  J2 duration=2
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=BUSY t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=BUSY t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=BUSY
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=BUSY
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=1
+  J2 duration=2
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=BUSY
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=BUSY
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE","ANALYSIS
+unavailable=5,9
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..13
+JOBS:
+  J1 duration=1
+  J2 duration=2
+  J3 duration=2
+unavailable=[5, 9]
+unresolved=none","PLAN
+J1=0
+J2=2
+J3=7
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..13
+JOBS:
+  J1 duration=1
+  J2 duration=2
+  J3 duration=2
+unavailable=[5, 9]
+PLAN:
+J1=0
+J2=2
+J3=7","VERDICT
+decision=REJECT
+reasons=job J3 covers unavailable slot 9
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.",(NOT INVOKED: validator decision was REJECT; the pipeline halted and the executor was not invoked),,,,,,,,
+N021,0.4,4106,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,unscheduled:J1; unscheduled:J2; unscheduled:J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=2
+  J2 duration=3
+  J3 duration=1
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=BUSY t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=BUSY t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=BUSY
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=BUSY
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=2
+  J2 duration=3
+  J3 duration=1
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=BUSY
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=BUSY
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=5,12
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=3
+  J3 duration=1
+unavailable=[5, 12]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=3
+J3=7
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=3
+  J3 duration=1
+unavailable=[5, 12]
+PLAN:
+J1=0
+J2=3
+J3=7
+--- its raw output ---
+Let's validate the plan step by step.
+
+1. J1 starts at 0, duration 2:
+   - Occupies slots 0,1
+   - Next job must start at 0+2+2=4 or later
+
+2. J2 starts at 3, duration 3:
+   - But it starts at 3 which is before 4 (violates gap rule)
+   - Also checks:
+     - Occupies slots 3,4,5
+     - Slot 5 is unavailable (violates unavailable rule)
+
+3. J3 starts at 7, duration 1:
+   - Occupies slot 7
+   - Checks:
+     - Previous job (J2) would have ended at 5 (start 3 + duration 3-1=5)
+     - Required gap would be 5+2=7, so 7 is acceptable
+     - Slot 7 is available
+     - Doesn't go past horizon
+
+However, J2 already violated two rules.
+
+VERDICT
+decision=REJECT
+reasons=gap violation,unavailable slot covered
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- NOT INVOKED: the validator decision was REJECT; the pipeline halted and no actions were dispatched ---
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  unscheduled:J1
+  unscheduled:J2
+  unscheduled:J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=2
+  J2 duration=3
+  J3 duration=1
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=BUSY t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=BUSY t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=BUSY
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=BUSY
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=2
+  J2 duration=3
+  J3 duration=1
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=BUSY
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=BUSY
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE","ANALYSIS
+unavailable=5,12
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=3
+  J3 duration=1
+unavailable=[5, 12]
+unresolved=none","PLAN
+J1=0
+J2=3
+J3=7
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=3
+  J3 duration=1
+unavailable=[5, 12]
+PLAN:
+J1=0
+J2=3
+J3=7","Let's validate the plan step by step.
+
+1. J1 starts at 0, duration 2:
+   - Occupies slots 0,1
+   - Next job must start at 0+2+2=4 or later
+
+2. J2 starts at 3, duration 3:
+   - But it starts at 3 which is before 4 (violates gap rule)
+   - Also checks:
+     - Occupies slots 3,4,5
+     - Slot 5 is unavailable (violates unavailable rule)
+
+3. J3 starts at 7, duration 1:
+   - Occupies slot 7
+   - Checks:
+     - Previous job (J2) would have ended at 5 (start 3 + duration 3-1=5)
+     - Required gap would be 5+2=7, so 7 is acceptable
+     - Slot 7 is available
+     - Doesn't go past horizon
+
+However, J2 already violated two rules.
+
+VERDICT
+decision=REJECT
+reasons=gap violation,unavailable slot covered
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.",(NOT INVOKED: validator decision was REJECT; the pipeline halted and the executor was not invoked),,,,,,,,
+N022,0.4,4107,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,unscheduled:J1; unscheduled:J2; unscheduled:J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..13
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=2
+  J2 duration=1
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=BUSY t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=BUSY t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=BUSY
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=BUSY
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=2
+  J2 duration=1
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=BUSY
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=BUSY
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=4,9
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..13
+JOBS:
+  J1 duration=2
+  J2 duration=1
+  J3 duration=2
+unavailable=[4, 9]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=3
+J3=6
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..13
+JOBS:
+  J1 duration=2
+  J2 duration=1
+  J3 duration=2
+unavailable=[4, 9]
+PLAN:
+J1=0
+J2=3
+J3=6
+--- its raw output ---
+Let's analyze the plan step by step:
+
+1. J1 starts at 0 with duration 2:
+   - Occupies slots 0,1
+   - Next job can start at earliest slot 4 (0+2+2)
+
+2. J2 starts at 3 with duration 1:
+   - Occupies slot 3
+   - Problem: J2 starts at 3, which is before earliest allowed start (4) after J1
+   - Also, J2's slot (3) is not unavailable, but the gap rule is violated
+
+3. J3 starts at 6 with duration 2:
+   - Occupies slots 6,7
+   - Valid start after J2 (2+1+2=5, and 6 >=5)
+   - Doesn't cover any unavailable slots (9 is unavailable but not covered)
+   - Ends at 7 which is within horizon
+
+Main rejection reason is J2 starting too early after J1.
+
+VERDICT
+decision=REJECT
+reasons=J2 starts too early after J1
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- NOT INVOKED: the validator decision was REJECT; the pipeline halted and no actions were dispatched ---
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  unscheduled:J1
+  unscheduled:J2
+  unscheduled:J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..13
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=2
+  J2 duration=1
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=BUSY t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=BUSY t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=BUSY
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=BUSY
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=2
+  J2 duration=1
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=BUSY
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=BUSY
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE","ANALYSIS
+unavailable=4,9
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..13
+JOBS:
+  J1 duration=2
+  J2 duration=1
+  J3 duration=2
+unavailable=[4, 9]
+unresolved=none","PLAN
+J1=0
+J2=3
+J3=6
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..13
+JOBS:
+  J1 duration=2
+  J2 duration=1
+  J3 duration=2
+unavailable=[4, 9]
+PLAN:
+J1=0
+J2=3
+J3=6","Let's analyze the plan step by step:
+
+1. J1 starts at 0 with duration 2:
+   - Occupies slots 0,1
+   - Next job can start at earliest slot 4 (0+2+2)
+
+2. J2 starts at 3 with duration 1:
+   - Occupies slot 3
+   - Problem: J2 starts at 3, which is before earliest allowed start (4) after J1
+   - Also, J2's slot (3) is not unavailable, but the gap rule is violated
+
+3. J3 starts at 6 with duration 2:
+   - Occupies slots 6,7
+   - Valid start after J2 (2+1+2=5, and 6 >=5)
+   - Doesn't cover any unavailable slots (9 is unavailable but not covered)
+   - Ends at 7 which is within horizon
+
+Main rejection reason is J2 starting too early after J1.
+
+VERDICT
+decision=REJECT
+reasons=J2 starts too early after J1
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.",(NOT INVOKED: validator decision was REJECT; the pipeline halted and the executor was not invoked),,,,,,,,
+N023,0.4,4108,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,unscheduled:J1; unscheduled:J2; unscheduled:J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=3
+  J2 duration=1
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=BUSY t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=BUSY t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=BUSY
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=3
+  J2 duration=1
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=BUSY
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=5,10
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=3
+  J2 duration=1
+  J3 duration=2
+unavailable=[5, 10]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=8
+J3=4
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=3
+  J2 duration=1
+  J3 duration=2
+unavailable=[5, 10]
+PLAN:
+J1=0
+J2=8
+J3=4
+--- its raw output ---
+VERDICT
+decision=REJECT
+reasons=job overlaps unavailable, job starts before previous_start + previous_duration + 2
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- NOT INVOKED: the validator decision was REJECT; the pipeline halted and no actions were dispatched ---
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  unscheduled:J1
+  unscheduled:J2
+  unscheduled:J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=3
+  J2 duration=1
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=BUSY t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=BUSY t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=BUSY
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=3
+  J2 duration=1
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=BUSY
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE","ANALYSIS
+unavailable=5,10
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=3
+  J2 duration=1
+  J3 duration=2
+unavailable=[5, 10]
+unresolved=none","PLAN
+J1=0
+J2=8
+J3=4
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=3
+  J2 duration=1
+  J3 duration=2
+unavailable=[5, 10]
+PLAN:
+J1=0
+J2=8
+J3=4","VERDICT
+decision=REJECT
+reasons=job overlaps unavailable, job starts before previous_start + previous_duration + 2
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.",(NOT INVOKED: validator decision was REJECT; the pipeline halted and the executor was not invoked),,,,,,,,
+N024,0.4,4109,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,separation:J1~J2; separation:J2~J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=BUSY t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=BUSY t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=BUSY
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=BUSY
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=BUSY
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=BUSY
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=5,11
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[5, 11]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=3
+J3=6
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[5, 11]
+PLAN:
+J1=0
+J2=3
+J3=6
+--- its raw output ---
+VERDICT
+decision=ACCEPT
+reasons=none
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- input it received ---
+ACCEPTED PLAN:
+J1=0
+J2=3
+J3=6
+--- its raw output ---
+ACTIONS
+J1=0
+J2=3
+J3=6
+END
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  separation:J1~J2
+  separation:J2~J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=BUSY t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=BUSY t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=BUSY
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=BUSY
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=BUSY
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=BUSY
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE","ANALYSIS
+unavailable=5,11
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[5, 11]
+unresolved=none","PLAN
+J1=0
+J2=3
+J3=6
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=2
+  J2 duration=2
+  J3 duration=2
+unavailable=[5, 11]
+PLAN:
+J1=0
+J2=3
+J3=6","VERDICT
+decision=ACCEPT
+reasons=none
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.","ACCEPTED PLAN:
+J1=0
+J2=3
+J3=6","ACTIONS
+J1=0
+J2=3
+J3=6
+END",,,,,,,
+N025,0.4,4110,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,unscheduled:J1; unscheduled:J2; unscheduled:J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..17
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=BUSY t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=BUSY t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+  slot=16 status=FREE t=116
+  slot=17 status=FREE t=117
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=BUSY
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=BUSY
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+slot=17 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=BUSY
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=BUSY
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+slot=17 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=6,13
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..17
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=2
+unavailable=[6, 13]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=4
+J3=8
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..17
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=2
+unavailable=[6, 13]
+PLAN:
+J1=0
+J2=4
+J3=8
+--- its raw output ---
+VERDICT
+decision=REJECT
+reasons=J2 covers an unavailable slot
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- NOT INVOKED: the validator decision was REJECT; the pipeline halted and no actions were dispatched ---
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  unscheduled:J1
+  unscheduled:J2
+  unscheduled:J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..17
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=BUSY t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+  slot=13 status=BUSY t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+  slot=16 status=FREE t=116
+  slot=17 status=FREE t=117","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=BUSY
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=BUSY
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+slot=17 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=BUSY
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=FREE
+slot=12 status=FREE
+slot=13 status=BUSY
+slot=14 status=FREE
+slot=15 status=FREE
+slot=16 status=FREE
+slot=17 status=FREE","ANALYSIS
+unavailable=6,13
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..17
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=2
+unavailable=[6, 13]
+unresolved=none","PLAN
+J1=0
+J2=4
+J3=8
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..17
+JOBS:
+  J1 duration=3
+  J2 duration=3
+  J3 duration=2
+unavailable=[6, 13]
+PLAN:
+J1=0
+J2=4
+J3=8","VERDICT
+decision=REJECT
+reasons=J2 covers an unavailable slot
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.",(NOT INVOKED: validator decision was REJECT; the pipeline halted and the executor was not invoked),,,,,,,,
+N028,0.4,4113,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,unscheduled:J1; unscheduled:J2; unscheduled:J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=1
+  J2 duration=3
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=BUSY t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=BUSY t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=BUSY
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=BUSY
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=1
+  J2 duration=3
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=BUSY
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=BUSY
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=6,11
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=1
+  J2 duration=3
+  J3 duration=2
+unavailable=[6, 11]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=2
+J3=7
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..15
+JOBS:
+  J1 duration=1
+  J2 duration=3
+  J3 duration=2
+unavailable=[6, 11]
+PLAN:
+J1=0
+J2=2
+J3=7
+--- its raw output ---
+VERDICT
+decision=REJECT
+reasons=J2 overlaps unavailable slot at 6
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- NOT INVOKED: the validator decision was REJECT; the pipeline halted and no actions were dispatched ---
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  unscheduled:J1
+  unscheduled:J2
+  unscheduled:J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..15
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=1
+  J2 duration=3
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=FREE t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=BUSY t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=FREE t=110
+  slot=11 status=BUSY t=111
+  slot=12 status=FREE t=112
+  slot=13 status=FREE t=113
+  slot=14 status=FREE t=114
+  slot=15 status=FREE t=115","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=BUSY
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=BUSY
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=1
+  J2 duration=3
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=FREE
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=BUSY
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=FREE
+slot=11 status=BUSY
+slot=12 status=FREE
+slot=13 status=FREE
+slot=14 status=FREE
+slot=15 status=FREE","ANALYSIS
+unavailable=6,11
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=1
+  J2 duration=3
+  J3 duration=2
+unavailable=[6, 11]
+unresolved=none","PLAN
+J1=0
+J2=2
+J3=7
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..15
+JOBS:
+  J1 duration=1
+  J2 duration=3
+  J3 duration=2
+unavailable=[6, 11]
+PLAN:
+J1=0
+J2=2
+J3=7","VERDICT
+decision=REJECT
+reasons=J2 overlaps unavailable slot at 6
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.",(NOT INVOKED: validator decision was REJECT; the pipeline halted and the executor was not invoked),,,,,,,,
+N029,0.4,4114,deepseek/deepseek-chat,streamlake,v2,2026-09-22T14:11:53+00:00,20260922,unscheduled:J1; unscheduled:J2; unscheduled:J3,"PIPELINE TRACE. Agents run in this order: observer -> analyzer -> planner -> validator -> executor. Each agent sees only the input shown.
+
+=== AGENT 1: OBSERVER ===
+--- rules this agent was given ---
+- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.
+--- input it received ---
+HORIZON: slots 0..12
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=1
+  J2 duration=1
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=BUSY t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=BUSY t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112
+--- its raw output ---
+STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=BUSY
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+END
+
+=== AGENT 2: ANALYZER ===
+--- rules this agent was given ---
+- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.
+--- input it received ---
+JOBS:
+  J1 duration=1
+  J2 duration=1
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=BUSY
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+--- its raw output ---
+ANALYSIS
+unavailable=3,10
+unresolved=none
+END
+
+=== AGENT 3: PLANNER ===
+--- rules this agent was given ---
+- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.
+--- input it received ---
+HORIZON: slots 0..12
+JOBS:
+  J1 duration=1
+  J2 duration=1
+  J3 duration=2
+unavailable=[3, 10]
+unresolved=none
+--- its raw output ---
+PLAN
+J1=0
+J2=1
+J3=4
+END
+
+=== AGENT 4: VALIDATOR ===
+--- rules this agent was given ---
+- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.
+--- input it received ---
+HORIZON: slots 0..12
+JOBS:
+  J1 duration=1
+  J2 duration=1
+  J3 duration=2
+unavailable=[3, 10]
+PLAN:
+J1=0
+J2=1
+J3=4
+--- its raw output ---
+VERDICT
+decision=REJECT
+reasons=overlap J1 and J2, gap between J2 and J3 too small (2 < 3)
+END
+
+=== AGENT 5: EXECUTOR ===
+--- rules this agent was given ---
+- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.
+--- NOT INVOKED: the validator decision was REJECT; the pipeline halted and no actions were dispatched ---
+
+=== OUTCOME ===
+The dispatched schedule (the executor's actions) FAILED with:
+  unscheduled:J1
+  unscheduled:J2
+  unscheduled:J3
+
+SYSTEM REQUIREMENT (what counts as failure): every job is scheduled exactly once; no two jobs overlap; at least 2 empty slots between consecutive jobs; no job runs over a slot that is actually occupied; all jobs finish within the horizon.
+Violation codes: unscheduled:<job> = never scheduled; horizon:<job> = runs outside the horizon; blocked_slot:<job>@<slot> = ran over a slot that was actually occupied; overlap:<a>~<b> = jobs overlap; separation:<a>~<b> = fewer than 2 empty slots between consecutive jobs.","- Report every slot in the horizon.
+- If a slot has a sensor reading, report exactly that status.
+- If a slot has NO sensor reading, you MUST report it as UNKNOWN.
+  Never report UNKNOWN slots as FREE. Silence is not evidence of absence.","HORIZON: slots 0..12
+MIN_GAP_BETWEEN_JOBS: 2
+JOBS:
+  J1 duration=1
+  J2 duration=1
+  J3 duration=2
+SENSOR_READINGS:
+  slot=0 status=FREE t=100
+  slot=1 status=FREE t=101
+  slot=2 status=FREE t=102
+  slot=3 status=BUSY t=103
+  slot=4 status=FREE t=104
+  slot=5 status=FREE t=105
+  slot=6 status=FREE t=106
+  slot=7 status=FREE t=107
+  slot=8 status=FREE t=108
+  slot=9 status=FREE t=109
+  slot=10 status=BUSY t=110
+  slot=11 status=FREE t=111
+  slot=12 status=FREE t=112","STATE
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=BUSY
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE
+END","- List every slot that is BUSY as unavailable.
+- List every slot that is UNKNOWN in the UNRESOLVED list.
+- Do not invent unavailable slots that were not reported BUSY.","JOBS:
+  J1 duration=1
+  J2 duration=1
+  J3 duration=2
+
+SLOT STATUS:
+slot=0 status=FREE
+slot=1 status=FREE
+slot=2 status=FREE
+slot=3 status=BUSY
+slot=4 status=FREE
+slot=5 status=FREE
+slot=6 status=FREE
+slot=7 status=FREE
+slot=8 status=FREE
+slot=9 status=FREE
+slot=10 status=BUSY
+slot=11 status=FREE
+slot=12 status=FREE","ANALYSIS
+unavailable=3,10
+unresolved=none
+END","- Schedule every job exactly once.
+- Jobs must not overlap each other.
+- Leave at least 2 empty slots between the end of one job and the
+  start of the next.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Do not place a job over any unavailable slot.
+- All jobs must finish within the horizon.","HORIZON: slots 0..12
+JOBS:
+  J1 duration=1
+  J2 duration=1
+  J3 duration=2
+unavailable=[3, 10]
+unresolved=none","PLAN
+J1=0
+J2=1
+J3=4
+END","- Reject if any job overlaps another.
+- Reject if the gap between consecutive jobs is less than 2.
+  A job with duration 2 starting at slot 0 occupies slots 0 and 1. The
+  next job may start at slot 4 or later, leaving slots 2 and 3 empty. In
+  general, a job occupying slots s..s+d-1 means the next job starts no
+  earlier than s+d+2.
+- Reject if any next job starts before previous_start + previous_duration + 2.
+- Reject if any job covers an unavailable slot.
+- Reject if any job runs past the horizon.
+- Otherwise accept.","HORIZON: slots 0..12
+JOBS:
+  J1 duration=1
+  J2 duration=1
+  J3 duration=2
+unavailable=[3, 10]
+PLAN:
+J1=0
+J2=1
+J3=4","VERDICT
+decision=REJECT
+reasons=overlap J1 and J2, gap between J2 and J3 too small (2 < 3)
+END","- Issue exactly one action per job in the plan.
+- Each action's start time must match the plan exactly.
+- Do not add, drop, or reorder jobs.",(NOT INVOKED: validator decision was REJECT; the pipeline halted and the executor was not invoked),,,,,,,,

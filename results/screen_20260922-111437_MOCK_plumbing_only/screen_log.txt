@@ -1,0 +1,21 @@
+MOCK MODE -- scripted agents; this checks plumbing, not models
+MODEL SCREEN 20260922-111437  bar: corpus >= 7/8, A-E exact, 0 projection failures, 0 truncations; ceiling $2.0/M out; cap $0.5
+
+=== deepseek/deepseek-chat
+  list price: in $0.320/M, out $0.890/M
+  pin: streamlake (highest 30m uptime among status-0 under ceiling); in $0.257/M out $1.029/M; projected ~$0.047
+  corpus conformant: 8/8
+  A: ok
+  B: ok
+  C: ok
+  D: ok
+  E: ok
+  projection failures: 0   truncations: 0   served_by: ['mock']
+  cost ~$0.0000  (cumulative ~$0.0000)
+  QUALIFIES: True
+
+=== SUMMARY (every model tried, including prior Qwen result)
+  qwen/qwen3-235b-a22b-2507                  @ alibaba          corpus 1/8  A-E fails ['A', 'D']  proj 0  trunc 0  -> no
+  deepseek/deepseek-chat                     @ streamlake       corpus 8/8  A-E fails none  proj 0  trunc 0  -> QUALIFIES
+
+winner: deepseek/deepseek-chat   screening cost ~$0.0000

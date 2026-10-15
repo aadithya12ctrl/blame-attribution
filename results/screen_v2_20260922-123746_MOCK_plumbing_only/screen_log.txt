@@ -1,0 +1,68 @@
+MOCK MODE -- scripted agents; this checks plumbing, not models
+MODEL SCREEN 20260922-123746  prompt_version=v2  run_all=True  same_pins=True
+  bar: corpus >= 7/8, A-E exact, 0 projection failures, 0 truncations; ceiling $2.0/M out; cap $0.5
+  selection order: ['deepseek/deepseek-chat', 'deepseek/deepseek-chat-v3.1', 'mistralai/mistral-small-3.2-24b-instruct', 'qwen/qwen3-235b-a22b-2507']
+
+=== deepseek/deepseek-chat
+  list price: in $0.320/M, out $0.890/M
+  pin: streamlake (same pin as v1); in $0.257/M out $1.029/M; projected ~$0.047
+  corpus conformant: 8/8
+  A: ok
+  B: ok
+  C: ok
+  D: ok
+  E: ok
+  background_fault_rate: 0/13   violation gaps: {'gap<=0': 0, 'gap=1': 0, 'other': 0}   validator accepted infeasible: 0/0
+  projection failures: 0   truncations: 0   served_by: ['mock']
+  cost ~$0.0000  (cumulative ~$0.0000)
+  QUALIFIES: True
+
+=== deepseek/deepseek-chat-v3.1
+  list price: in $0.250/M, out $0.950/M
+  pin: novita/fp8 (same pin as v1); in $0.270/M out $1.000/M; projected ~$0.047
+  corpus conformant: 8/8
+  A: ok
+  B: ok
+  C: ok
+  D: ok
+  E: ok
+  background_fault_rate: 0/13   violation gaps: {'gap<=0': 0, 'gap=1': 0, 'other': 0}   validator accepted infeasible: 0/0
+  projection failures: 0   truncations: 0   served_by: ['mock']
+  cost ~$0.0000  (cumulative ~$0.0000)
+  QUALIFIES: True
+
+=== mistralai/mistral-small-3.2-24b-instruct
+  list price: in $0.094/M, out $0.250/M
+  pin: deepinfra/fp8 (same pin as v1); in $0.075/M out $0.200/M; projected ~$0.011
+  corpus conformant: 8/8
+  A: ok
+  B: ok
+  C: ok
+  D: ok
+  E: ok
+  background_fault_rate: 0/13   violation gaps: {'gap<=0': 0, 'gap=1': 0, 'other': 0}   validator accepted infeasible: 0/0
+  projection failures: 0   truncations: 0   served_by: ['mock']
+  cost ~$0.0000  (cumulative ~$0.0000)
+  QUALIFIES: True
+
+=== qwen/qwen3-235b-a22b-2507
+  list price: in $0.087/M, out $0.350/M
+  pin: alibaba (same pin as v1); in $0.150/M out $0.598/M; projected ~$0.027
+  corpus conformant: 8/8
+  A: ok
+  B: ok
+  C: ok
+  D: ok
+  E: ok
+  background_fault_rate: 0/13   violation gaps: {'gap<=0': 0, 'gap=1': 0, 'other': 0}   validator accepted infeasible: 0/0
+  projection failures: 0   truncations: 0   served_by: ['mock']
+  cost ~$0.0000  (cumulative ~$0.0000)
+  QUALIFIES: True
+
+=== SUMMARY  prompt_version=v2
+  deepseek/deepseek-chat                     @ streamlake     corpus 8/8  A-E fails none  bg 0/13  gaps {'gap<=0': 0, 'gap=1': 0, 'other': 0}  val_acc 0/0  proj 0  trunc 0  -> QUALIFIES
+  deepseek/deepseek-chat-v3.1                @ novita/fp8     corpus 8/8  A-E fails none  bg 0/13  gaps {'gap<=0': 0, 'gap=1': 0, 'other': 0}  val_acc 0/0  proj 0  trunc 0  -> QUALIFIES
+  mistralai/mistral-small-3.2-24b-instruct   @ deepinfra/fp8  corpus 8/8  A-E fails none  bg 0/13  gaps {'gap<=0': 0, 'gap=1': 0, 'other': 0}  val_acc 0/0  proj 0  trunc 0  -> QUALIFIES
+  qwen/qwen3-235b-a22b-2507                  @ alibaba        corpus 8/8  A-E fails none  bg 0/13  gaps {'gap<=0': 0, 'gap=1': 0, 'other': 0}  val_acc 0/0  proj 0  trunc 0  -> QUALIFIES
+
+winner (first qualifier in selection order): deepseek/deepseek-chat   screening cost ~$0.0000

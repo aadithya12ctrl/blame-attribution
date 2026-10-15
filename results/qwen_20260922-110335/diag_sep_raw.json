@@ -1,0 +1,89 @@
+[
+ {
+  "model": "qwen/qwen3-235b-a22b-2507",
+  "provider": "alibaba",
+  "date": "2026-09-22T05:39:12+00:00",
+  "seed": 107,
+  "planner_in": "HORIZON: slots 0..18\nJOBS:\n  J1 duration=2\n  J2 duration=3\n  J3 duration=3\nunavailable=[10]\nunresolved=none",
+  "planner_out": "PLAN\nJ1=0\nJ2=3\nJ3=8\nEND",
+  "validator_in": "HORIZON: slots 0..18\nJOBS:\n  J1 duration=2\n  J2 duration=3\n  J3 duration=3\nunavailable=[10]\nPLAN:\nJ1=0\nJ2=3\nJ3=8",
+  "validator_out": "VERDICT\ndecision=ACCEPT\nreasons=none\nEND",
+  "gaps": [
+   [
+    "J1",
+    "J2",
+    1
+   ],
+   [
+    "J2",
+    "J3",
+    2
+   ]
+  ],
+  "finish": [
+   "stop",
+   "stop",
+   "stop",
+   "stop",
+   "stop"
+  ]
+ },
+ {
+  "model": "qwen/qwen3-235b-a22b-2507",
+  "provider": "alibaba",
+  "date": "2026-09-22T05:39:16+00:00",
+  "seed": 108,
+  "planner_in": "HORIZON: slots 0..15\nJOBS:\n  J1 duration=2\n  J2 duration=1\n  J3 duration=3\nunavailable=[8]\nunresolved=none",
+  "planner_out": "PLAN\nJ1=0\nJ2=2\nJ3=5\nEND",
+  "validator_in": "HORIZON: slots 0..15\nJOBS:\n  J1 duration=2\n  J2 duration=1\n  J3 duration=3\nunavailable=[8]\nPLAN:\nJ1=0\nJ2=2\nJ3=5",
+  "validator_out": "VERDICT\ndecision=ACCEPT\nreasons=none\nEND",
+  "gaps": [
+   [
+    "J1",
+    "J2",
+    0
+   ],
+   [
+    "J2",
+    "J3",
+    2
+   ]
+  ],
+  "finish": [
+   "stop",
+   "stop",
+   "stop",
+   "stop",
+   "stop"
+  ]
+ },
+ {
+  "model": "qwen/qwen3-235b-a22b-2507",
+  "provider": "alibaba",
+  "date": "2026-09-22T05:39:22+00:00",
+  "seed": 110,
+  "planner_in": "HORIZON: slots 0..18\nJOBS:\n  J1 duration=3\n  J2 duration=2\n  J3 duration=3\nunavailable=[11]\nunresolved=none",
+  "planner_out": "PLAN\nJ1=0\nJ2=3\nJ3=5\nEND",
+  "validator_in": "HORIZON: slots 0..18\nJOBS:\n  J1 duration=3\n  J2 duration=2\n  J3 duration=3\nunavailable=[11]\nPLAN:\nJ1=0\nJ2=3\nJ3=5",
+  "validator_out": "VERDICT\ndecision=REJECT\nreasons=gap between J1 and J2 is 0, gap between J2 and J3 is 0\nEND",
+  "gaps": [
+   [
+    "J1",
+    "J2",
+    0
+   ],
+   [
+    "J2",
+    "J3",
+    0
+   ]
+  ],
+  "finish": [
+   "stop",
+   "stop",
+   "stop",
+   "stop",
+   "stop"
+  ]
+ }
+]

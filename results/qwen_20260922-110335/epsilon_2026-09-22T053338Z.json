@@ -1,0 +1,38 @@
+{
+  "model": "qwen/qwen3-235b-a22b-2507",
+  "provider": "alibaba",
+  "date": "2026-09-22T05:33:38+00:00",
+  "observer_slot_error_rate": 0.0,
+  "observer_slots_checked": 677,
+  "observer_parse_failure_rate": 0.0,
+  "analyzer_parse_failure_rate": 0.0,
+  "planner_parse_failure_rate": 0.0,
+  "validator_parse_failure_rate": 0.0,
+  "executor_parse_failure_rate": 0.0,
+  "invocations_per_agent": 30,
+  "eps_used_for_bound": 0.0,
+  "note": "parse failures are measured at every stage; only the observer has independent ground truth, so downstream VALUE errors remain unmeasured",
+  "finish_reason_by_agent": {
+    "observer": {
+      "stop": 30
+    },
+    "analyzer": {
+      "stop": 30
+    },
+    "planner": {
+      "stop": 30
+    },
+    "validator": {
+      "stop": 29,
+      "length": 1
+    },
+    "executor": {
+      "stop": 30
+    }
+  },
+  "served_by": {
+    "Alibaba": 150
+  },
+  "union_bound": 0.0,
+  "rule_of_three_bound": 1.0
+}

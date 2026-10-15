@@ -1,0 +1,11 @@
+# Byte-exact checkout, everywhere. Do not remove.
+#
+# faultattr/norms/*.md are sha256-pinned in the matching *.lock.json, and
+# verify_norms() aborts every experiment if one of those hashes moves. Git's
+# default on Windows (core.autocrlf=true) rewrites LF to CRLF on checkout,
+# which changes those bytes and therefore those hashes: magentic_one.md goes
+# from dab067b8... to d0af8b6e... and nothing will run. The per-case hashes in
+# the Who&When download record depend on byte-exactness in the same way.
+#
+# So: no end-of-line conversion for any path in this repository.
+* -text

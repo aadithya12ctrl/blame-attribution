@@ -1,0 +1,135 @@
+{
+  "stamp": "20260922-111455",
+  "winner": null,
+  "spent_est": 0.014530000000000001,
+  "prior": [
+    {
+      "model": "qwen/qwen3-235b-a22b-2507",
+      "provider": "alibaba",
+      "source": "results/qwen_20260922-110335/cases_20260922-110445.txt",
+      "corpus_conformant": "1/8",
+      "scenarios": {
+        "A": "FAIL {planner, validator}",
+        "B": "ok",
+        "C": "ok",
+        "D": "FAIL AGENT_FAULT {validator}",
+        "E": "ok"
+      },
+      "projection_failures": 0,
+      "truncations": 0,
+      "qualifies": false,
+      "note": "planner ignores separation (gap 0 in 3 of 4 sampled violations); validator accepts infeasible plans"
+    }
+  ],
+  "tried": [
+    {
+      "model": "deepseek/deepseek-chat",
+      "provider": "streamlake",
+      "date": "2026-09-22T05:44:56+00:00",
+      "corpus_conformant": "0/8",
+      "corpus_failures": [
+        "seed=107: AGENT_FAULT ['planner', 'validator'] R=['separation:J1~J2', 'separation:J2~J3']",
+        "seed=108: AGENT_FAULT ['planner'] R=['separation:J1~J2', 'separation:J2~J3']",
+        "seed=109: AGENT_FAULT ['planner'] R=['blocked_slot:J3@9', 'separation:J2~J3']",
+        "seed=110: AGENT_FAULT ['planner'] R=['separation:J2~J3']",
+        "seed=111: AGENT_FAULT ['planner', 'validator'] R=['blocked_slot:J3@8', 'separation:J1~J2', 'separation:J2~J3']",
+        "seed=112: AGENT_FAULT ['planner', 'validator'] R=['separation:J2~J3']",
+        "seed=113: AGENT_FAULT ['planner', 'validator'] R=['separation:J1~J2', 'separation:J2~J3']",
+        "seed=114: NO_FAILURE ['validator'] R=[]"
+      ],
+      "scenarios": {
+        "A": "ok",
+        "B": "FAIL AGENT_FAULT {'planner', 'observer'} R=['blocked_slot:J2@5', 'separation:J2~J3']",
+        "C": "ok",
+        "D": "FAIL AGENT_FAULT {'validator'} R=['separation:J1~J2']",
+        "E": "FAIL AGENT_FAULT {'validator', 'planner'} R=['separation:J1~J2', 'separation:J2~J3']"
+      },
+      "projection_failures": 0,
+      "truncations": 0,
+      "served_by": [
+        "StreamLake"
+      ],
+      "tokens": {
+        "prompt": 14027,
+        "completion": 2661
+      },
+      "cost_est": 0.00635,
+      "qualifies": false,
+      "raw_file": "results\\screen_20260922-111455\\raw_deepseek_deepseek-chat.jsonl"
+    },
+    {
+      "model": "deepseek/deepseek-chat-v3.1",
+      "provider": "novita/fp8",
+      "date": "2026-09-22T05:46:05+00:00",
+      "corpus_conformant": "0/8",
+      "corpus_failures": [
+        "seed=107: AGENT_FAULT ['planner'] R=['separation:J1~J2', 'separation:J2~J3']",
+        "seed=108: AGENT_FAULT ['planner'] R=['separation:J1~J2', 'separation:J2~J3']",
+        "seed=109: AGENT_FAULT ['planner', 'validator'] R=['separation:J1~J2', 'separation:J2~J3']",
+        "seed=110: AGENT_FAULT ['planner', 'validator'] R=['separation:J2~J3']",
+        "seed=111: AGENT_FAULT ['planner', 'validator'] R=['blocked_slot:J3@8', 'separation:J1~J2', 'separation:J2~J3']",
+        "seed=112: NO_FAILURE ['validator'] R=[]",
+        "seed=113: AGENT_FAULT ['planner', 'validator'] R=['separation:J1~J2', 'separation:J2~J3']",
+        "seed=114: AGENT_FAULT ['planner'] R=['separation:J1~J2', 'separation:J2~J3']"
+      ],
+      "scenarios": {
+        "A": "ok",
+        "B": "FAIL AGENT_FAULT {'validator', 'planner', 'observer'} R=['separation:J1~J2', 'separation:J2~J3']",
+        "C": "ok",
+        "D": "FAIL AGENT_FAULT {'validator'} R=['separation:J1~J2']",
+        "E": "FAIL AGENT_FAULT {'validator', 'planner'} R=['separation:J1~J2', 'separation:J2~J3']"
+      },
+      "projection_failures": 0,
+      "truncations": 0,
+      "served_by": [
+        "Novita"
+      ],
+      "tokens": {
+        "prompt": 14027,
+        "completion": 2617
+      },
+      "cost_est": 0.0064,
+      "qualifies": false,
+      "raw_file": "results\\screen_20260922-111455\\raw_deepseek_deepseek-chat-v3.1.jsonl"
+    },
+    {
+      "model": "google/gemini-2.0-flash-001",
+      "skipped": "not listed"
+    },
+    {
+      "model": "mistralai/mistral-small-3.2-24b-instruct",
+      "provider": "deepinfra/fp8",
+      "date": "2026-09-22T05:46:54+00:00",
+      "corpus_conformant": "0/8",
+      "corpus_failures": [
+        "seed=107: AGENT_FAULT ['planner', 'validator'] R=['separation:J1~J2', 'separation:J2~J3']",
+        "seed=108: AGENT_FAULT ['planner'] R=['separation:J1~J2', 'separation:J2~J3']",
+        "seed=109: NO_FAILURE ['validator'] R=[]",
+        "seed=110: AGENT_FAULT ['planner', 'validator'] R=['blocked_slot:J3@11']",
+        "seed=111: AGENT_FAULT ['planner', 'validator'] R=['blocked_slot:J3@8', 'separation:J1~J2', 'separation:J2~J3']",
+        "seed=112: AGENT_FAULT ['planner', 'validator'] R=['blocked_slot:J3@11']",
+        "seed=113: AGENT_FAULT ['planner'] R=['blocked_slot:J3@7']",
+        "seed=114: AGENT_FAULT ['planner', 'validator'] R=['separation:J1~J2', 'separation:J2~J3']"
+      ],
+      "scenarios": {
+        "A": "ok",
+        "B": "FAIL AGENT_FAULT {'planner', 'observer'} R=['separation:J1~J2', 'separation:J2~J3']",
+        "C": "ok",
+        "D": "FAIL AGENT_FAULT {'validator'} R=['separation:J1~J2']",
+        "E": "FAIL AGENT_FAULT {'planner'} R=['blocked_slot:J2@5', 'blocked_slot:J3@11']"
+      },
+      "projection_failures": 0,
+      "truncations": 0,
+      "served_by": [
+        "DeepInfra"
+      ],
+      "tokens": {
+        "prompt": 15504,
+        "completion": 3067
+      },
+      "cost_est": 0.00178,
+      "qualifies": false,
+      "raw_file": "results\\screen_20260922-111455\\raw_mistralai_mistral-small-3.2-24b-instruct.jsonl"
+    }
+  ]
+}

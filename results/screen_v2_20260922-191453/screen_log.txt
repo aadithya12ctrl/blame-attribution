@@ -1,0 +1,28 @@
+MODEL SCREEN 20260922-191453  prompt_version=v2  run_all=True  same_pins=True
+  bar: corpus >= 7/8, A-E exact, 0 projection failures, 0 truncations; ceiling $2.0/M out; cap $0.5
+  selection order: ['mistralai/mistral-small-3.2-24b-instruct']
+
+=== mistralai/mistral-small-3.2-24b-instruct
+  list price: in $0.094/M, out $0.250/M
+  pin: deepinfra/fp8 (same pin as v1); in $0.075/M out $0.200/M; projected ~$0.011
+  corpus conformant: 2/8
+    excluded seed=107: NO_FAILURE ['validator'] R=[]
+    excluded seed=108: AGENT_FAULT ['planner'] R=['separation:J1~J3']
+    excluded seed=109: AGENT_FAULT ['planner'] R=['blocked_slot:J3@9']
+    excluded seed=111: AGENT_FAULT ['planner'] R=['blocked_slot:J3@8']
+    excluded seed=113: AGENT_FAULT ['planner'] R=['separation:J2~J3']
+    excluded seed=114: AGENT_FAULT ['planner'] R=['blocked_slot:J3@7', 'separation:J2~J3']
+  A: ok
+  B: FAIL AGENT_FAULT {'planner', 'observer', 'validator'} R=['blocked_slot:J2@5', 'blocked_slot:J3@11']
+  C: ok
+  D: FAIL AGENT_FAULT {'validator'} R=['blocked_slot:J2@5']
+  E: FAIL AGENT_FAULT {'validator'} R=['blocked_slot:J2@5']
+  background_fault_rate: 9/13   violation gaps: {'gap<=0': 0, 'gap=1': 3, 'other': 0}   validator accepted infeasible: 0/3
+  projection failures: 0   truncations: 0   api errors: 0   served_by: ['DeepInfra']
+  cost ~$0.0019  (cumulative ~$0.0019)
+  QUALIFIES: False
+
+=== SUMMARY  prompt_version=v2
+  mistralai/mistral-small-3.2-24b-instruct   @ deepinfra/fp8  corpus 2/8  A-E fails ['B', 'D', 'E']  bg 9/13  gaps {'gap<=0': 0, 'gap=1': 3, 'other': 0}  val_acc 0/3  proj 0  trunc 0  -> no
+
+winner (first qualifier in selection order): NONE   screening cost ~$0.0019

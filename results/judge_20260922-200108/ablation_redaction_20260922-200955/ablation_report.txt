@@ -1,0 +1,41 @@
+REASON-REDACTION ABLATION  date 2026-09-22T14:39:35+00:00
+source run: results/judge_20260922-200108   agents: deepseek/deepseek-chat @ streamlake (no new agent calls)
+judge: openai/gpt-oss-120b @ cerebras  temperature 0, max_tokens 6000  (same settings as the source run)
+judged runs 26; ablated 18; skipped 8
+  skipped N004: no stored agent text (not in label sheet)
+  skipped N005: no stored agent text (not in label sheet)
+  skipped N012: no stored agent text (not in label sheet)
+  skipped N014: no stored agent text (not in label sheet)
+  skipped N015: no stored agent text (not in label sheet)
+  skipped N018: no stored agent text (not in label sheet)
+  skipped N025: no stored agent text (not in label sheet)
+  skipped N027: no stored agent text (not in label sheet)
+
+AGREEMENT WITH THE EVALUATOR on the ablated runs  (unredacted -> redacted)
+                         exact set                 overlap                   class
+  J-FC      0.67 (18) -> 0.67 (18)  1.00 (18) -> 1.00 (18)              n/a -> n/a
+  J-P       0.89 (18) -> 0.89 (18)  0.94 (18) -> 1.00 (18)  0.94 (18) -> 1.00 (18)
+  J-FC-N    0.67 (18) -> 0.67 (18)  1.00 (18) -> 1.00 (18)              n/a -> n/a
+  J-P-N     0.94 (18) -> 1.00 (18)  1.00 (18) -> 1.00 (18)  1.00 (18) -> 1.00 (18)
+
+REDACTED JUDGE OUTCOMES (infrastructure excluded from rates)
+  J-FC     calls 18  api_err 0  truncated 0  parse_fail 0  out_tokens mean 467
+  J-P      calls 18  api_err 0  truncated 0  parse_fail 0  out_tokens mean 493
+  J-FC-N   calls 18  api_err 0  truncated 0  parse_fail 0  out_tokens mean 435
+  J-P-N    calls 18  api_err 0  truncated 0  parse_fail 0  out_tokens mean 425
+
+CHANGED ANSWERS (unredacted -> redacted, vs evaluator)
+  N001 J-P-N   planner|validator -> planner   evaluator planner
+  N007 J-P     planner|validator -> validator   evaluator planner|validator
+  N013 J-P     validator -> planner|validator   evaluator planner|validator
+  N017 J-P     planner|validator -> validator   evaluator planner|validator
+  N023 J-FC    planner -> validator   evaluator planner|validator
+  N023 J-FC-N  validator -> planner   evaluator planner|validator
+  N028 J-FC-N  validator -> planner   evaluator planner|validator
+  N029 J-P     {} -> planner   evaluator planner
+
+COST: $0.0000 (key usage delta; may lag)
+
+Caveat: the unredacted arm is the stored judgments, not a fresh re-judge;
+temperature-0 replies are not guaranteed identical across calls, so
+small differences can be judge noise rather than the redaction.

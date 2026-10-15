@@ -1,0 +1,76 @@
+MODEL SCREEN 20260922-111455  bar: corpus >= 7/8, A-E exact, 0 projection failures, 0 truncations; ceiling $2.0/M out; cap $0.5
+
+=== deepseek/deepseek-chat
+  list price: in $0.320/M, out $0.890/M
+  pin: streamlake (highest 30m uptime among status-0 under ceiling); in $0.257/M out $1.029/M; projected ~$0.047
+  corpus conformant: 0/8
+    excluded seed=107: AGENT_FAULT ['planner', 'validator'] R=['separation:J1~J2', 'separation:J2~J3']
+    excluded seed=108: AGENT_FAULT ['planner'] R=['separation:J1~J2', 'separation:J2~J3']
+    excluded seed=109: AGENT_FAULT ['planner'] R=['blocked_slot:J3@9', 'separation:J2~J3']
+    excluded seed=110: AGENT_FAULT ['planner'] R=['separation:J2~J3']
+    excluded seed=111: AGENT_FAULT ['planner', 'validator'] R=['blocked_slot:J3@8', 'separation:J1~J2', 'separation:J2~J3']
+    excluded seed=112: AGENT_FAULT ['planner', 'validator'] R=['separation:J2~J3']
+    excluded seed=113: AGENT_FAULT ['planner', 'validator'] R=['separation:J1~J2', 'separation:J2~J3']
+    excluded seed=114: NO_FAILURE ['validator'] R=[]
+  A: ok
+  B: FAIL AGENT_FAULT {'planner', 'observer'} R=['blocked_slot:J2@5', 'separation:J2~J3']
+  C: ok
+  D: FAIL AGENT_FAULT {'validator'} R=['separation:J1~J2']
+  E: FAIL AGENT_FAULT {'validator', 'planner'} R=['separation:J1~J2', 'separation:J2~J3']
+  projection failures: 0   truncations: 0   served_by: ['StreamLake']
+  cost ~$0.0063  (cumulative ~$0.0063)
+  QUALIFIES: False
+
+=== deepseek/deepseek-chat-v3.1
+  list price: in $0.250/M, out $0.950/M
+  pin: novita/fp8 (highest 30m uptime among status-0 under ceiling); in $0.270/M out $1.000/M; projected ~$0.047
+  corpus conformant: 0/8
+    excluded seed=107: AGENT_FAULT ['planner'] R=['separation:J1~J2', 'separation:J2~J3']
+    excluded seed=108: AGENT_FAULT ['planner'] R=['separation:J1~J2', 'separation:J2~J3']
+    excluded seed=109: AGENT_FAULT ['planner', 'validator'] R=['separation:J1~J2', 'separation:J2~J3']
+    excluded seed=110: AGENT_FAULT ['planner', 'validator'] R=['separation:J2~J3']
+    excluded seed=111: AGENT_FAULT ['planner', 'validator'] R=['blocked_slot:J3@8', 'separation:J1~J2', 'separation:J2~J3']
+    excluded seed=112: NO_FAILURE ['validator'] R=[]
+    excluded seed=113: AGENT_FAULT ['planner', 'validator'] R=['separation:J1~J2', 'separation:J2~J3']
+    excluded seed=114: AGENT_FAULT ['planner'] R=['separation:J1~J2', 'separation:J2~J3']
+  A: ok
+  B: FAIL AGENT_FAULT {'validator', 'planner', 'observer'} R=['separation:J1~J2', 'separation:J2~J3']
+  C: ok
+  D: FAIL AGENT_FAULT {'validator'} R=['separation:J1~J2']
+  E: FAIL AGENT_FAULT {'validator', 'planner'} R=['separation:J1~J2', 'separation:J2~J3']
+  projection failures: 0   truncations: 0   served_by: ['Novita']
+  cost ~$0.0064  (cumulative ~$0.0128)
+  QUALIFIES: False
+
+=== google/gemini-2.0-flash-001
+  SKIP: not listed on /api/v1/models
+
+=== mistralai/mistral-small-3.2-24b-instruct
+  list price: in $0.094/M, out $0.250/M
+  pin: deepinfra/fp8 (highest 30m uptime among status-0 under ceiling); in $0.075/M out $0.200/M; projected ~$0.011
+  corpus conformant: 0/8
+    excluded seed=107: AGENT_FAULT ['planner', 'validator'] R=['separation:J1~J2', 'separation:J2~J3']
+    excluded seed=108: AGENT_FAULT ['planner'] R=['separation:J1~J2', 'separation:J2~J3']
+    excluded seed=109: NO_FAILURE ['validator'] R=[]
+    excluded seed=110: AGENT_FAULT ['planner', 'validator'] R=['blocked_slot:J3@11']
+    excluded seed=111: AGENT_FAULT ['planner', 'validator'] R=['blocked_slot:J3@8', 'separation:J1~J2', 'separation:J2~J3']
+    excluded seed=112: AGENT_FAULT ['planner', 'validator'] R=['blocked_slot:J3@11']
+    excluded seed=113: AGENT_FAULT ['planner'] R=['blocked_slot:J3@7']
+    excluded seed=114: AGENT_FAULT ['planner', 'validator'] R=['separation:J1~J2', 'separation:J2~J3']
+  A: ok
+  B: FAIL AGENT_FAULT {'planner', 'observer'} R=['separation:J1~J2', 'separation:J2~J3']
+  C: ok
+  D: FAIL AGENT_FAULT {'validator'} R=['separation:J1~J2']
+  E: FAIL AGENT_FAULT {'planner'} R=['blocked_slot:J2@5', 'blocked_slot:J3@11']
+  projection failures: 0   truncations: 0   served_by: ['DeepInfra']
+  cost ~$0.0018  (cumulative ~$0.0145)
+  QUALIFIES: False
+
+=== SUMMARY (every model tried, including prior Qwen result)
+  qwen/qwen3-235b-a22b-2507                  @ alibaba          corpus 1/8  A-E fails ['A', 'D']  proj 0  trunc 0  -> no
+  deepseek/deepseek-chat                     @ streamlake       corpus 0/8  A-E fails ['B', 'D', 'E']  proj 0  trunc 0  -> no
+  deepseek/deepseek-chat-v3.1                @ novita/fp8       corpus 0/8  A-E fails ['B', 'D', 'E']  proj 0  trunc 0  -> no
+  google/gemini-2.0-flash-001                skipped: not listed
+  mistralai/mistral-small-3.2-24b-instruct   @ deepinfra/fp8    corpus 0/8  A-E fails ['B', 'D', 'E']  proj 0  trunc 0  -> no
+
+winner: NONE -- stop; no candidates added without sign-off   screening cost ~$0.0145

@@ -1,0 +1,11 @@
+{
+  "file": "faultattr/norms/magentic_one_nbal.md",
+  "sha256": "7fc4cb8b4e9491163bc53018acfa22c8d4e7703d1514dc8ad8eb3041b7a0c972",
+  "bytes": 4156,
+  "frozen_at": "2026-10-02T06:07:00+00:00",
+  "derived_from_sha256": "dab067b8f8d281310e804183dd39b8827f1b9f5c02a87d73e3ba52da96bf0ac9",
+  "edit": "N-BAL (balanced: 3 rules per agent)",
+  "post_hoc": true,
+  "prereg": "results/PREREG_rulecount_20261002.md",
+  "note": "Granularity-only derivation from v1 (merge/split); no new obligations. See the file's derivation table."
+}

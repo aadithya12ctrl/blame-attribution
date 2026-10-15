@@ -1,0 +1,102 @@
+WHO&WHEN HAND-CRAFTED -- ABLATIONS  20261002-113814   date 2026-10-02T06:08:14+00:00
+judge: openai/gpt-oss-120b @ cerebras, temperature 0, max_tokens 32,000 (context 131,072); steps printed and cited in every arm
+norms: v1 dab067b8f8d2, v2 6164f7ce284b, v3 62f0eac6bdd4, nbal 7fc4cb8b4e94, norch 56946b65bba8, nweb edf82bd4856c
+cases: 58 (all Hand-Crafted); excluded from every arm for context: none
+longest prompt: 67,413 tokens actual (est 67,154); median 11,263
+judge output tokens: mean 729  max 1,602
+cost (token counts x Cerebras price): $1.1904  (cap $3.8)
+headline = all cases incl. 20/22/49 (pre-registered); sensitivity excludes them
+
+2x2 (all cases; abstention and parse failure count as wrong)
+                     ground truth: NO                          |  ground truth: YES
+  norms NO  (forced)  B      not run                                     |  ABL-1  not run
+  norms YES (open)    ABL-3  not run                                     |  M      not run
+  norms variants (GT yes):  ABL-2 (no O4/O8): not run
+                            ABL-4 (O4 process): not run
+  Caveat: rows also differ in verdict space and output format.
+
+N-BAL  (norms N-BAL: 3 rules per agent)
+  calls 58: infrastructure excluded 0 ; parse failures 2 {'step missing / not an integer': 2}
+  coverage (answered / scorable):    41/58 = 0.707
+  agent accuracy  answered / all:    17/41 = 0.415   |   17/58 = 0.293
+  step accuracy   answered / all:    7/41 = 0.171   |   7/58 = 0.121
+  sensitivity, excl. cases 20/22/49: agent all 16/55 = 0.291, step all 6/55 = 0.109
+  blamed agents (answered): {'Orchestrator': 23, 'WebSurfer': 14, 'Coder': 3, 'FileSurfer': 1}
+  abstentions (UNDERDETERMINED): 15
+    case 2  label WebSurfer @ 4: The information obtained by WebSurfer is neither reliable nor satisfies the requirements of the Orchestrator.
+    case 8  label WebSurfer @ 8: The WebSurfer does not click on useful information.
+    case 15  label WebSurfer @ 8: WebSurfer should refer to the list of funds on Fidelity's official website to find the correct answer and should not rely on third-party websites, which may lack comprehensive information.
+    case 17  label WebSurfer @ 8: WebSurfer did not retrieve a list of eateries near Harkness Memorial State Park sorted by distance and operating hours. The keyword it entered was insufficient.
+    case 18  label WebSurfer @ 16: There is no membership information.
+    case 19  label Orchestrator @ 50: The Orchestrator should not decide to replan. WebSurfer has already triggered the button for 2020, but the Orchestrator did not give it a chance to click.
+    case 24  label Orchestrator @ 1: The Orchestrator made an error when performing the translation.
+    case 29  label WebSurfer @ 12: It did not return anything useful.
+    case 39  label Orchestrator @ 30: The instrcution is wrong.
+    case 40  label WebSurfer @ 16: WebSurfer makes two mistakes in this step, leading to failure. 1. It does not include the '2+ bathrooms' criterion in the search, resulting in invalid results. 2. It directly reaches a wrong conclusio
+    case 46  label WebSurfer @ 32: The search tool does not return the desired information regarding the passenger count of each train in 2019. Therefore, the train with the highest number of passengers and its scheduled arrival time a
+    case 50  label WebSurfer @ 5: The information it obtains is incorrect.
+    case 51  label FileSurfer @ 5: The agent should provide a transcription of the audio file to extract the page numbers, but it failed to transcribe the audio.
+    case 53  label Coder @ 24: The assistant agent makes calculations with factual errors. The density of liquid Freon-12 under the required conditions is not provided. The calculation is based on an approximation of the density.
+    case 56  label WebSurfer @ 4: The page retrieved by WebSurfer does not provide relevant information to address the question, causing the Orchestrator to rely on its own assumptions and make a guess.
+
+N-ORCH  (norms N-ORCH: 8 Orchestrator rules, 2 each elsewhere)
+  calls 58: infrastructure excluded 0 ; parse failures 4 {'step missing / not an integer': 3, 'step one past the last (final answer, not in the trace)': 1}
+  coverage (answered / scorable):    44/58 = 0.759
+  agent accuracy  answered / all:    20/44 = 0.455   |   20/58 = 0.345
+  step accuracy   answered / all:    6/44 = 0.136   |   6/58 = 0.103
+  sensitivity, excl. cases 20/22/49: agent all 20/55 = 0.364, step all 6/55 = 0.109
+  blamed agents (answered): {'Orchestrator': 33, 'WebSurfer': 9, 'FileSurfer': 1, 'Coder': 1}
+  abstentions (UNDERDETERMINED): 10
+    case 2  label WebSurfer @ 4: The information obtained by WebSurfer is neither reliable nor satisfies the requirements of the Orchestrator.
+    case 8  label WebSurfer @ 8: The WebSurfer does not click on useful information.
+    case 12  label Coder @ 16: When listing the top 10 domestic movies, the assistant omitted 'Demon Slayer: Kimetsu no Yaiba - The Movie: Mugen Train' and included 'Wonder Woman 1984' instead. This led to an incorrect count of com
+    case 23  label WebSurfer @ 8: The WebSurfer did not return the useful information needed to answer the question.
+    case 24  label Orchestrator @ 1: The Orchestrator made an error when performing the translation.
+    case 27  label WebSurfer @ 4: WebSurfer failed to locate the specific volume in the University of Leicester paper due to incomplete data retrieval from the journal's website and insufficient progress in analyzing the full PDF.
+    case 36  label Orchestrator @ 9: The Orchestrator should instruct WebSurfer to collect the full list of Daniel Craig's movies on IMDb. Instead, it only displayed 18% of the page, leading the Orchestrator to incorrectly conclude that 
+    case 40  label WebSurfer @ 16: WebSurfer makes two mistakes in this step, leading to failure. 1. It does not include the '2+ bathrooms' criterion in the search, resulting in invalid results. 2. It directly reaches a wrong conclusio
+    case 43  label Coder @ 12: The caculation is wrong.
+    case 46  label WebSurfer @ 32: The search tool does not return the desired information regarding the passenger count of each train in 2019. Therefore, the train with the highest number of passengers and its scheduled arrival time a
+
+N-WEB  (norms N-WEB: 8 WebSurfer rules, 2 each elsewhere)
+  calls 58: infrastructure excluded 0 ; parse failures 3 {'step missing / not an integer': 3}
+  coverage (answered / scorable):    31/58 = 0.534
+  agent accuracy  answered / all:    12/31 = 0.387   |   12/58 = 0.207
+  step accuracy   answered / all:    6/31 = 0.194   |   6/58 = 0.103
+  sensitivity, excl. cases 20/22/49: agent all 12/55 = 0.218, step all 6/55 = 0.109
+  blamed agents (answered): {'Orchestrator': 24, 'WebSurfer': 6, 'Coder': 1}
+  abstentions (UNDERDETERMINED): 24
+    case 8  label WebSurfer @ 8: The WebSurfer does not click on useful information.
+    case 10  label Orchestrator @ 9: The Orchestrator should not directly decide to check other criteria. In fact, WebSurfer did not provide a full list of supermarkets in the previous step.
+    case 11  label WebSurfer @ 24: The agent should recognize that the website has clickable and expandable tabs containing the full rhyme for each flavor.
+    case 12  label Coder @ 16: When listing the top 10 domestic movies, the assistant omitted 'Demon Slayer: Kimetsu no Yaiba - The Movie: Mugen Train' and included 'Wonder Woman 1984' instead. This led to an incorrect count of com
+    case 15  label WebSurfer @ 8: WebSurfer should refer to the list of funds on Fidelity's official website to find the correct answer and should not rely on third-party websites, which may lack comprehensive information.
+    case 17  label WebSurfer @ 8: WebSurfer did not retrieve a list of eateries near Harkness Memorial State Park sorted by distance and operating hours. The keyword it entered was insufficient.
+    case 19  label Orchestrator @ 50: The Orchestrator should not decide to replan. WebSurfer has already triggered the button for 2020, but the Orchestrator did not give it a chance to click.
+    case 20  label WebSurfer @ 3: WebSurfer's inability to reliably access the requested documents resulted in the overall task failure, as the necessary time span data could not be extracted or compared. This underscores the need for
+    case 21  label WebSurfer @ 4: WebSurfer encountered difficulties in locating and accessing the acknowledgment section of the paper, causing a delay in identifying the NASA award number associated with R.G. Arendt.
+    case 23  label WebSurfer @ 8: The WebSurfer did not return the useful information needed to answer the question.
+    case 24  label Orchestrator @ 1: The Orchestrator made an error when performing the translation.
+    case 26  label FileSurfer @ 32: FileSurfer didn't correctly extract the relevant information but directly gave a wrong answer.
+    case 27  label WebSurfer @ 4: WebSurfer failed to locate the specific volume in the University of Leicester paper due to incomplete data retrieval from the journal's website and insufficient progress in analyzing the full PDF.
+    case 30  label Coder @ 82: Assistant naviagtes the agents group to a wrong direction - contacting the offices for the result. Instead, the agents should solve the problems by themselves.
+    case 33  label WebSurfer @ 8: WebSurfer failed to provide useful information and encountered errors during the process.
+    case 35  label WebSurfer @ 12: WebSurfer's OCR did not correctly extract the required information (the prices of daily and season passes), leading the Orchestrator to think that the required information is not on the current page, 
+    case 39  label Orchestrator @ 30: The instrcution is wrong.
+    case 46  label WebSurfer @ 32: The search tool does not return the desired information regarding the passenger count of each train in 2019. Therefore, the train with the highest number of passengers and its scheduled arrival time a
+    case 48  label WebSurfer @ 4: The agent didn't find enough information to answer the question but directly gave the answer.
+    case 49  label WebSurfer @ 12: The reasoning process is wrong.
+    case 50  label WebSurfer @ 5: The information it obtains is incorrect.
+    case 51  label FileSurfer @ 5: The agent should provide a transcription of the audio file to extract the page numbers, but it failed to transcribe the audio.
+    case 53  label Coder @ 24: The assistant agent makes calculations with factual errors. The density of liquid Freon-12 under the required conditions is not provided. The calculation is based on an approximation of the density.
+    case 58  label Orchestrator @ 22: It failed to extract useful information from the Issue page.
+
+COMMON SET (scorable in every arm run): 58 cases
+  N-BAL  agent 17/58 = 0.293   step 7/58 = 0.121
+  N-ORCH agent 20/58 = 0.345   step 6/58 = 0.103
+  N-WEB  agent 12/58 = 0.207   step 6/58 = 0.103
+
+OLD (pilot, unnumbered, max_tokens 6000) vs NEW (numbered, max_tokens 32,000)
+
+CONFOUNDS: ground truth is isolated within a norms row; the norms effect is confounded
+with verdict space and output format. v2/v3 are post-hoc variants frozen after the pilot.

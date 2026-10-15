@@ -1,0 +1,85 @@
+# ---------------------------------------------------------------- secrets
+# OPENROUTER_API_KEY is passed through the environment and must never be
+# committed (see README, "Setup"). These patterns are belt-and-braces for
+# the case where someone writes it to a file anyway.
+.env
+.env.*
+*.key
+secrets.json
+
+# ------------------------------------------------------------ python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# virtualenvs
+.venv/
+venv/
+env/
+ENV/
+
+# tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# ------------------------------------------------------------ editors / OS
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ------------------------------------------------------------ LaTeX (paper/)
+# Only build by-products. paper/*.tex and paper/*.bib are source and ARE
+# committed.
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.synctex.gz
+*.toc
+*.nav
+*.snm
+*.vrb
+*.run.xml
+*.bcf
+paper/_build/
+
+# ------------------------------------------- third-party dataset (excluded)
+# The Who&When Hand-Crafted subset is NOT redistributed here. It carries no
+# declared licence on HuggingFace, and because the benchmark's agents browsed
+# live pages the records embed third-party personal data.
+#
+# Nothing is lost for reproducibility: faultattr/whowhen.py downloads the
+# subset on first use and hash-checks every case. _download.json is ignored
+# too -- on purpose. The loader skips the download whenever that file is
+# present, so shipping it without the payload would make a fresh clone fail.
+#
+# The download record itself (source URL, per-case sha256, and the timestamps
+# that make the "norms frozen before data downloaded" ordering checkable) is
+# committed separately, as results/PROVENANCE_who_and_when_download.json.
+data/who_and_when/
+
+# ------------------------------------------------------------ NOT ignored
+# results/ is deliberately committed: run outputs, prereg locks and the
+# hand-written NOTE_*.md analyses are the experimental record (~15 MB).
+#
+# Scratch runs that are not part of the record can be named *_scratch/ and
+# are ignored here:
+results/**/*_scratch/
+scratch/

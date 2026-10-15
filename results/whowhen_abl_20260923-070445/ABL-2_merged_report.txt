@@ -1,0 +1,14 @@
+ABL-2 MERGED (58/58 cases: 50 from 224740 + 8 completed in results/whowhen_abl_20260923-070445)
+  parse failures 1 {'step one past the last (final answer, not in the trace)': 1}; infrastructure excluded 0
+  coverage 35/58 = 0.603
+  agent accuracy answered / all: 13/35 = 0.371  |  13/58 = 0.224
+  step accuracy  answered / all: 5/35 = 0.143  |  5/58 = 0.086
+  sensitivity excl 20/22/49: agent 13/55 = 0.236, step 4/55 = 0.073
+  blamed agents (answered): {'Orchestrator': 24, 'WebSurfer': 9, 'Coder': 2}
+  Orchestrator share of answers: 24/35 = 0.69
+  abstentions: 22 -> cases [2, 4, 6, 8, 9, 10, 12, 17, 19, 23, 24, 29, 30, 31, 32, 35, 44, 46, 50, 54, 56, 58]
+  COMMON SET with M/B/ABL-1: 57 cases
+    M      agent 17/57 = 0.298   step 4/57 = 0.070   coverage 45/57   Orch share 33/45
+    B      agent 25/57 = 0.439   step 12/57 = 0.211   coverage 57/57   Orch share 24/57
+    ABL-1  agent 23/57 = 0.404   step 14/57 = 0.246   coverage 57/57   Orch share 27/57
+    ABL-2  agent 13/57 = 0.228   step 5/57 = 0.088   coverage 34/57   Orch share 23/34

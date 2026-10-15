@@ -1,0 +1,94 @@
+Sigma_ok: 4 conformant successful runs (clean-only corpus: dead_frac=0.0, no UNKNOWN slots)
+
+======================================================================
+A  direct violation    injected = ['planner']
+======================================================================
+VERDICT: AGENT_FAULT
+  fault set: ['planner']
+  contracts:
+    observer   P=T G=T  ok
+    analyzer   P=T G=T  ok
+    planner    P=T G=F  FAULT
+        guar: gap 0 < 2 between J2 and J3
+    validator  P=T G=T  ok
+    executor   P=F G=T  excused
+        pre:  plan was not accepted
+  R violations: ['separation:J2~J3']
+  margin=-0.286 cons=1.286 exo=0.000
+
+======================================================================
+B  inherited drift    injected = ['observer']
+======================================================================
+VERDICT: AGENT_FAULT
+  fault set: ['observer']
+  contracts:
+    observer   P=T G=F  FAULT
+        guar: slot 5: reported BUSY, emitted FREE
+    analyzer   P=F G=T  excused
+        pre:  upstream state unfaithful: slot 5: reported BUSY, emitted FREE
+    planner    P=T G=T  ok
+    validator  P=T G=T  ok
+    executor   P=T G=T  ok
+  R violations: ['blocked_slot:J2@5']
+  margin=-0.200 cons=1.200 exo=0.000
+
+======================================================================
+C  overdetermination    injected = ['planner', 'validator', 'executor']
+======================================================================
+VERDICT: AGENT_FAULT
+  fault set: ['planner', 'validator', 'executor']
+  contracts:
+    observer   P=T G=T  ok
+    analyzer   P=T G=T  ok
+    planner    P=T G=F  FAULT
+        guar: J3 covers unavailable slot 11
+    validator  P=T G=F  FAULT
+        guar: accepted an infeasible plan
+    executor   P=T G=F  FAULT
+        guar: actions diverge from plan: {'J1': (0, 1)}
+  R violations: ['blocked_slot:J3@11']
+  margin=-0.600 cons=1.600 exo=0.000
+
+======================================================================
+D  missing obligation    injected = none
+======================================================================
+VERDICT: REPAIRABLE_INADEQUACY  [D1]
+  contracts:
+    observer   P=T G=T  ok
+    analyzer   P=T G=T  ok
+    planner    P=F G=T  excused
+        pre:  unresolved slots present: [5]
+    validator  P=T G=T  ok
+    executor   P=T G=T  ok
+  R violations: ['blocked_slot:J2@5']
+  margin=-0.200 cons=0.000 exo=1.200
+  repair candidate: [owner=planner] PLANNER must not emit a plan when unresolved != none; escalate to degraded mode instead.
+  repair candidate: [owner=analyzer] ANALYZER must raise a blocking flag when any slot is UNKNOWN.
+  note: depletion=1.200 cons=0.000 exo=1.200 (threshold 0.15)
+  note: 2 incomparable minimal repairs -- set-valued output is correct here, not a hedge
+
+======================================================================
+E  inexpressible    injected = none
+======================================================================
+VERDICT: INEXPRESSIBLE  [D1]
+  contracts:
+    observer   P=T G=T  ok
+    analyzer   P=T G=T  ok
+    planner    P=T G=T  ok
+    validator  P=T G=T  ok
+    executor   P=T G=T  ok
+  R violations: ['blocked_slot:J2@5']
+  margin=-0.200 cons=0.000 exo=1.200
+  repair candidate: [not expressible] Some agent must guarantee that reported slot status corresponds to physical occupancy. No agent observes this, so this is an instrumentation gap (Remark 5.3b, case 4a), not a contract anyone can be given.
+  note: depletion=1.200 cons=0.000 exo=1.200 (threshold 0.15)
+  note: no strengthening expressible over any agent's observable history (Theorem 5.2 case 4)
+
+======================================================================
+CORPUS SENSITIVITY (Remark 5.3a)
+======================================================================
+  corpus 1: 4 runs, dead_frac=0.00, 0 contain UNKNOWN slots
+  corpus 2: 8 runs, dead_frac=0.75, 6 contain UNKNOWN slots  (disjoint seeds)
+  Same runs, re-scored; only the corpus differs.
+
+  D:  corpus1 -> REPAIRABLE_INADEQUACY    corpus2 -> CORPUS_BLOCKED            FLIPPED
+  E:  corpus1 -> INEXPRESSIBLE            corpus2 -> INEXPRESSIBLE             stable

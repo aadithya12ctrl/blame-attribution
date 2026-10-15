@@ -1,0 +1,153 @@
+{
+  "stamp": "20260922-123746",
+  "prompt_version": "v2",
+  "order": [
+    "deepseek/deepseek-chat",
+    "deepseek/deepseek-chat-v3.1",
+    "mistralai/mistral-small-3.2-24b-instruct",
+    "qwen/qwen3-235b-a22b-2507"
+  ],
+  "run_all": true,
+  "same_pins": true,
+  "winner": "deepseek/deepseek-chat",
+  "spent_est": 0.0,
+  "prior": [],
+  "tried": [
+    {
+      "model": "deepseek/deepseek-chat",
+      "provider": "streamlake",
+      "date": "2026-09-22T07:07:48+00:00",
+      "prompt_version": "v2",
+      "corpus_conformant": "8/8",
+      "background_fault_rate": "0/13",
+      "violation_gaps": {
+        "gap<=0": 0,
+        "gap=1": 0,
+        "other": 0
+      },
+      "validator_accepted_infeasible": "0/0",
+      "corpus_failures": [],
+      "scenarios": {
+        "A": "ok",
+        "B": "ok",
+        "C": "ok",
+        "D": "ok",
+        "E": "ok"
+      },
+      "projection_failures": 0,
+      "truncations": 0,
+      "served_by": [
+        "mock"
+      ],
+      "tokens": {
+        "prompt": 0,
+        "completion": 0
+      },
+      "cost_est": 0.0,
+      "qualifies": true,
+      "raw_file": "results\\screen_v2_20260922-123746\\raw_deepseek_deepseek-chat.jsonl"
+    },
+    {
+      "model": "deepseek/deepseek-chat-v3.1",
+      "provider": "novita/fp8",
+      "date": "2026-09-22T07:07:48+00:00",
+      "prompt_version": "v2",
+      "corpus_conformant": "8/8",
+      "background_fault_rate": "0/13",
+      "violation_gaps": {
+        "gap<=0": 0,
+        "gap=1": 0,
+        "other": 0
+      },
+      "validator_accepted_infeasible": "0/0",
+      "corpus_failures": [],
+      "scenarios": {
+        "A": "ok",
+        "B": "ok",
+        "C": "ok",
+        "D": "ok",
+        "E": "ok"
+      },
+      "projection_failures": 0,
+      "truncations": 0,
+      "served_by": [
+        "mock"
+      ],
+      "tokens": {
+        "prompt": 0,
+        "completion": 0
+      },
+      "cost_est": 0.0,
+      "qualifies": true,
+      "raw_file": "results\\screen_v2_20260922-123746\\raw_deepseek_deepseek-chat-v3.1.jsonl"
+    },
+    {
+      "model": "mistralai/mistral-small-3.2-24b-instruct",
+      "provider": "deepinfra/fp8",
+      "date": "2026-09-22T07:07:48+00:00",
+      "prompt_version": "v2",
+      "corpus_conformant": "8/8",
+      "background_fault_rate": "0/13",
+      "violation_gaps": {
+        "gap<=0": 0,
+        "gap=1": 0,
+        "other": 0
+      },
+      "validator_accepted_infeasible": "0/0",
+      "corpus_failures": [],
+      "scenarios": {
+        "A": "ok",
+        "B": "ok",
+        "C": "ok",
+        "D": "ok",
+        "E": "ok"
+      },
+      "projection_failures": 0,
+      "truncations": 0,
+      "served_by": [
+        "mock"
+      ],
+      "tokens": {
+        "prompt": 0,
+        "completion": 0
+      },
+      "cost_est": 0.0,
+      "qualifies": true,
+      "raw_file": "results\\screen_v2_20260922-123746\\raw_mistralai_mistral-small-3.2-24b-instruct.jsonl"
+    },
+    {
+      "model": "qwen/qwen3-235b-a22b-2507",
+      "provider": "alibaba",
+      "date": "2026-09-22T07:07:49+00:00",
+      "prompt_version": "v2",
+      "corpus_conformant": "8/8",
+      "background_fault_rate": "0/13",
+      "violation_gaps": {
+        "gap<=0": 0,
+        "gap=1": 0,
+        "other": 0
+      },
+      "validator_accepted_infeasible": "0/0",
+      "corpus_failures": [],
+      "scenarios": {
+        "A": "ok",
+        "B": "ok",
+        "C": "ok",
+        "D": "ok",
+        "E": "ok"
+      },
+      "projection_failures": 0,
+      "truncations": 0,
+      "served_by": [
+        "mock"
+      ],
+      "tokens": {
+        "prompt": 0,
+        "completion": 0
+      },
+      "cost_est": 0.0,
+      "qualifies": true,
+      "raw_file": "results\\screen_v2_20260922-123746\\raw_qwen_qwen3-235b-a22b-2507.jsonl"
+    }
+  ]
+}

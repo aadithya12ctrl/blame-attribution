@@ -1,0 +1,55 @@
+WHO&WHEN HAND-CRAFTED -- ABLATIONS  20260923-182513   date 2026-09-23T12:55:13+00:00
+judge: openai/gpt-oss-120b @ cerebras, temperature 0, max_tokens 32,000 (context 131,072); steps printed and cited in every arm
+norms: v1 dab067b8f8d2, v2 6164f7ce284b, v3 62f0eac6bdd4
+cases: 58 (all Hand-Crafted); excluded from every arm for context: none
+longest prompt: 67,721 tokens actual (est 67,370); median 11,630
+judge output tokens: mean 673  max 1,351
+cost (token counts x Cerebras price): $0.7986  (cap $1.3)
+headline = all cases incl. 20/22/49 (pre-registered); sensitivity excludes them
+
+2x2 (all cases; abstention and parse failure count as wrong)
+                     ground truth: NO                          |  ground truth: YES
+  norms NO  (forced)  B      not run                                     |  ABL-1  not run
+  norms YES (open)    ABL-3  agent 14/57 = 0.246; step 7/57 = 0.123; coverage 0.68|  M      not run
+  norms variants (GT yes):  ABL-2 (no O4/O8): not run
+                            ABL-4 (O4 process): agent 20/58 = 0.345; step 11/58 = 0.190; coverage 0.83
+  Caveat: rows also differ in verdict space and output format.
+
+ABL-3  (method, norms v1, no GT)
+  calls 58: infrastructure excluded 1 {'api_error': 1}; parse failures 9 {'step missing / not an integer': 7, 'step one past the last (final answer, not in the trace)': 2}
+  coverage (answered / scorable):    39/57 = 0.684
+  agent accuracy  answered / all:    14/39 = 0.359   |   14/57 = 0.246
+  step accuracy   answered / all:    7/39 = 0.179   |   7/57 = 0.123
+  sensitivity, excl. cases 20/22/49: agent all 14/54 = 0.259, step all 6/54 = 0.111
+  blamed agents (answered): {'Orchestrator': 27, 'WebSurfer': 10, 'Coder': 2}
+  abstentions (UNDERDETERMINED): 9
+    case 12  label Coder @ 16: When listing the top 10 domestic movies, the assistant omitted 'Demon Slayer: Kimetsu no Yaiba - The Movie: Mugen Train' and included 'Wonder Woman 1984' instead. This led to an incorrect count of com
+    case 17  label WebSurfer @ 8: WebSurfer did not retrieve a list of eateries near Harkness Memorial State Park sorted by distance and operating hours. The keyword it entered was insufficient.
+    case 23  label WebSurfer @ 8: The WebSurfer did not return the useful information needed to answer the question.
+    case 24  label Orchestrator @ 1: The Orchestrator made an error when performing the translation.
+    case 27  label WebSurfer @ 4: WebSurfer failed to locate the specific volume in the University of Leicester paper due to incomplete data retrieval from the journal's website and insufficient progress in analyzing the full PDF.
+    case 30  label Coder @ 82: Assistant naviagtes the agents group to a wrong direction - contacting the offices for the result. Instead, the agents should solve the problems by themselves.
+    case 41  label WebSurfer @ 8: WebSurfer misinterpreted or failed to retrieve the correct Latin root, leading to confusion in identifying the related Spanish word, thereby derailing subsequent steps.
+    case 55  label Orchestrator @ 18: The Orchestrator should instruct WebSurfer to search for the professional history of each board member to determine whether they held C-suite positions before joining Apple's Board. Instead, it repeat
+    case 58  label Orchestrator @ 22: It failed to extract useful information from the Issue page.
+  infra: case 7 api_error HTTP 429: b'{"error":{"message":"Provider returned error","code":429,"metadata":{"raw":"openai/gpt-oss-120b is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate '
+
+ABL-4  (method, norms v3 (O4 process rule))
+  calls 58: infrastructure excluded 0 ; parse failures 8 {'step missing / not an integer': 6, 'step out of range': 1, 'step one past the last (final answer, not in the trace)': 1}
+  coverage (answered / scorable):    48/58 = 0.828
+  agent accuracy  answered / all:    20/48 = 0.417   |   20/58 = 0.345
+  step accuracy   answered / all:    11/48 = 0.229   |   11/58 = 0.190
+  sensitivity, excl. cases 20/22/49: agent all 20/55 = 0.364, step all 11/55 = 0.200
+  blamed agents (answered): {'Orchestrator': 40, 'WebSurfer': 7, 'Coder': 1}
+  abstentions (UNDERDETERMINED): 2
+    case 35  label WebSurfer @ 12: WebSurfer's OCR did not correctly extract the required information (the prices of daily and season passes), leading the Orchestrator to think that the required information is not on the current page, 
+    case 37  label WebSurfer @ 4: The key word should include Monterey Bay Aquarium website.
+
+COMMON SET (scorable in every arm run): 57 cases
+  ABL-3  agent 14/57 = 0.246   step 7/57 = 0.123
+  ABL-4  agent 20/57 = 0.351   step 11/57 = 0.193
+
+OLD (pilot, unnumbered, max_tokens 6000) vs NEW (numbered, max_tokens 32,000)
+
+CONFOUNDS: ground truth is isolated within a norms row; the norms effect is confounded
+with verdict space and output format. v2/v3 are post-hoc variants frozen after the pilot.

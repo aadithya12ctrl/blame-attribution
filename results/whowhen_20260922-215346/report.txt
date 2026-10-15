@@ -1,0 +1,60 @@
+WHO&WHEN HAND-CRAFTED PILOT  20260922-215346   date 2026-09-22T16:23:46+00:00
+judge: openai/gpt-oss-120b @ cerebras, temperature 0, max_tokens 6000   (same judge for both arms)
+norms: sha256 dab067b8f8d281310e804183dd39b8827f1b9f5c02a87d73e3ba52da96bf0ac9 (frozen 2026-09-22T14:51:57+00:00, verified at start)
+cases: 58 (all Hand-Crafted)
+prompt tokens per call: min 1,928  median 11,269  max 67,062
+judge output tokens: mean 1261  max 6000
+cost (token counts x Cerebras price): $0.8228
+
+METHOD  (norms + ground truth + open verdict space)
+  calls 58: ok 41, parse_fail 15, truncated 2, api_error 0, context_too_long 0   (infrastructure excluded: 2)
+  coverage (answered / scorable):     34/56 = 0.607
+  agent accuracy, answered cases:     17/34 = 0.500
+  step accuracy,  answered cases:     2/34 = 0.059
+  agent accuracy, all scorable cases: 17/56 = 0.304   (abstention and parse failure count as wrong)
+  step accuracy,  all scorable cases: 2/56 = 0.036
+  parse failures by cause: malformed output 2, step missing / not an integer 4, step out of range 9
+  DIAGNOSTIC (post hoc, not pre-specified): agent accuracy on all scorable cases, also crediting parse-failed replies whose agent is readable: 18/56 = 0.321
+
+BASELINE  (Who&When All-at-Once: history + question, forced agent + step)
+  calls 58: ok 48, parse_fail 9, truncated 1, api_error 0, context_too_long 0   (infrastructure excluded: 1)
+  coverage (answered / scorable):     48/57 = 0.842
+  agent accuracy, answered cases:     22/48 = 0.458
+  step accuracy,  answered cases:     7/48 = 0.146
+  agent accuracy, all scorable cases: 22/57 = 0.386   (abstention and parse failure count as wrong)
+  step accuracy,  all scorable cases: 7/57 = 0.123
+  parse failures by cause: step missing / not an integer 7, step out of range 2
+  DIAGNOSTIC (post hoc, not pre-specified): agent accuracy on all scorable cases, also crediting parse-failed replies whose agent is readable: 24/57 = 0.421
+
+Label inconsistencies in the dataset (role at mistake_step != mistake_agent): cases 20, 22, 49 -- scored against the label as given.
+
+UNDERDETERMINED (method abstained) -- check whether abstaining was justified:
+  case 2 (55f4258484c5b398956133128a50462a767da211f8f72aa5ac5bbffb9bcbba1a)  label WebSurfer @ step 4
+    annotated mistake_reason: The information obtained by WebSurfer is neither reliable nor satisfies the requirements of the Orchestrator.
+    method's reason:          No clear rule violation was identified that directly caused the minor formatting error in the final answer.
+  case 23 (9bdca8677af1e25cb7b0c7992dc62670c3e58e4afcd5ae60bcaa2483556bba00)  label WebSurfer @ step 8
+    annotated mistake_reason: The WebSurfer did not return the useful information needed to answer the question.
+    method's reason:          The transcript shows no explicit breach of any agent's stated rules that can be directly linked to the incorrect answer.
+  case 30 (2ddae3b7a208e3c25f14d82d7a1faaaa1832fbf950b4dac345e755c4c361f294)  label Coder @ step 82
+    annotated mistake_reason: Assistant naviagtes the agents group to a wrong direction - contacting the offices for the result. Instead, the agents should solve the problems by themselves.
+    method's reason:          No agent clearly violated a stated rule in a way that directly caused the incorrect final answer.
+  case 40 (6b06d186921b8b390c65aebd0d16f09f60a47d2f1288ebe36953f734e84c0a3c)  label WebSurfer @ step 16
+    annotated mistake_reason: WebSurfer makes two mistakes in this step, leading to failure. 1. It does not include the '2+ bathrooms' criterion in the search, resulting in invalid results. 2. It directly reaches a wrong conclusion by using intermediate search results.
+    method's reason:          No explicit rule was clearly violated by any agent; the incorrect answer resulted from incomplete data gathering rather than a specific rule breach.
+  case 46 (16d825ff-1623-4176-a5b5-42e0f5c2b0ac)  label WebSurfer @ step 32
+    annotated mistake_reason: The search tool does not return the desired information regarding the passenger count of each train in 2019. Therefore, the train with the highest number of passengers and its scheduled arrival time at Pompano Beach cannot be determined.
+    method's reason:          No agent clearly broke a stated rule that directly caused the incorrect answer; the final guess was permissible under the guidelines.
+  case 54 (a0c07678-e491-4bbc-8f0b-07405144218f)  label WebSurfer @ step 15
+    annotated mistake_reason: The agent provides information about the current roster, but the question asks for the roster as of July 2023. THe agent should search for the roster of Hokkaido Nippon-Ham Fighters in 2023.
+    method's reason:          No explicit rule was clearly broken; the error stemmed from incorrect data extraction rather than a rule violation.
+  case 58 (7619a514-5fa8-43ef-9143-83b66a43d7a4)  label Orchestrator @ step 22
+    annotated mistake_reason: It failed to extract useful information from the Issue page.
+    method's reason:          No agent clearly broke a stated rule that directly caused the incorrect answer; the error stemmed from incomplete search logic rather than a rule violation.
+
+Infrastructure-excluded calls:
+  case 9 baseline: truncated 
+  case 11 method: truncated 
+  case 15 method: truncated 
+
+CONFOUNDS between the arms (by specification): the method also gets the ground-truth answer,
+the norms, an open verdict space, and JSON output. Differences cannot be assigned to any one of these.

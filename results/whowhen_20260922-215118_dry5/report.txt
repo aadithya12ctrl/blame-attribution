@@ -1,0 +1,34 @@
+WHO&WHEN HAND-CRAFTED PILOT  20260922-215118   date 2026-09-22T16:21:18+00:00
+judge: openai/gpt-oss-120b @ cerebras, temperature 0, max_tokens 6000   (same judge for both arms)
+norms: sha256 dab067b8f8d281310e804183dd39b8827f1b9f5c02a87d73e3ba52da96bf0ac9 (frozen 2026-09-22T14:51:57+00:00, verified at start)
+cases: 5 (dry run, random.Random(2026))
+prompt tokens per call: min 4,192  median 11,467  max 48,895
+judge output tokens: mean 1317  max 3603
+cost (token counts x Cerebras price): $0.0900
+
+METHOD  (norms + ground truth + open verdict space)
+  calls 5: ok 2, parse_fail 3, truncated 0, api_error 0, context_too_long 0   (infrastructure excluded: 0)
+  coverage (answered / scorable):     2/5 = 0.400
+  agent accuracy, answered cases:     1/2 = 0.500
+  step accuracy,  answered cases:     0/2 = 0.000
+  agent accuracy, all scorable cases: 1/5 = 0.200   (abstention and parse failure count as wrong)
+  step accuracy,  all scorable cases: 0/5 = 0.000
+
+BASELINE  (Who&When All-at-Once: history + question, forced agent + step)
+  calls 5: ok 4, parse_fail 1, truncated 0, api_error 0, context_too_long 0   (infrastructure excluded: 0)
+  coverage (answered / scorable):     4/5 = 0.800
+  agent accuracy, answered cases:     2/4 = 0.500
+  step accuracy,  answered cases:     1/4 = 0.250
+  agent accuracy, all scorable cases: 2/5 = 0.400   (abstention and parse failure count as wrong)
+  step accuracy,  all scorable cases: 1/5 = 0.200
+
+Label inconsistencies in the dataset (role at mistake_step != mistake_agent): cases 20, 22, 49 -- scored against the label as given.
+
+UNDERDETERMINED (method abstained) -- check whether abstaining was justified:
+  (none)
+
+Infrastructure-excluded calls:
+  (none)
+
+CONFOUNDS between the arms (by specification): the method also gets the ground-truth answer,
+the norms, an open verdict space, and JSON output. Differences cannot be assigned to any one of these.

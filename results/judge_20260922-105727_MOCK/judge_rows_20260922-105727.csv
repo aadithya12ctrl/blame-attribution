@@ -1,0 +1,221 @@
+scenario,seed,method,predicted,truth,exact,hit,none_correct,class_correct,judge_reason,predicted_class,truth_class,status,evaluator_kind
+A,7,evaluator,planner,planner,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+A,7,J-FC,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,7,J-P,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,7,J-FC-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,7,J-P-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,8,evaluator,planner,planner,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+A,8,J-FC,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,8,J-P,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,8,J-FC-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,8,J-P-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,9,evaluator,planner,planner,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+A,9,J-FC,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,9,J-P,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,9,J-FC-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,9,J-P-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,10,evaluator,planner,planner,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+A,10,J-FC,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,10,J-P,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,10,J-FC-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,10,J-P-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,11,evaluator,planner,planner,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+A,11,J-FC,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,11,J-P,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,11,J-FC-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,11,J-P-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,12,evaluator,planner,planner,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+A,12,J-FC,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,12,J-P,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,12,J-FC-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,12,J-P-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,13,evaluator,planner,planner,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+A,13,J-FC,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,13,J-P,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,13,J-FC-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,13,J-P-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,14,evaluator,planner,planner,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+A,14,J-FC,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,14,J-P,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,14,J-FC-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,14,J-P-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,15,evaluator,planner,planner,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+A,15,J-FC,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,15,J-P,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,15,J-FC-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,15,J-P-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,16,evaluator,planner,planner,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+A,16,J-FC,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,16,J-P,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+A,16,J-FC-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+A,16,J-P-N,planner,planner,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+B,7,evaluator,observer,observer,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+B,7,J-FC,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+B,7,J-P,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+B,7,J-FC-N,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+B,7,J-P-N,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+B,9,evaluator,observer,observer,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+B,9,J-FC,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+B,9,J-P,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+B,9,J-FC-N,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+B,9,J-P-N,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+B,10,evaluator,observer,observer,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+B,10,J-FC,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+B,10,J-P,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+B,10,J-FC-N,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+B,10,J-P-N,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+B,11,evaluator,observer,observer,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+B,11,J-FC,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+B,11,J-P,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+B,11,J-FC-N,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+B,11,J-P-N,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+B,12,evaluator,observer,observer,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+B,12,J-FC,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+B,12,J-P,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+B,12,J-FC-N,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+B,12,J-P-N,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+B,13,evaluator,observer,observer,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+B,13,J-FC,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+B,13,J-P,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+B,13,J-FC-N,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+B,13,J-P-N,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+B,15,evaluator,observer,observer,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+B,15,J-FC,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+B,15,J-P,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+B,15,J-FC-N,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+B,15,J-P-N,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+B,16,evaluator,observer,observer,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+B,16,J-FC,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+B,16,J-P,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+B,16,J-FC-N,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+B,16,J-P-N,observer,observer,True,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,7,evaluator,executor|planner|validator,executor|planner|validator,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+C,7,J-FC,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,7,J-P,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,7,J-FC-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,7,J-P-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,8,evaluator,executor|planner|validator,executor|planner|validator,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+C,8,J-FC,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,8,J-P,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,8,J-FC-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,8,J-P-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,9,evaluator,executor|planner|validator,executor|planner|validator,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+C,9,J-FC,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,9,J-P,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,9,J-FC-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,9,J-P-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,10,evaluator,executor|planner|validator,executor|planner|validator,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+C,10,J-FC,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,10,J-P,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,10,J-FC-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,10,J-P-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,11,evaluator,executor|planner|validator,executor|planner|validator,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+C,11,J-FC,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,11,J-P,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,11,J-FC-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,11,J-P-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,12,evaluator,executor|planner|validator,executor|planner|validator,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+C,12,J-FC,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,12,J-P,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,12,J-FC-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,12,J-P-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,13,evaluator,executor|planner|validator,executor|planner|validator,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+C,13,J-FC,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,13,J-P,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,13,J-FC-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,13,J-P-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,14,evaluator,executor|planner|validator,executor|planner|validator,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+C,14,J-FC,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,14,J-P,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,14,J-FC-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,14,J-P-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,15,evaluator,executor|planner|validator,executor|planner|validator,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+C,15,J-FC,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,15,J-P,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,15,J-FC-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,15,J-P-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,16,evaluator,executor|planner|validator,executor|planner|validator,True,True,n/a,n/a,AGENT_FAULT,AGENT_FAULT,AGENT_FAULT,ok,AGENT_FAULT
+C,16,J-FC,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,16,J-P,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+C,16,J-FC-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,,AGENT_FAULT,ok,
+C,16,J-P-N,executor,executor|planner|validator,False,True,n/a,n/a,mock strawman: last deviating agent,AGENT_FAULT,AGENT_FAULT,ok,
+D,7,evaluator,{},{},True,n/a,True,True,REPAIRABLE_INADEQUACY,MISSING_RULE,MISSING_RULE,ok,REPAIRABLE_INADEQUACY
+D,7,J-FC,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,MISSING_RULE,ok,
+D,7,J-P,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,MISSING_RULE,ok,
+D,7,J-FC-N,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,MISSING_RULE,ok,
+D,7,J-P-N,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,MISSING_RULE,ok,
+D,9,evaluator,{},{},True,n/a,True,True,REPAIRABLE_INADEQUACY,MISSING_RULE,MISSING_RULE,ok,REPAIRABLE_INADEQUACY
+D,9,J-FC,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,MISSING_RULE,ok,
+D,9,J-P,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,MISSING_RULE,ok,
+D,9,J-FC-N,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,MISSING_RULE,ok,
+D,9,J-P-N,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,MISSING_RULE,ok,
+D,10,evaluator,{},{},True,n/a,True,True,REPAIRABLE_INADEQUACY,MISSING_RULE,MISSING_RULE,ok,REPAIRABLE_INADEQUACY
+D,10,J-FC,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,MISSING_RULE,ok,
+D,10,J-P,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,MISSING_RULE,ok,
+D,10,J-FC-N,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,MISSING_RULE,ok,
+D,10,J-P-N,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,MISSING_RULE,ok,
+D,11,evaluator,{},{},True,n/a,True,True,REPAIRABLE_INADEQUACY,MISSING_RULE,MISSING_RULE,ok,REPAIRABLE_INADEQUACY
+D,11,J-FC,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,MISSING_RULE,ok,
+D,11,J-P,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,MISSING_RULE,ok,
+D,11,J-FC-N,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,MISSING_RULE,ok,
+D,11,J-P-N,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,MISSING_RULE,ok,
+D,12,evaluator,{},{},True,n/a,True,True,REPAIRABLE_INADEQUACY,MISSING_RULE,MISSING_RULE,ok,REPAIRABLE_INADEQUACY
+D,12,J-FC,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,MISSING_RULE,ok,
+D,12,J-P,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,MISSING_RULE,ok,
+D,12,J-FC-N,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,MISSING_RULE,ok,
+D,12,J-P-N,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,MISSING_RULE,ok,
+D,13,evaluator,{},{},True,n/a,True,True,REPAIRABLE_INADEQUACY,MISSING_RULE,MISSING_RULE,ok,REPAIRABLE_INADEQUACY
+D,13,J-FC,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,MISSING_RULE,ok,
+D,13,J-P,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,MISSING_RULE,ok,
+D,13,J-FC-N,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,MISSING_RULE,ok,
+D,13,J-P-N,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,MISSING_RULE,ok,
+D,15,evaluator,{},{},True,n/a,True,True,REPAIRABLE_INADEQUACY,MISSING_RULE,MISSING_RULE,ok,REPAIRABLE_INADEQUACY
+D,15,J-FC,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,MISSING_RULE,ok,
+D,15,J-P,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,MISSING_RULE,ok,
+D,15,J-FC-N,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,MISSING_RULE,ok,
+D,15,J-P-N,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,MISSING_RULE,ok,
+D,16,evaluator,{},{},True,n/a,True,True,REPAIRABLE_INADEQUACY,MISSING_RULE,MISSING_RULE,ok,REPAIRABLE_INADEQUACY
+D,16,J-FC,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,MISSING_RULE,ok,
+D,16,J-P,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,MISSING_RULE,ok,
+D,16,J-FC-N,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,MISSING_RULE,ok,
+D,16,J-P-N,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,MISSING_RULE,ok,
+E,7,evaluator,{},{},True,n/a,True,True,INEXPRESSIBLE,UNFIXABLE_BY_RULES,UNFIXABLE_BY_RULES,ok,INEXPRESSIBLE
+E,7,J-FC,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,UNFIXABLE_BY_RULES,ok,
+E,7,J-P,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,UNFIXABLE_BY_RULES,ok,
+E,7,J-FC-N,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,UNFIXABLE_BY_RULES,ok,
+E,7,J-P-N,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,UNFIXABLE_BY_RULES,ok,
+E,9,evaluator,{},{},True,n/a,True,True,INEXPRESSIBLE,UNFIXABLE_BY_RULES,UNFIXABLE_BY_RULES,ok,INEXPRESSIBLE
+E,9,J-FC,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,UNFIXABLE_BY_RULES,ok,
+E,9,J-P,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,UNFIXABLE_BY_RULES,ok,
+E,9,J-FC-N,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,UNFIXABLE_BY_RULES,ok,
+E,9,J-P-N,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,UNFIXABLE_BY_RULES,ok,
+E,10,evaluator,{},{},True,n/a,True,True,INEXPRESSIBLE,UNFIXABLE_BY_RULES,UNFIXABLE_BY_RULES,ok,INEXPRESSIBLE
+E,10,J-FC,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,UNFIXABLE_BY_RULES,ok,
+E,10,J-P,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,UNFIXABLE_BY_RULES,ok,
+E,10,J-FC-N,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,UNFIXABLE_BY_RULES,ok,
+E,10,J-P-N,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,UNFIXABLE_BY_RULES,ok,
+E,11,evaluator,{},{},True,n/a,True,True,INEXPRESSIBLE,UNFIXABLE_BY_RULES,UNFIXABLE_BY_RULES,ok,INEXPRESSIBLE
+E,11,J-FC,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,UNFIXABLE_BY_RULES,ok,
+E,11,J-P,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,UNFIXABLE_BY_RULES,ok,
+E,11,J-FC-N,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,UNFIXABLE_BY_RULES,ok,
+E,11,J-P-N,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,UNFIXABLE_BY_RULES,ok,
+E,12,evaluator,{},{},True,n/a,True,True,INEXPRESSIBLE,UNFIXABLE_BY_RULES,UNFIXABLE_BY_RULES,ok,INEXPRESSIBLE
+E,12,J-FC,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,UNFIXABLE_BY_RULES,ok,
+E,12,J-P,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,UNFIXABLE_BY_RULES,ok,
+E,12,J-FC-N,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,UNFIXABLE_BY_RULES,ok,
+E,12,J-P-N,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,UNFIXABLE_BY_RULES,ok,
+E,13,evaluator,{},{},True,n/a,True,True,INEXPRESSIBLE,UNFIXABLE_BY_RULES,UNFIXABLE_BY_RULES,ok,INEXPRESSIBLE
+E,13,J-FC,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,UNFIXABLE_BY_RULES,ok,
+E,13,J-P,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,UNFIXABLE_BY_RULES,ok,
+E,13,J-FC-N,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,UNFIXABLE_BY_RULES,ok,
+E,13,J-P-N,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,UNFIXABLE_BY_RULES,ok,
+E,15,evaluator,{},{},True,n/a,True,True,INEXPRESSIBLE,UNFIXABLE_BY_RULES,UNFIXABLE_BY_RULES,ok,INEXPRESSIBLE
+E,15,J-FC,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,UNFIXABLE_BY_RULES,ok,
+E,15,J-P,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,UNFIXABLE_BY_RULES,ok,
+E,15,J-FC-N,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,UNFIXABLE_BY_RULES,ok,
+E,15,J-P-N,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,UNFIXABLE_BY_RULES,ok,
+E,16,evaluator,{},{},True,n/a,True,True,INEXPRESSIBLE,UNFIXABLE_BY_RULES,UNFIXABLE_BY_RULES,ok,INEXPRESSIBLE
+E,16,J-FC,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,UNFIXABLE_BY_RULES,ok,
+E,16,J-P,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,UNFIXABLE_BY_RULES,ok,
+E,16,J-FC-N,planner,{},False,n/a,False,n/a,mock strawman: last deviating agent,,UNFIXABLE_BY_RULES,ok,
+E,16,J-P-N,planner,{},False,n/a,False,False,mock strawman: last deviating agent,AGENT_FAULT,UNFIXABLE_BY_RULES,ok,

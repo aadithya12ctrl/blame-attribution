@@ -1,0 +1,52 @@
+{
+  "stamp": "20260922-111437",
+  "winner": "deepseek/deepseek-chat",
+  "spent_est": 0.0,
+  "prior": [
+    {
+      "model": "qwen/qwen3-235b-a22b-2507",
+      "provider": "alibaba",
+      "source": "results/qwen_20260922-110335/cases_20260922-110445.txt",
+      "corpus_conformant": "1/8",
+      "scenarios": {
+        "A": "FAIL {planner, validator}",
+        "B": "ok",
+        "C": "ok",
+        "D": "FAIL AGENT_FAULT {validator}",
+        "E": "ok"
+      },
+      "projection_failures": 0,
+      "truncations": 0,
+      "qualifies": false,
+      "note": "planner ignores separation (gap 0 in 3 of 4 sampled violations); validator accepts infeasible plans"
+    }
+  ],
+  "tried": [
+    {
+      "model": "deepseek/deepseek-chat",
+      "provider": "streamlake",
+      "date": "2026-09-22T05:44:38+00:00",
+      "corpus_conformant": "8/8",
+      "corpus_failures": [],
+      "scenarios": {
+        "A": "ok",
+        "B": "ok",
+        "C": "ok",
+        "D": "ok",
+        "E": "ok"
+      },
+      "projection_failures": 0,
+      "truncations": 0,
+      "served_by": [
+        "mock"
+      ],
+      "tokens": {
+        "prompt": 0,
+        "completion": 0
+      },
+      "cost_est": 0.0,
+      "qualifies": true,
+      "raw_file": "results\\screen_20260922-111437\\raw_deepseek_deepseek-chat.jsonl"
+    }
+  ]
+}

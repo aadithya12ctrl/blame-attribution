@@ -1,0 +1,7 @@
+{
+  "observer_slot_error_rate": 0.0,
+  "observer_slots_checked": 641,
+  "observer_parse_failures": 0,
+  "note": "downstream stages have no independent ground truth; eps is measured at the observer stage only",
+  "union_bound": 0.0
+}

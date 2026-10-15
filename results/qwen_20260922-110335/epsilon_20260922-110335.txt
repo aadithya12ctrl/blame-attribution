@@ -1,0 +1,40 @@
+  providers serving qwen/qwen3-235b-a22b-2507:
+       GMICloud        gmicloud/fp8               in $0.087/M  out $0.350/M  max_out 235929  status 0
+       DeepInfra       deepinfra/fp8              in $0.090/M  out $0.550/M  max_out 16384  status 0
+       Novita          novita/fp8                 in $0.090/M  out $0.580/M  max_out 16384  status 0
+       Parasail        parasail/fp8               in $0.140/M  out $0.800/M  max_out 117964  status 0
+    -> Alibaba         alibaba                    in $0.150/M  out $0.598/M  max_out 32768  status 0
+       Venice          venice/fp8                 in $0.150/M  out $0.750/M  max_out 16384  status 0
+       Nebius          nebius/fp8                 in $0.200/M  out $0.600/M  max_out 235929  status 0
+       StreamLake      streamlake                 in $0.210/M  out $0.840/M  max_out 32000  status 0
+       Google          google-vertex/us-south1    in $0.220/M  out $0.880/M  max_out 16384  status 0
+       Google          google-vertex/us-south1    in $0.250/M  out $1.000/M  max_out 16384  status 0
+  pinned: alibaba (allow_fallbacks=false)
+  model=qwen/qwen3-235b-a22b-2507 provider=alibaba date=2026-09-22T05:33:38+00:00
+
+============================================================
+PROJECTION ACCURACY
+============================================================
+  observer_slot_error_rate: 0.0
+  observer_slots_checked: 677
+  observer_parse_failure_rate: 0.0
+  analyzer_parse_failure_rate: 0.0
+  planner_parse_failure_rate: 0.0
+  validator_parse_failure_rate: 0.0
+  executor_parse_failure_rate: 0.0
+  invocations_per_agent: 30
+  eps_used_for_bound: 0.0
+  note: parse failures are measured at every stage; only the observer has independent ground truth, so downstream VALUE errors remain unmeasured
+  finish_reason by agent: {'observer': {'stop': 30}, 'analyzer': {'stop': 30}, 'planner': {'stop': 30}, 'validator': {'stop': 29, 'length': 1}, 'executor': {'stop': 30}}
+  served_by: {'Alibaba': 150}
+
+  no projection errors observed in N=30 invocations per agent; eps = 0 is NOT a result.
+  rule of three (95%):  eps <~ 3/N = 0.1000
+  union bound on P[Phi_hat != Phi]  <~  2*n*k*eps  =  2*5*1*0.1000  =  1.0000
+  BOUND IS VACUOUS at this N. Increase --n before reporting attribution accuracy.
+
+  NOTE: parse failures are measured at every stage. Only the observer has
+  ground truth independent of the agent, so downstream VALUE errors are NOT
+  measured. State this limitation rather than implying full coverage.
+
+  wrote epsilon_2026-09-22T053338Z.json
